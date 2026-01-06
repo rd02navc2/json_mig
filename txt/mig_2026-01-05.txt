@@ -1,0 +1,31 @@
+
+
+在輸入的json file裡用springboot java jdk21 及 thymeleaf 新增一個段落的json 如下 
+
+            "xsd:complexType" : {
+              "xsd:sequence" : {
+                "xsd:element" : {
+                  "@name" : "LimitDateTime2",
+                  "@type" : "ds:AdditionalInformationLimitDateTime2Type",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "WCOID264",
+                      "ccts:DictionaryEntryName" : "Additional Information. Limit. Date Time",
+                      "ccts:Definition" : "Date and time by when the event has to be completed.",
+                      "ccts:Cardinality" : "1",
+                      "ccts:ObjectClassTerm" : "Additional Information",
+                      "ccts:PropertyTerm" : "Limit",
+                      "ccts:RepresentationTerm" : "Date Time2",
+                      "tsw:ChineseName" : "補辦期限2",
+                      "tsw:Remark" : { },
+                      "tsw:Format" : "an8"
+                    }
+                  }
+                }
+              }
+            }
+
+derby server 連線指令
+
+./startNetworkServer -noSecurityManager

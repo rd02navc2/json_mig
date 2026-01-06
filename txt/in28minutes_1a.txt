@@ -1,0 +1,16 @@
+in28minutes
+https://github.com/in28minutes/spring-boot-examples/tree/master/spring-boot-2-myBatis-with-h2
+tutorial
+https://www.springboottutorial.com/spring-boot-and-iBatis-with-h2-tutorial
+
+in28minutes
+full-stack-with-angular-and-spring-boot Repository files navigation
+
+https://github.com/in28minutes/full-stack-with-angular-and-spring-boot
+
+TodoResource (Controller)
+        ↓
+TodoService
+   ├── TodoJpaRepository   （CRUD）
+   └── TodoMapper          （複雜查詢）
+

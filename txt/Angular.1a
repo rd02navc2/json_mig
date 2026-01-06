@@ -1,0 +1,2244 @@
+Angular.1_You will develop your first full stack application with Angular and Spring Boot
+🧱 技術架構一眼看懂
+[ Angular (Frontend) ]  ⇄  REST API  ⇄  [ Spring Boot (Backend) ]
+          │                                   │
+       UI / SPA                            Business Logic
+                                           JPA / DB
+🚀 Step 1：後端（Spring Boot）— 建立 REST API
+1️⃣ 建立 Spring Boot 專案
+使用 Spring Initializr：
+Project：Maven
+Language：Java
+Java：17（你之前就用 JDK 17 👍）
+Dependencies：
+Spring Web
+Spring Data JPA
+H2 / MySQL（先 H2 最快）
+'''
+sprint boot h2 database 使用說明
+啟動後如何連線？🧠
+🌐 H2 Web Console
+瀏覽器打開：
+http://localhost:8080/h2-console
+
+登入設定：
+JDBC URL：jdbc:h2:mem:testdb
+User Name：sa
+Password：空白
+
+2️⃣ 範例 Entity（User）
+@Entity
+public class User {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+    private String email;
+}
+3️⃣ Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+}
+4️⃣ REST Controller
+@RestController
+@RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:4200") // 給 Angular 用
+public class UserController {
+
+    private final UserRepository repo;
+
+    public UserController(UserRepository repo) {
+        this.repo = repo;
+    }
+
+    @GetMapping
+    public List<User> findAll() {
+        return repo.findAll();
+    }
+
+    @PostMapping
+    public User save(@RequestBody User user) {
+        return repo.save(user);
+    }
+}
+👉 此時 API 已完成：
+
+GET http://localhost:8080/api/users
+
+POST http://localhost:8080/api/users
+
+🎨 Step 2：前端（Angular）— 建立 SPA
+1️⃣ 安裝 Angular CLI
+npm install -g @angular/cli
+C:\Users\User>node -v
+v24.12.0
+C:\Users\User>npm -v
+11.6.2
+2️⃣ 建立 Angular 專案
+ng new frontend
+cd frontend
+ng serve
+'''
+npm install
+npm start
+👉 瀏覽器打開：http://localhost:4200
+
+🔗 Step 3：Angular 呼叫 Spring Boot API
+1️⃣ 建立 Service
+ng generate service user
+2️⃣ user.service.ts
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+  private api = 'http://localhost:8080/api/users';
+
+  constructor(private http: HttpClient) {}
+
+  getUsers() {
+    return this.http.get<any[]>(this.api);
+  }
+
+  addUser(user: any) {
+    return this.http.post(this.api, user);
+  }
+}
+👉 記得在 app.module.ts 引入：
+
+imports: [BrowserModule, HttpClientModule]
+🖥 Step 4：Component 顯示資料
+user.component.ts
+export class UserComponent implements OnInit {
+  users: any[] = [];
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService.getUsers().subscribe(data => {
+      this.users = data;
+    });
+  }
+}
+user.component.html
+<h2>User List</h2>
+<ul>
+  <li *ngFor="let u of users">
+    {{ u.name }} - {{ u.email }}
+  </li>
+</ul>
+🎉 前後端成功串接！
+
+✅ 到這裡你已經學會
+✔ Angular SPA 架構
+✔ HttpClient 呼叫 REST API
+✔ Spring Boot Controller / JPA
+✔ Full Stack 前後端分離
+✔ CORS 基本處理
+
+🔜 下一步可以進階到
+🔥 表單（Reactive Forms）
+🔥 JWT 登入驗證
+🔥 Angular + Spring Boot 同專案打包
+🔥 Docker 化 Full Stack
+🔥 CI/CD（你之前有問 Jenkins，完全接得上！）
+
+如果你願意，我可以：
+
+🔧 直接幫你設計一個「實戰專案題目」（例如：交易查詢 / 儀表板 / 使用者管理）
+🧩 依你現在的 Java / Spring 能力調整教學深度
+🏗 示範 Angular + Spring Boot 同一個專案（MIG 架構也可）
+
+下一步我可以直接幫你做 👇
+✅ Angular ↔ Spring Boot 串接（CORS + JWT）
+✅ 正確的 Security 設計（只保護 API）
+✅ 為 REST 專案加 Swagger UI
+✅ 告訴你為什麼「REST 專案不該有 / 頁面」
+
+
+Angular.2_You will learn the basic of Angular - Angular Modules, Components, Data Binding and Routing
+跳至內容
+聊天歷程紀錄
+
+
+你說：
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _ | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+[32m :: Spring Boot :: [39m              [2m (v3.2.2)[0;39m
+
+[2m2026-01-03T21:54:51.079+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mc.i.r.w.r.RestfulWebServicesApplication [0;39m [2m:[0;39m Starting RestfulWebServicesApplication using Java 21.0.9 with PID 22472 (C:\Users\User\Documents\git\springboot-mybatis-angular-2026\restful-web-services\target\classes started by User in C:\Users\User\Documents\git\springboot-mybatis-angular-2026\restful-web-services)
+[2m2026-01-03T21:54:51.083+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mc.i.r.w.r.RestfulWebServicesApplication [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
+[2m2026-01-03T21:54:51.130+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2m2026-01-03T21:54:51.132+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2m2026-01-03T21:54:51.636+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2m2026-01-03T21:54:51.669+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Finished Spring Data repository scanning in 28 ms. Found 1 JPA repository interface.
+[2m2026-01-03T21:54:52.065+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port 8080 (http)
+[2m2026-01-03T21:54:52.075+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
+[2m2026-01-03T21:54:52.075+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.apache.catalina.core.StandardEngine   [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/10.1.18]
+[2m2026-01-03T21:54:52.113+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
+[2m2026-01-03T21:54:52.113+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 981 ms
+[2m2026-01-03T21:54:52.135+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Starting...
+[2m2026-01-03T21:54:52.283+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+[2m2026-01-03T21:54:52.285+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Start completed.
+[2m2026-01-03T21:54:52.293+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.s.b.a.h2.H2ConsoleAutoConfiguration   [0;39m [2m:[0;39m H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+[2m2026-01-03T21:54:52.402+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.hibernate.jpa.internal.util.LogHelper [0;39m [2m:[0;39m HHH000204: Processing PersistenceUnitInfo [name: default]
+[2m2026-01-03T21:54:52.435+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36morg.hibernate.Version                   [0;39m [2m:[0;39m HHH000412: Hibernate ORM core version 6.4.1.Final
+[2m2026-01-03T21:54:52.459+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.h.c.internal.RegionFactoryInitiator   [0;39m [2m:[0;39m HHH000026: Second-level cache disabled
+[2m2026-01-03T21:54:52.597+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.s.o.j.p.SpringPersistenceUnitInfo     [0;39m [2m:[0;39m No LoadTimeWeaver setup: ignoring JPA class transformer
+[2m2026-01-03T21:54:53.150+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.h.e.t.j.p.i.JtaPlatformInitiator      [0;39m [2m:[0;39m HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists todo cascade 
+Hibernate: drop sequence if exists todo_seq
+Hibernate: create sequence todo_seq start with 1 increment by 50
+Hibernate: create table todo (is_done boolean not null, id bigint not null, target_date timestamp(6), description varchar(255), username varchar(255), primary key (id))
+[2m2026-01-03T21:54:53.183+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mj.LocalContainerEntityManagerFactoryBean[0;39m [2m:[0;39m Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2m2026-01-03T21:54:53.957+08:00[0;39m [33m WARN[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mJpaBaseConfiguration$JpaWebConfiguration[0;39m [2m:[0;39m spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2m2026-01-03T21:54:54.206+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@44fd9afb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3e59f526, org.springframework.security.web.context.SecurityContextHolderFilter@4fcf9e32, org.springframework.security.web.header.HeaderWriterFilter@204f3ee3, org.springframework.web.filter.CorsFilter@1292a8aa, org.springframework.security.web.authentication.logout.LogoutFilter@73ed26b, org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter@56fa8e3f, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4b0ced7a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a46395f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c9be222, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2c75dfed, org.springframework.security.web.session.SessionManagementFilter@596b33c, org.springframework.security.web.access.ExceptionTranslationFilter@6b5e2e09, org.springframework.security.web.access.intercept.AuthorizationFilter@3b4f4b3b]
+[2m2026-01-03T21:54:54.404+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2026-01-03T21:54:54.436+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port 8080 (http) with context path ''
+[2m2026-01-03T21:54:54.446+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [2m[0;39m[36mc.i.r.w.r.RestfulWebServicesApplication [0;39m [2m:[0;39m Started RestfulWebServicesApplication in 3.67 seconds (process running for 4.228)
+[2m2026-01-03T21:56:38.750+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[nio-8080-exec-1][0;39m [2m[0;39m[36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2m2026-01-03T21:56:38.750+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[nio-8080-exec-1][0;39m [2m[0;39m[36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+[2m2026-01-03T21:56:38.753+08:00[0;39m [32m INFO[0;39m [35m22472[0;39m [2m---[0;39m [2m[nio-8080-exec-1][0;39m [2m[0;39m[36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 1 ms  http://localhost:8080/ 打不開網頁
+ChatGPT 說：
+太好了！這一段 Spring Boot 啟動 Log 其實「非常乾淨而且是成功的」 🎉
+你這個狀況是新手 + Spring Security + REST 專案最常遇到的經典關卡，我直接幫你「對症下藥」拆解！
+
+✅ 先說結論（重點）
+👉 Tomcat 有正常啟動、8080 也有在聽
+👉 不是沒啟動，是「被 Spring Security 擋住了」
+
+關鍵證據在這一行 👇👇👇
+
+Will secure any request with [ ... BearerTokenAuthenticationFilter ... ]
+這代表：
+
+🔐 所有 URL（包含 /）都需要通過 Spring Security 驗證
+
+所以你用瀏覽器打：
+
+http://localhost:8080/
+會發生其中一種情況：
+
+空白頁
+
+401 / 403
+
+Chrome 顯示「無法顯示此頁」
+
+Network 有回應但畫面沒東西
+
+🔍 為什麼「看起來像打不開」？
+因為你的專案是：
+
+Spring Boot 3.2.2
+
+RESTful Web Services
+
+沒有首頁 Controller
+
+Security 預設全擋
+
+❌ Spring Boot 不會自動產生首頁
+❌ REST API 專案「本來就沒有畫面」
+
+🧠 三件事一次釐清
+① Tomcat & Port 沒問題（你這裡 100% OK）
+Tomcat started on port 8080 (http)
+Started RestfulWebServicesApplication
+✅ 這表示 JVM、Tomcat、Spring Context 都完成了
+❌ 不是防火牆、不是 Port 被佔用
+
+② 你其實「沒有任何可以顯示的頁面」
+你目前專案是 REST API，所以：
+
+URL	結果
+/	❌ 沒有對應 Controller
+/index.html	❌ resources 裡沒有
+/api/...	✅（但被 Security 擋）
+③ Spring Security 預設「全部要驗證」
+Spring Boot 3.x + Security：
+
+Will secure any request
+👉 表示 沒有放行任何 endpoint
+
+🚀 立刻解法（我幫你選「最適合新手」）
+✅ 解法 A（最推薦）
+👉 先「關掉 Security」，確認 8080 正常
+1️⃣ 新增 SecurityConfig
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().permitAll()
+            );
+
+        return http.build();
+    }
+}
+2️⃣ 重新啟動
+再打：
+
+http://localhost:8080/
+👉 會變成 404（正常）
+代表「Server OK，只是沒有頁面」
+
+✅ 解法 B（驗證 API 是否真的活著）
+新增一個測試 Controller
+@RestController
+public class HelloController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello Spring Boot!";
+    }
+}
+然後打：
+
+http://localhost:8080/hello
+🎉 如果看到文字 → 專案完全正常！
+
+🧪 你也可以這樣自我檢查（超實用）
+用瀏覽器 / Postman
+GET http://localhost:8080/actuator/health
+或開啟 Network 看 Response Code：
+
+401 → Security 擋
+
+404 → 沒有對應 Controller
+
+200 → 一切正常
+
+🎯 你的專案目前狀態總評
+項目	狀態
+Spring Boot	✅
+Tomcat	✅
+H2 DB	✅
+JPA / Hibernate	✅
+DevTools	✅
+問題點	🔐 Spring Security 預設全擋
+下一步我可以直接幫你做 👇
+✅ Angular ↔ Spring Boot 串接（CORS + JWT）
+
+✅ 正確的 Security 設計（只保護 API）
+
+✅ 為 REST 專案加 Swagger UI
+
+✅ 告訴你為什麼「REST 專案不該有 / 頁面」
+
+你只要回我一句：
+
+👉「我現在是要接 Angular」
+
+我就直接幫你往全端實戰推進！🔥
+
+你說：
+Angular.2_You will learn the basic of Angular - Angular Modules, Components, Data Binding and Routing
+🚀 Angular.2 基礎總覽
+你這一章要掌握 4 大核心：
+Angular Modules（模組）
+Components（元件）
+Data Binding（資料綁定）
+Routing（路由）
+1️⃣ Angular Modules（模組）—「功能分區」
+🔍 是什麼？
+Module 是 功能集合的容器
+Angular App 一定有一個：
+AppModule
+📂 實際看到的位置
+src/app/app.module.ts
+🧠 最重要的概念
+@NgModule({
+  declarations: [   // 你自己寫的元件
+    AppComponent
+  ],
+  imports: [        // 其他模組
+    BrowserModule
+  ],
+  providers: [],    // Service（依賴注入）
+  bootstrap: [AppComponent] // 入口元件
+})
+export class AppModule { }
+🔑 重點記憶法
+區塊	放什麼
+declarations	Components
+imports	Modules
+providers	Services
+bootstrap	第一個元件
+💡 Component 一定要屬於某個 Module
+2️⃣ Components（元件）—「畫面單位」
+🔍 是什麼？
+Component = HTML + CSS + TypeScript（邏輯）
+🧩 結構
+hello.component.ts
+hello.component.html
+hello.component.css
+🛠 建立元件（你一定會用）
+ng generate component hello
+# 或
+ng g c hello
+✨ Component 範例
+@Component({
+  selector: 'app-hello',
+  templateUrl: './hello.component.html'
+})
+export class HelloComponent {
+  name = 'Angular';
+}
+HTML：
+<h1>Hello {{ name }}</h1>
+3️⃣ Data Binding（資料綁定）—「畫面 ↔ 程式」
+🔥 Angular 超核心能力
+🧠 四種資料綁定（一定要會）
+類型	語法	用途
+Interpolation	{{ }}	顯示資料
+Property Binding	[value]	綁屬性
+Event Binding	(click)	綁事件
+Two-way Binding	[(ngModel)]	表單
+🔹 1. Interpolation
+<p>{{ username }}</p>
+🔹 2. Property Binding
+<input [value]="username">
+🔹 3. Event Binding
+<button (click)="sayHello()">Click</button>
+sayHello() {
+  alert('Hello!');
+}
+🔹 4. Two-way Binding（超常用）
+<input [(ngModel)]="username">
+<p>{{ username }}</p>
+📌 記得要先引入
+import { FormsModule } from '@angular/forms';
+4️⃣ Routing（路由）—「SPA 的靈魂」
+網址變了，但「整個頁面不重載」
+📂 路由設定檔
+app-routing.module.ts
+🧭 基本路由範例
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'todos', component: TodoListComponent },
+  { path: '**', redirectTo: '' }
+];
+🔗 HTML 導航
+<a routerLink="/">Home</a>
+<a routerLink="/todos">Todos</a>
+<router-outlet></router-outlet>
+🧠 Angular 新手最容易卡的 3 個點（提前幫你避雷）
+❌ 1. Component 沒顯示
+👉 忘了放 <router-outlet> 或 selector
+❌ 2. ngModel 不能用
+👉 忘了 FormsModule
+❌ 3. 路由切換畫面不變
+👉 routerLink 寫成 href
+Angular (UI)
+   ↓ HTTP
+Spring Boot (REST API)
+   ↓ JPA
+Database
+下一步自然就是 👇
+➡ Angular 呼叫 Spring Boot API（HttpClient）
+🔥 下一章我可以直接帶你：
+Angular Service + HttpClient
+串你剛剛那個 /hello
+CORS 正確設定（你剛剛 8080 問題會一次解掉）
+
+Building Great RESTful APIs with Spring Boot
+
+你這一章要掌握 5 個核心能力：
+
+什麼是「好的」REST API
+
+Spring Boot 如何建立 REST Controller
+
+正確的 URL 與 HTTP Method 設計
+
+Request / Response（JSON）
+
+與 Angular 對接的最佳實務
+
+1️⃣ 什麼叫「好的 RESTful API」？
+✅ REST 的 4 個黃金原則
+原則	說明	範例
+Resource	用「名詞」	/todos
+HTTP Method	動作用 method	GET / POST / PUT / DELETE
+Stateless	不存 session	JWT
+JSON	前後端溝通格式	{ "id": 1 }
+❌ 錯誤設計：
+/getAllTodos
+/deleteTodo?id=1
+✅ 正確設計：
+GET    /todos
+GET    /todos/1
+POST   /todos
+PUT    /todos/1
+DELETE /todos/1
+2️⃣ 建立第一個 REST Controller（你已經很接近了）
+@RestController
+@RequestMapping("/api")
+public class HelloWorldController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello World";
+    }
+}
+👉 瀏覽器打：
+http://localhost:8080/api/hello
+🎉 看到文字代表 REST API 成功！
+3️⃣ 回傳 JSON（Angular 最愛 ❤️）
+❌ 不推薦（String 拼 JSON）
+return "{ \"message\": \"Hello\" }";
+✅ 正確做法（Object → JSON）
+public class HelloWorldBean {
+    private String message;
+
+    // constructor + getter
+}
+
+@GetMapping("/hello-bean")
+public HelloWorldBean helloBean() {
+    return new HelloWorldBean("Hello World");
+}
+
+
+回傳：
+
+{
+  "message": "Hello World"
+}
+
+💡 Spring Boot 會自動用 Jackson 幫你轉 JSON
+
+4️⃣ PathVariable & RequestParam（REST 必考）
+🔹 PathVariable
+@GetMapping("/hello/{name}")
+public HelloWorldBean hello(@PathVariable String name) {
+    return new HelloWorldBean("Hello " + name);
+}
+
+GET /api/hello/Chang
+
+🔹 RequestParam
+@GetMapping("/hello")
+public HelloWorldBean hello(
+   @RequestParam String name
+) {
+   return new HelloWorldBean("Hello " + name);
+}
+
+GET /api/hello?name=Chang
+
+5️⃣ HTTP Status Code（讓 API「專業起來」）
+❌ 新手常犯
+永遠回 200
+✅ 專業做法
+@GetMapping("/todos/{id}")
+public ResponseEntity<Todo> getTodo(@PathVariable Long id) {
+
+    Todo todo = service.findById(id);
+
+    if (todo == null) {
+        return ResponseEntity.notFound().build();
+    }
+
+    return ResponseEntity.ok(todo);
+}
+
+狀態碼	用途
+200	查詢成功
+201	建立成功
+204	刪除成功
+400	請求錯誤
+404	找不到
+401	未授權
+
+6️⃣ Exception Handling（一定要學）
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleAll(Exception ex) {
+        return ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(ex.getMessage());
+    }
+}
+
+👉 Angular 才能正確顯示錯誤訊息
+
+7️⃣ CORS（你一定會遇到 ⚠️）
+快速解法（學習階段）
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+public class TodoController {
+}
+
+正式專案（之後會升級）
+Security Filter
+Gateway
+
+8️⃣ 實戰：Todo REST API（標準教材款）
+@GetMapping("/users/{username}/todos")
+public List<Todo> retrieveTodos(@PathVariable String username) {
+    return todoService.findByUsername(username);
+}
+
+@PostMapping("/users/{username}/todos")
+public ResponseEntity<Todo> createTodo(
+        @PathVariable String username,
+        @RequestBody Todo todo) {
+
+    Todo created = todoService.save(todo);
+
+    URI location = ServletUriComponentsBuilder
+        .fromCurrentRequest()
+        .path("/{id}")
+        .buildAndExpand(created.getId())
+        .toUri();
+
+    return ResponseEntity.created(location).body(created);
+}
+
+🧠 和你現在專案的「完美對齊」
+你目前專案 Log 顯示你已經有：
+✅ Spring Boot 3.2.x
+✅ JPA + H2
+✅ Todo Entity
+✅ RESTful 結構
+
+接下來自然就是 👇
+Angular 呼叫 Spring Boot REST API
+我可以直接幫你：
+Angular Service + HttpClient
+JWT + Spring Security（你剛剛卡住的地方）
+完整 Todo CRUD 前後端串接
+
+_You will learn to use Spring Security to configure Basic Authentication and JWT
+Spring Security：Basic Authentication & JWT（全端必修）
+你會學到 3 個層次（循序漸進，業界也是這樣走）：
+什麼是 Spring Security 在做什麼
+Basic Authentication（入門版）
+JWT（正式版、可上線）
+
+1️⃣ Spring Security 到底在幹嘛？（先破迷思）
+🔍 本質一句話
+「在 Controller 之前，先過一關安檢」
+
+Request
+  ↓
+Spring Security Filters  🔐
+  ↓
+Controller
+
+
+所以你之前看到這行 log 👇
+Will secure any request
+代表：
+❗「每一個 request 都要驗證，否則不讓你進 Controller」
+
+2️⃣ Basic Authentication（一定要學，但不會用在正式環境）
+🔐 原理
+每個 Request 都帶：
+Authorization: Basic base64(username:password)
+
+👍 優點
+超簡單
+很適合學習 Security Flow
+👎 缺點
+
+每次都送帳密
+不適合正式系統
+
+🛠️ Spring Boot 3.x 基本設定（最小可用）
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http
+          .csrf(csrf -> csrf.disable())
+          .authorizeHttpRequests(auth -> auth
+              .requestMatchers("/authenticate").permitAll()
+              .anyRequest().authenticated()
+          )
+          .httpBasic(Customizer.withDefaults());
+
+        return http.build();
+    }
+}
+
+👤 建立測試使用者
+@Bean
+public UserDetailsService userDetailsService() {
+    UserDetails user = User.withUsername("user")
+        .password("{noop}password")
+        .roles("USER")
+        .build();
+
+    return new InMemoryUserDetailsManager(user);
+}
+
+🧪 測試方式
+GET /api/todos
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+
+
+🎯 如果打得通 → Security 已成功運作
+
+3️⃣ JWT（真正要用的！🔥）
+🧠 為什麼要 JWT？
+問題	Basic Auth	JWT
+每次送帳密	❌	✅
+Stateless	⚠️	✅
+適合 SPA	❌	✅
+可擴充	❌	✅
+
+👉 Angular + Spring Boot = JWT 是標配
+
+4️⃣ JWT Flow（一定要背）
+Angular 登入
+   ↓
+POST /authenticate (帳密)
+   ↓
+Spring 驗證成功
+   ↓
+回傳 JWT
+   ↓
+Angular 存 token
+   ↓
+之後每次 API：
+Authorization: Bearer <JWT>
+
+5️⃣ 建立 Authentication API（核心）
+🔐 Request
+{
+  "username": "user",
+  "password": "password"
+}
+
+🔧 Controller
+@PostMapping("/authenticate")
+public ResponseEntity<JwtResponse> authenticate(
+        @RequestBody JwtRequest request) {
+
+    authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(
+            request.getUsername(), request.getPassword()
+        )
+    );
+
+    String token = jwtService.generateToken(request.getUsername());
+
+    return ResponseEntity.ok(new JwtResponse(token));
+}
+
+6️⃣ JWT Filter（真正的靈魂 🔥）
+@Component
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    @Override
+    protected void doFilterInternal(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        FilterChain chain) throws IOException, ServletException {
+
+        String header = request.getHeader("Authorization");
+
+        if (header != null && header.startsWith("Bearer ")) {
+            String token = header.substring(7);
+            String username = jwtService.extractUsername(token);
+
+            UsernamePasswordAuthenticationToken auth =
+                new UsernamePasswordAuthenticationToken(
+                    username, null, List.of()
+                );
+
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+
+        chain.doFilter(request, response);
+    }
+}
+
+7️⃣ Security 設定（JWT 版）
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+    http
+      .csrf(csrf -> csrf.disable())
+      .sessionManagement(session ->
+          session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      )
+      .authorizeHttpRequests(auth -> auth
+          .requestMatchers("/authenticate").permitAll()
+          .anyRequest().authenticated()
+      )
+      .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
+}
+
+
+📌 關鍵字一定要記：
+STATELESS
+Bearer
+OncePerRequestFilter
+
+8️⃣ Angular 要做什麼？（你下一步一定會問）
+Angular 端只要三件事：
+登入時存 JWT
+HttpInterceptor 自動加 Header
+登出時清掉 token
+
+request.headers.set(
+  'Authorization',
+  'Bearer ' + token
+);
+
+🎯 回到你目前的狀態（超重要）
+你現在其實已經：
+✅ Spring Security 有跑
+✅ Filter Chain 正常
+❌ 只是「還沒給它正確的通行證」
+👉 這一章學完，你會完全理解你之前為什麼被擋
+🔥 下一步我可以直接幫你
+Angular JWT Interceptor（實戰）
+前後端完整登入流程
+Role-based API（ADMIN / USER）
+Swagger + JWT 一起用
+只要你回一句：
+「JWT + Angular 接起來」
+我們就直接完成一套 真正的全端登入系統 💪🚀
+
+Authorization: Basic dXNlcjpwYXNzd29yZA== 是什麼？
+它就是把 username:password 用 Base64 編碼後放進 HTTP Header
+🧠 拆開來看（一步一步）
+1️⃣ Basic Authentication 規則（RFC 標準）
+HTTP Header 必須長這樣：
+Authorization: Basic <Base64(username:password)>
+
+2️⃣ 你的例子實際代表什麼？
+Basic dXNlcjpwYXNzd29yZA==
+我們來解碼 👇
+dXNlcjpwYXNzd29yZA==
+   ↓ Base64 解碼
+user:password
+🎯 也就是：
+帳號：user
+密碼：password
+
+🧪 自己動手驗證（保證你會有「啊哈！」時刻 😄）
+方法一：用 Java
+String encoded = Base64.getEncoder()
+    .encodeToString("user:password".getBytes());
+
+System.out.println(encoded);
+
+
+輸出：
+
+dXNlcjpwYXNzd29yZA==
+
+方法二：用瀏覽器 Console
+btoa("user:password")
+
+方法三：線上 Base64（最直覺）
+
+把：
+
+user:password
+
+
+轉成 Base64
+結果就是：
+
+dXNlcjpwYXNzd29yZA==
+
+⚠️ 超重要觀念（很多人第一次都誤會）
+❌ Base64 ≠ 加密
+只是「編碼」
+任何人都能解回來
+
+👉 所以 Basic Auth 一定要搭配 HTTPS
+
+🛡️ Spring Security 是怎麼用它的？
+流程是這樣的：
+
+Angular / Postman
+  ↓
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+  ↓
+Spring Security
+  ↓
+Base64 解碼
+  ↓
+拿到 user / password
+  ↓
+跟 UserDetailsService 比對
+
+
+如果成功 → 放行
+如果失敗 → 401 Unauthorized
+
+🧩 為什麼課程還要教 Basic Auth？
+不是因為它多安全，而是：
+原因	說明
+理解流程	認識 Security Filter
+快速驗證	確認後端 API 正常
+JWT 前導	JWT 就是把「認證結果」變成 Token
+
+👉 JWT = 進化版 Basic Auth
+
+🚀 和 JWT 的對照（幫你一次連起來）
+項目	Basic Auth	JWT
+Header	Basic xxx	Bearer xxx
+內容	帳密	Token
+每次送密碼	❌ 不安全	✅
+Angular SPA	❌	✅
+🎯 重點一句話記住
+dXNlcjpwYXNzd29yZA== = Base64("user:password")
+你一看就懂，之後在 Postman / Chrome Network 看到就會立刻知道在幹嘛 😎
+如果你願意，下一步我可以直接帶你：
+👉 用 Postman 自動產生 Basic Auth
+👉 Angular HttpInterceptor 自動加 Basic Header
+👉 然後「無痛升級到 JWT」
+
+Connecting Angular Frontend to a RESTful API（實戰全攻略）
+
+_You will learn to solve the challenges of connecting an Angular Frontend to a RESTful API
+這一章的核心不是「寫更多程式」，而是 把兩個世界接起來：
+Angular (http://localhost:4200)
+        ↓ HTTP
+Spring Boot (http://localhost:8080)
+
+你會遇到 5 大經典挑戰，我逐一幫你破解 👇
+1️⃣ 挑戰一：CORS（第一個一定撞牆 💥）
+❓ 為什麼會發生？
+Angular：localhost:4200
+Spring Boot：localhost:8080
+👉 Port 不同 = 不同 Origin
+
+❌ 錯誤畫面
+Access to XMLHttpRequest has been blocked by CORS policy
+
+✅ 快速解法（學習期最實用）
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+public class TodoController {
+}
+
+✅ 正式解法（搭配 Security）
+@Bean
+public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowedOrigins(List.of("http://localhost:4200"));
+    config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+    config.setAllowedHeaders(List.of("*"));
+
+    UrlBasedCorsConfigurationSource source =
+        new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return source;
+}
+
+2️⃣ 挑戰二：Angular HttpClient（正確用法）
+❌ 新手錯誤
+用 fetch
+直接寫在 component
+
+✅ 正確做法（一定要這樣）
+
+Service 專職打 API
+ng g service services/todo
+
+@Injectable({ providedIn: 'root' })
+export class TodoService {
+
+  private apiUrl = 'http://localhost:8080/api';
+
+  constructor(private http: HttpClient) {}
+
+  getTodos() {
+    return this.http.get<Todo[]>(`${this.apiUrl}/todos`);
+  }
+}
+
+📌 別忘了：
+imports: [HttpClientModule]
+
+3️⃣ 挑戰三：Security Header（Basic / JWT）
+❌ 問題
+API 回：
+401 Unauthorized
+
+✅ 解法：HttpInterceptor（關鍵 🔥）
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+
+    const token = sessionStorage.getItem('token');
+
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: 'Bearer ' + token
+        }
+      });
+    }
+
+    return next.handle(req);
+  }
+}
+
+providers: [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+]
+
+
+👉 Angular 端不再手動加 Header
+
+4️⃣ 挑戰四：非同步（Observable）
+❌ 常見錯誤
+todos = this.todoService.getTodos(); // ❌
+
+✅ 正確方式
+this.todoService.getTodos().subscribe(
+  data => this.todos = data,
+  error => console.error(error)
+);
+
+
+🧠 關鍵觀念：
+HTTP = 非同步，一定要 subscribe
+
+5️⃣ 挑戰五：URL / Proxy 設定（超實用）
+🔧 Angular Proxy（避免 CORS，推薦）
+
+proxy.conf.json
+
+{
+  "/api": {
+    "target": "http://localhost:8080",
+    "secure": false
+  }
+}
+
+
+angular.json
+
+"serve": {
+  "options": {
+    "proxyConfig": "proxy.conf.json"
+  }
+}
+
+
+然後 Angular 呼叫：
+
+this.http.get('/api/todos');
+
+
+🎉 完全避開 CORS！
+
+🧠 全端連線「標準架構」
+Component
+   ↓
+Service
+   ↓
+HttpClient
+   ↓
+Interceptor (JWT)
+   ↓
+Spring Security
+   ↓
+REST Controller
+
+🎯 和你目前進度的完美對應
+你現在已經：
+✅ Spring Boot REST API
+✅ Spring Security（Basic / JWT 概念）
+✅ Angular Routing & Service
+⚠️ 正在卡「前後端怎麼接」
+👉 這一章就是 把你卡住的點一次打通
+🔥 下一步我可以直接帶你（超實戰）
+Angular Login → Spring /authenticate
+JWT 登入流程完整實作
+Todo CRUD 前後端實戰
+錯誤處理（401 自動導回 Login）
+只要你回我一句：
+「Angular 登入實戰」
+我們就直接完成 真正可用的全端系統 💪🚀
+
+_You will learn to connect REST API to JPA/Hibernate with Spring Boot
+Connecting REST API to JPA / Hibernate with Spring Boot
+
+你會完成一條 完整資料流：
+
+HTTP Request
+ → REST Controller
+   → Service
+     → JPA Repository
+       → Hibernate
+         → Database (H2 / MySQL)
+
+1️⃣ 為什麼要 JPA / Hibernate？
+❌ 沒用 JPA 的世界
+手寫 SQL
+ResultSet mapping
+很難維護
+✅ 用 JPA
+Java Object ⇄ Table
+自動 CRUD
+幾乎不寫 SQL
+
+👉 Hibernate 是 JPA 的實作
+2️⃣ Entity（資料庫 ↔ Java 的橋樑）
+🧱 Todo Entity（你已經有 👍）
+@Entity
+@Table(name = "todo")
+public class Todo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
+    private String username;
+    private String description;
+    private LocalDate targetDate;
+    private boolean isDone;
+
+    // getter / setter
+}
+
+📌 關鍵註解一定要記：
+@Entity
+@Id
+@GeneratedValue
+
+3️⃣ Repository（DAO 的現代版）
+🧠 只要介面，不用實作
+public interface TodoRepository extends JpaRepository<Todo, Long> {
+
+    List<Todo> findByUsername(String username);
+}
+
+🎯 魔法在這：
+
+方法名稱 = SQL 語意
+
+4️⃣ Service（商業邏輯層，一定要有）
+❌ 不好的寫法
+Controller 直接 call Repository
+
+✅ 正確分層
+@Service
+public class TodoService {
+
+    private final TodoRepository repository;
+
+    public TodoService(TodoRepository repository) {
+        this.repository = repository;
+    }
+
+    public List<Todo> findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
+    public Todo save(Todo todo) {
+        return repository.save(todo);
+    }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+}
+
+5️⃣ REST Controller（最後一哩路 🚀）
+@RestController
+@RequestMapping("/api/users/{username}/todos")
+public class TodoController {
+
+    private final TodoService service;
+
+    public TodoController(TodoService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<Todo> retrieveTodos(@PathVariable String username) {
+        return service.findByUsername(username);
+    }
+
+    @PostMapping
+    public ResponseEntity<Todo> createTodo(
+        @PathVariable String username,
+        @RequestBody Todo todo) {
+
+        todo.setUsername(username);
+        Todo created = service.save(todo);
+
+        URI location = ServletUriComponentsBuilder
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(created.getId())
+            .toUri();
+
+        return ResponseEntity.created(location).body(created);
+    }
+}
+
+6️⃣ Hibernate 自動建表（你 Log 已驗證成功）
+你啟動時看到這段 👇
+
+Hibernate: create table todo (
+  is_done boolean not null,
+  id bigint not null,
+  ...
+)
+
+
+代表：
+Entity 正確
+JPA 成功連 DB
+Hibernate 正在幫你建表
+
+7️⃣ application.properties（超重要）
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.h2.console.enabled=true
+
+
+打開：
+
+http://localhost:8080/h2-console
+
+8️⃣ 常見雷點（幫你先踩完 💣）
+❌ Table 沒產生
+👉 Entity 沒被掃描
+👉 package 不在 @SpringBootApplication 底下
+
+❌ JSON 傳不進來
+👉 Entity 沒 default constructor
+👉 少 getter / setter
+
+❌ LazyInitializationException
+👉 之後搭配 @Transactional 或 DTO（下一章）
+
+'''
+data.sql
+
+-- 先清空 todo 資料表
+TRUNCATE TABLE todo;
+
+-- 插入新資料
+INSERT INTO todo(id, username, description, target_date, done)
+VALUES (10001, 'in28minutes', 'Learn JPA', CURRENT_DATE, FALSE);
+
+INSERT INTO todo(id, username, description, target_date, done)
+VALUES (10002, 'in28minutes', 'Learn Data JPA', CURRENT_DATE, FALSE);
+
+INSERT INTO todo(id, username, description, target_date, done)
+VALUES (10003, 'in28minutes', 'Learn Microservices', CURRENT_DATE, FALSE);
+
+
+
+
+9️⃣ 和 Angular 串起來（你已經站在門口了）
+
+Angular 呼叫：
+
+this.http.get<Todo[]>(
+  '/api/users/user/todos'
+);
+
+
+Spring：
+Controller → Service → JPA → DB → JSON
+
+
+🎉 這就是全端 CRUD
+在學「業界標準 Spring Boot 架構」
+而且你這套架構：
+
+✔️ Security
+✔️ REST
+✔️ JPA
+✔️ Angular 可接
+
+🔥 下一步（超關鍵）
+
+接下來自然就是：
+
+👉 JWT + DB 使用者
+👉 完整 Todo CRUD（Update / Delete）
+👉 Angular 表單 + Validation
+
+_Step 02 - Quick Overview of Modern JavaScript and TypeScript
+Quick Overview of Modern JavaScript & TypeScript
+這章的重點其實就是：
+JS 基礎 + ES6+ 語法
+TypeScript 的核心特性
+為 Angular 打底
+
+1️⃣ 現代 JavaScript（ES6+）核心概念
+1️⃣ let / const
+let name = 'Alice';  // 可變
+const age = 30;       // 不可變
+2️⃣ 箭頭函式
+const add = (a, b) => a + b;
+3️⃣ 模組化 import/export
+// math.js
+export const sum = (a, b) => a + b;
+// app.js
+import { sum } from './math.js';
+4️⃣ 解構賦值（Destructuring）
+const person = {name: 'Alice', age: 30};
+const {name, age} = person;
+
+const arr = [1,2,3];
+const [first, second] = arr;
+5️⃣ Template Literals
+const name = 'Alice';
+console.log(`Hello, ${name}!`);
+6️⃣ Promise / async-await（非同步必備）
+// Promise
+fetch('/api/todos')
+  .then(res => res.json())
+  .then(data => console.log(data));
+
+// async-await
+async function getTodos() {
+  const res = await fetch('/api/todos');
+  const data = await res.json();
+  console.log(data);
+}
+2️⃣ TypeScript 核心概念（Angular 全靠它！）
+1️⃣ 靜態型別
+let name: string = 'Alice';
+let age: number = 30;
+let isDone: boolean = false;
+2️⃣ 介面（Interface）
+interface Todo {
+  id: number;
+  description: string;
+  isDone: boolean;
+}
+
+const todo: Todo = { id: 1, description: 'Learn TS', isDone: false };
+
+3️⃣ 類別（Class）
+class Person {
+  constructor(public name: string, public age: number) {}
+  
+  greet() {
+    return `Hello, ${this.name}`;
+  }
+}
+
+const alice = new Person('Alice', 30);
+console.log(alice.greet());
+
+4️⃣ 泛型（Generic）
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+const num = identity<number>(42);
+const str = identity<string>('Hello');
+
+5️⃣ Enum
+enum Status {
+  Pending,
+  InProgress,
+  Done
+}
+
+let s: Status = Status.Pending;
+
+3️⃣ 為 Angular 打底
+Angular 幾乎用到這些特性：
+Class + Decorator → Component / Service
+Interface → Model / DTO
+Type → HttpClient 回傳資料
+Promise / Observable → 非同步資料流
+
+例如一個 Todo Component 的 TypeScript：
+
+export interface Todo {
+  id: number;
+  description: string;
+  isDone: boolean;
+}
+
+export class TodoComponent {
+  todos: Todo[] = [];
+
+  loadTodos() {
+    this.todos = [{id: 1, description: 'Learn Angular', isDone: false}];
+  }
+}
+
+🔥 核心概念記憶法
+
+JS = 語法 + 非同步思維
+TS = 型別 + 安全 + Angular 專用語法糖
+
+如果你願意，我可以直接幫你做一個 Angular Todo App 的 TS 快速範例，一次把：
+Interface
+Component
+Service
+HttpClient
+都串起來 💪
+
+這樣你學完 JS/TS，Angular 就能 立刻實戰。
+'''
+🛠️ Angular Todo App 快速範例（TS + REST API）
+
+假設你的後端 Spring Boot 已經跑在 http://localhost:8080/api/todos
+
+1️⃣ Todo Interface（模型層）
+
+src/app/models/todo.model.ts
+
+export interface Todo {
+  id: number;
+  description: string;
+  isDone: boolean;
+}
+
+
+TypeScript 的 Interface 就是「型別保護」，Angular HttpClient 會自動對應 JSON。
+
+2️⃣ Todo Service（負責 API 請求）
+
+src/app/services/todo.service.ts
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Todo } from '../models/todo.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TodoService {
+  private apiUrl = 'http://localhost:8080/api/todos';
+
+  constructor(private http: HttpClient) {}
+
+  getTodos(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.apiUrl);
+  }
+
+  addTodo(todo: Todo): Observable<Todo> {
+    return this.http.post<Todo>(this.apiUrl, todo);
+  }
+
+  deleteTodo(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+}
+
+
+核心重點：Observable<T> 表示非同步資料流，Angular 會訂閱（subscribe）才會收到資料。
+
+3️⃣ Todo Component（UI + 邏輯）
+
+src/app/components/todo/todo.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { Todo } from '../../models/todo.model';
+import { TodoService } from '../../services/todo.service';
+
+@Component({
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
+})
+export class TodoComponent implements OnInit {
+  todos: Todo[] = [];
+  newTodoDesc: string = '';
+
+  constructor(private todoService: TodoService) {}
+
+  ngOnInit(): void {
+    this.loadTodos();
+  }
+
+  loadTodos(): void {
+    this.todoService.getTodos().subscribe({
+      next: (data) => this.todos = data,
+      error: (err) => console.error(err)
+    });
+  }
+
+  addTodo(): void {
+    if (!this.newTodoDesc.trim()) return;
+
+    const newTodo: Todo = { id: 0, description: this.newTodoDesc, isDone: false };
+    this.todoService.addTodo(newTodo).subscribe({
+      next: (todo) => {
+        this.todos.push(todo);
+        this.newTodoDesc = '';
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  deleteTodo(id: number): void {
+    this.todoService.deleteTodo(id).subscribe({
+      next: () => this.todos = this.todos.filter(t => t.id !== id),
+      error: (err) => console.error(err)
+    });
+  }
+}
+
+4️⃣ Todo Component Template（HTML）
+
+src/app/components/todo/todo.component.html
+
+<div class="todo-container">
+  <h2>My Todos</h2>
+
+  <input type="text" [(ngModel)]="newTodoDesc" placeholder="New todo">
+  <button (click)="addTodo()">Add</button>
+
+  <ul>
+    <li *ngFor="let todo of todos">
+      <span [class.done]="todo.isDone">{{ todo.description }}</span>
+      <button (click)="deleteTodo(todo.id)">Delete</button>
+    </li>
+  </ul>
+</div>
+
+
+done class 可以在 CSS 樣式中加上刪除線：
+
+.done {
+  text-decoration: line-through;
+}
+
+5️⃣ Module 記得匯入 HttpClientModule & FormsModule
+
+src/app/app.module.ts
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+import { TodoComponent } from './components/todo/todo.component';
+
+@NgModule({
+  declarations: [AppComponent, TodoComponent],
+  imports: [BrowserModule, HttpClientModule, FormsModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+
+6️⃣ 核心概念總結
+
+Interface → 型別檢查，對應 JSON
+Service → 負責所有 API，Controller → Service → HTTP 對應
+Component → UI + 邏輯
+Observable + subscribe → 非同步資料流
+双向綁定 [(ngModel)] → 輸入框自動更新 TS 變數
+HTTP 請求 → Angular 自動轉 JSON <-> TS
+
+這一套架構就是 Angular 前端 + RESTful API + TypeScript 的最小可用模板，從這個基礎，你可以：
+加 JWT 認證
+加 Routing / Guards
+加 CRUD 完整流程
+加 表單驗證
+
+_Step 03 - Installing Angular CLI - Awesome Tool to create Angular Projects
+⚡ Step 03 – Installing Angular CLI
+1️⃣ Angular CLI 是什麼？
+
+簡單說：
+Angular CLI = Angular 的智慧指令工具箱
+
+功能包含：
+快速生成專案骨架
+自動生成 Component / Module / Service / Pipe / Directive
+內建開發伺服器 (ng serve)
+自動編譯 TypeScript + SCSS + HTML
+幫你打包成 production-ready 檔案
+
+📌 以前你要手動創建很多檔案，現在 CLI 只要一行指令搞定！
+
+2️⃣ 安裝 Angular CLI
+前置條件：
+Node.js (建議 v18+)
+npm (Node 會自帶)
+
+安裝指令：
+npm install -g @angular/cli
+-g 表示全域安裝，可以在任何資料夾使用 ng 指令
+
+安裝完成後可以檢查版本：
+ng version
+輸出範例：
+Angular CLI: 17.3.0
+Node: 20.1.0
+Package Manager: npm 10.2.0
+
+3️⃣ 建立你的第一個 Angular 專案
+ng new my-todo-app
+
+CLI 會問你幾個問題：
+Would you like to add Angular routing? → Yes
+Which stylesheet format would you like to use? → CSS / SCSS / SASS / LESS（選你喜歡）
+
+生成完成後：
+cd my-todo-app
+ng serve
+
+這時候你的 Angular 專案就跑起來了！
+打開瀏覽器：http://localhost:4200
+ 會看到 Angular 歡迎畫面 🎉
+
+4️⃣ CLI 常用指令
+指令	功能
+ng serve	啟動開發伺服器，支援熱重載
+ng build	打包專案成 production-ready
+ng generate component my-component	自動生成 Component
+ng generate service my-service	自動生成 Service
+ng generate module my-module	自動生成 Module
+ng test	單元測試
+ng lint	程式碼檢查
+5️⃣ CLI 的好處
+✅ 快速生成檔案 → 不用手動寫 imports、decorators
+✅ 一鍵啟動專案 → 測試即時可見
+✅ 統一架構 → 所有 Angular 專案結構一致
+✅ 支援 TypeScript + ES6 → 你前面學的 JS/TS 可以直接用
+
+💡 Tip：Angular CLI 就像是你的「全能助理」，之後學 Angular 的每一步都離不開它！
+下一步你就可以：
+用 CLI 生成 Todo Component
+串接 Service + HttpClient
+開始跟 Spring Boot REST API 連線
+如果你願意，我可以直接示範：
+用 Angular CLI 快速生成 Todo App 專案 + Component + Service 的完整流程
+'''
+🛠️ Angular Todo App 快速搭建流程（CLI 全程）
+1️⃣ 建立專案
+ng new todo-app
+
+CLI 會問：
+Would you like to add Angular routing? → Yes
+Which stylesheet format? → 選 CSS（或 SCSS）
+
+生成完成後：
+cd todo-app
+
+2️⃣ 啟動開發伺服器
+ng serve
+
+
+打開瀏覽器：
+
+http://localhost:4200
+
+你會看到 Angular 歡迎頁面 🎉
+
+🔥 Tip：ng serve 支援熱重載，修改 TS/HTML/CSS 即時更新頁面。
+3️⃣ 生成 Todo Component
+ng generate component components/todo
+
+Angular 會自動生成：
+
+src/app/components/todo/
+  todo.component.ts
+  todo.component.html
+  todo.component.css
+  todo.component.spec.ts
+
+
+✅ CLI 幫你自動 import 到 AppModule，省去手動設定
+
+4️⃣ 生成 Todo Service
+ng generate service services/todo
+
+CLI 會自動生成：
+
+src/app/services/todo.service.ts
+
+並加上 @Injectable({ providedIn: 'root' })，自動可注入
+
+5️⃣ 配置 HttpClientModule
+
+打開 app.module.ts：
+
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    HttpClientModule,  // <-- 必須加
+    FormsModule        // <-- 雙向綁定 ngModel
+  ],
+})
+export class AppModule {}
+
+6️⃣ 生成 Todo Model（TypeScript Interface）
+mkdir src/app/models
+
+src/app/models/todo.model.ts：
+
+export interface Todo {
+  id: number;
+  description: string;
+  isDone: boolean;
+}
+
+7️⃣ Todo Service（呼叫 Spring Boot API）
+
+src/app/services/todo.service.ts：
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Todo } from '../models/todo.model';
+
+@Injectable({ providedIn: 'root' })
+export class TodoService {
+  private apiUrl = 'http://localhost:8080/api/todos';
+
+  constructor(private http: HttpClient) {}
+
+  getTodos(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.apiUrl);
+  }
+
+  addTodo(todo: Todo): Observable<Todo> {
+    return this.http.post<Todo>(this.apiUrl, todo);
+  }
+
+  deleteTodo(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+}
+
+8️⃣ Todo Component（顯示 + 新增 + 刪除）
+
+todo.component.ts：
+
+import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../../services/todo.service';
+import { Todo } from '../../models/todo.model';
+
+@Component({
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
+})
+export class TodoComponent implements OnInit {
+  todos: Todo[] = [];
+  newTodoDesc: string = '';
+
+  constructor(private todoService: TodoService) {}
+
+  ngOnInit(): void {
+    this.loadTodos();
+  }
+
+  loadTodos(): void {
+    this.todoService.getTodos().subscribe(todos => this.todos = todos);
+  }
+
+  addTodo(): void {
+    if (!this.newTodoDesc.trim()) return;
+    const todo: Todo = { id: 0, description: this.newTodoDesc, isDone: false };
+    this.todoService.addTodo(todo).subscribe(t => {
+      this.todos.push(t);
+      this.newTodoDesc = '';
+    });
+  }
+
+  deleteTodo(id: number): void {
+    this.todoService.deleteTodo(id).subscribe(() => {
+      this.todos = this.todos.filter(t => t.id !== id);
+    });
+  }
+}
+
+9️⃣ Todo Component Template（HTML）
+
+todo.component.html：
+
+<div class="todo-container">
+  <h2>My Todos</h2>
+
+  <input type="text" [(ngModel)]="newTodoDesc" placeholder="New todo">
+  <button (click)="addTodo()">Add</button>
+
+  <ul>
+    <li *ngFor="let todo of todos">
+      <span [class.done]="todo.isDone">{{ todo.description }}</span>
+      <button (click)="deleteTodo(todo.id)">Delete</button>
+    </li>
+  </ul>
+</div>
+
+
+todo.component.css：
+
+.done { text-decoration: line-through; }
+.todo-container { max-width: 400px; margin: auto; }
+
+10️⃣ 顯示 Component
+
+app.component.html：
+
+<app-todo></app-todo>
+
+
+然後重新啟動 ng serve，打開：
+
+http://localhost:4200
+
+
+你就可以：
+
+看到 Spring Boot Todo 列表
+新增 Todo
+刪除 Todo
+
+🎉 Angular + Spring Boot 全端串接完成！
+
+如果你願意，我可以幫你做 下一步進階：
+在 Angular 前端加上 JWT 登入認證，實現 登入後才能操作 Todo 的完整流程，整個專案更接近業界實戰 💪
+'''
+太棒了！🔥
+那我們直接進入 Angular 前端 + Spring Boot JWT 認證 Todo App，完整流程讓你做到 登入後才能操作 Todo，從前端登入、取得 JWT，到後端驗證，整個全端串接實戰！🚀
+
+🛠️ Angular + Spring Boot JWT Todo App
+1️⃣ Spring Boot 後端設定 JWT
+1️⃣1 建立使用者模型
+@Entity
+public class User {
+    @Id
+    private String username;
+    private String password; // 加密存放（BCrypt）
+}
+
+1️⃣2 JWT 工具類
+@Component
+public class JwtUtil {
+    private String secret = "mySecretKey";
+
+    public String generateToken(String username) {
+        return Jwts.builder()
+                   .setSubject(username)
+                   .setIssuedAt(new Date())
+                   .setExpiration(new Date(System.currentTimeMillis() + 1000*60*60)) // 1小時
+                   .signWith(SignatureAlgorithm.HS256, secret)
+                   .compact();
+    }
+
+    public String extractUsername(String token) {
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+    }
+}
+
+1️⃣3 Security Config
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private JwtFilter jwtFilter;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/api/auth/**").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+}
+
+1️⃣4 登入 Controller
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    @Autowired
+    private AuthenticationManager authManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+        authManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        String token = jwtUtil.generateToken(request.getUsername());
+        return ResponseEntity.ok(Map.of("token", token));
+    }
+}
+
+
+完成後端 JWT 認證，所有 /api/todos/** 的請求都需要帶 Authorization: Bearer <token>。
+
+2️⃣ Angular 前端設定 JWT
+2️⃣1 安裝依賴
+npm install @auth0/angular-jwt
+
+2️⃣2 建立 AuthService
+
+auth.service.ts：
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private apiUrl = 'http://localhost:8080/api/auth';
+
+  constructor(private http: HttpClient) {}
+
+  login(username: string, password: string): Observable<{token: string}> {
+    return this.http.post<{token: string}>(`${this.apiUrl}/login`, { username, password });
+  }
+
+  saveToken(token: string) { localStorage.setItem('jwt', token); }
+  getToken(): string | null { return localStorage.getItem('jwt'); }
+  logout() { localStorage.removeItem('jwt'); }
+}
+
+2️⃣3 HTTP Interceptor 自動帶 JWT
+
+jwt.interceptor.ts：
+
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class JwtInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService) {}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = this.authService.getToken();
+    if (token) {
+      req = req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
+    }
+    return next.handle(req);
+  }
+}
+
+
+app.module.ts 加入：
+
+providers: [
+  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+]
+
+2️⃣4 Login Component
+
+login.component.ts：
+
+import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html'
+})
+export class LoginComponent {
+  username = '';
+  password = '';
+  errorMsg = '';
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  login() {
+    this.authService.login(this.username, this.password).subscribe({
+      next: (res) => {
+        this.authService.saveToken(res.token);
+        this.router.navigate(['/todos']);
+      },
+      error: () => this.errorMsg = 'Login failed'
+    });
+  }
+}
+
+
+login.component.html：
+
+<div>
+  <h2>Login</h2>
+  <input placeholder="Username" [(ngModel)]="username">
+  <input placeholder="Password" [(ngModel)]="password" type="password">
+  <button (click)="login()">Login</button>
+  <p *ngIf="errorMsg">{{ errorMsg }}</p>
+</div>
+
+2️⃣5 Todo Component 改用 JWT
+
+不需要額外改 TodoService，Interceptor 已經自動帶 Token
+
+後端會驗證 JWT，自動允許或拒絕請求
+
+2️⃣6 Routing Guard
+
+保護 Todo 頁面：
+
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Injectable({ providedIn: 'root' })
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(): boolean {
+    if (this.authService.getToken()) return true;
+    this.router.navigate(['/login']);
+    return false;
+  }
+}
+
+
+app-routing.module.ts：
+
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'todos', component: TodoComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
+];
+
+✅ 成果
+
+前端登入，取得 JWT
+JWT 自動帶入所有 Todo API 請求
+後端驗證 JWT，只有登入用戶能 CRUD Todo
+Angular Routing Guard 保護 Todo 頁面
+完整全端認證 + CRUD 範例完成！
+如果你願意，我可以幫你整理一份 完整的 Angular 專案結構 + Spring Boot 專案結構圖 + JWT 流程圖，讓你一眼就能看懂全端架構 🔥
+'''
+專案結構圖
+1️⃣ Spring Boot 後端 (restful-web-services/)
+restful-web-services/
+├─ src/main/java/com/example/demo/
+│  ├─ controller/
+│  │  ├─ AuthController.java        # 登入
+│  │  └─ TodoController.java        # Todo CRUD API
+│  ├─ model/
+│  │  ├─ Todo.java
+│  │  └─ User.java
+│  ├─ repository/
+│  │  ├─ TodoRepository.java
+│  │  └─ UserRepository.java
+│  ├─ security/
+│  │  ├─ JwtFilter.java
+│  │  ├─ JwtUtil.java
+│  │  └─ SecurityConfig.java
+│  └─ service/
+│     ├─ UserService.java
+│     └─ TodoService.java
+├─ src/main/resources/
+│  └─ application.properties       # DB, JWT secret 設定
+└─ pom.xml
+
+2️⃣ Angular 前端 (todo-app/)
+todo-app/
+├─ src/app/
+│  ├─ components/
+│  │  ├─ login/
+│  │  │  ├─ login.component.ts
+│  │  │  └─ login.component.html
+│  │  └─ todo/
+│  │     ├─ todo.component.ts
+│  │     └─ todo.component.html
+│  ├─ services/
+│  │  ├─ auth.service.ts            # 登入、JWT 存取
+│  │  └─ todo.service.ts            # Todo API 呼叫
+│  ├─ models/
+│  │  ├─ todo.model.ts
+│  │  └─ user.model.ts
+│  ├─ app-routing.module.ts         # Routing + AuthGuard
+│  ├─ app.module.ts
+│  └─ interceptors/
+│     └─ jwt.interceptor.ts         # 自動帶 JWT
+├─ angular.json
+└─ package.json
+
+🔄 JWT 流程圖（前後端串接）
+[Angular LoginComponent] 
+        |
+        | POST /api/auth/login {username, password}
+        v
+[Spring Boot AuthController] 
+        |
+        | 驗證帳號密碼 → 產生 JWT
+        v
+[Angular AuthService] 
+        | saveToken() → localStorage
+        |
+        v
+[Angular TodoService] --- GET/POST/DELETE /api/todos --->
+        |
+        | HttpInterceptor 自動帶 Authorization: Bearer <token>
+        v
+[Spring Boot TodoController] 
+        | JwtFilter 解析 Token → 驗證身份
+        v
+      Todo CRUD 操作成功
+
+💡 核心概念
+
+JWT：
+
+前端登入 → 取得 Token → 保存 localStorage
+
+所有 API 請求帶 Authorization Header
+
+後端解析 Token → 驗證用戶身份
+
+Angular Routing Guard：
+
+保護 /todos 頁面
+
+未登入自動導向 /login
+
+Interceptor：
+
+攔截每個 HTTP 請求，自動加 JWT
+
+減少每個 Service 都寫 header
+
+Component + Service 分層：
+
+Component → UI + 使用者互動
+
+Service → 對應 REST API，處理資料
+
+Model → TypeScript Interface，型別檢查
+
+前後端全端串接：
+
+Angular 負責 UI + 認證流程
+
+Spring Boot 負責 REST API + JWT 驗證 + DB 操作
+
+Getting Hands on With Angular
+_Step 08 - Introduction to Angular Components - Basics
+Step 09 - Introduction to Angular Components - Playing with AppComponent
+Step 10 - Generating Welcome Component with ng generate
+Step 11 - Language Variations With an Example - Java, JavaScript and TypeScript
+Step 12 - Generating and Setting up Login Component
+Step 13 - Understanding Event Binding - Adding click event on Login Page
+Step 14 - Using ngModel with 2 Way Data Binding in Login Page
+Step 15 - Quick Review of Data Binding Approaches
+Step 16 - Adding Hardcoded Authentication to Logic Component - ngIf directive
+Step 17 - Implementing Routes for Login, Welcome and Error Components
+Step 18 - Implementing Routing from Login to Welcome Component
+Step 19 - Adding Route Parameter for Welcome Component
+Step 20 - Create List Todos Component with ng generate
+Step 21 - Create a Link to Todos in Welcome Component
+Step 22 - Best Practice - Create a Todo Class
+Step 23 - Quick Introduction to Angular Modules
+Step 24 - Understanding Bootstrapping of Angular App with Root Module and Component
+Step 25 - Quick Review - Angular Modules and Components
+Step 26 - Overview of Next Few Steps - Bootstrap, Menu, Footer and Refactoring
+Step 27 - Adding Bootstrap Framework and Creating Components for Menu and Footer
+Step 28 - Using Bootstrap to Create a Menu with Navigation Links
+Step 29 - Styling Footer and Other Components with CSS and Bootstrap
+Step 30 - Good Practice - Use RouterLink instead of href for Routes
+Step 31 - Creating an Independent Authentication Service Component
+Step 32 - Using Session Storage to Store User Authentication Token
+Step 33 - Enabling Menu Links Based on User Authentication Token
+Step 34 - Implementing Logout to remove User Authentication Token
+Step 35 - Securing Components using Route Guards - Part 1
+Step 36 - Securing Components using Route Guards - Part 2
+Step 37 - Quick Review - Authentication Service, Dependency Injection and Route Guards
+
+_Step 08 - Introduction to Angular Components - Basics
+🛠 Step 08 - Angular Components Basics
+1️⃣ Component 是什麼？
+
+Angular Component 是一個 UI 元件 + 邏輯 的組合，包含三個主要部分：
+
+TypeScript 類別 (Class)
+控制組件的邏輯與資料
+
+HTML 模板 (Template)
+定義 UI 結構
+
+CSS / SCSS 樣式 (Style)
+美化該組件
+
+每個 Component 都是一個小型自包含單元，可以重複使用。
+
+2️⃣ AppComponent 範例（預設）
+
+當你用 ng new 建立專案時，Angular 會自動生成 AppComponent：
+
+// src/app/app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',          // HTML 標籤名稱
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'My First Angular App';
+}
+
+
+HTML 模板：
+
+<h1>Welcome to {{ title }}!</h1>
+<p>This is a basic Angular component.</p>
+
+
+CSS：
+
+h1 { color: teal; }
+p { font-style: italic; }
+
+3️⃣ 使用 Component
+
+在 index.html 中，Angular 會自動載入 <app-root></app-root>，這個標籤就是 AppComponent 的入口。
+
+<body>
+  <app-root></app-root>
+</body>
+
+
+當你 ng serve，瀏覽器就會渲染：
+
+Welcome to My First Angular App!
+This is a basic Angular component.
+
+4️⃣ Key Points
+每個 Component 都有 selector → 用 HTML 標籤嵌入
+Class 控制邏輯，template 控制畫面
+Component 是 Angular 的核心，所有 UI 都由 Component 組成
+可以透過 Interpolation ({{ }}) 顯示變數
+
+如果你願意，我可以直接幫你示範 如何用 Angular CLI 生成一個新的 Component，並讓它跟 AppComponent 一起顯示，就像玩 Lego 一樣組合 UI 🚀
+'''
