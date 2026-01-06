@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>財政部關務署 - MIG 資料調和文件 系統首頁</title>
+    <link th:href="@{/lib/bootstrap.min.css}" rel="stylesheet" nonce="bkZ0dkFwMjAyNA==">
+
+    <style nonce="bkZ0dkFwMjAyNA==">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-size: 16px;
+            background: #f5f5f5;
+            color: #333;
+        }
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+/* 標題區 */
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* 選單 */
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* hover */
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+/* 選取狀態 */
+.sidebar-menu a.active,
+.sidebar-menu a[aria-current="page"],
+.sidebar-menu .active > a {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+        /* 主要內容區 */
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+
+        .page-header {
+            background: #fff;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #34495e;
+        }
+
+        .page-header h1 {
+            font-size: 20px;
+            font-weight: normal;
+            color: #2c3e50;
+        }
+
+        .content-card {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .content-card h3 {
+            font-size: 16px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        /* 表格 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            width: 150px;
+        }
+
+        /* 按鈕 */
+        .btn-group {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 5px 5px 0;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #f8f9fa;
+            border-color: #999;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: #fff;
+            border-color: #3498db;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            border-color: #2980b9;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .no-data {
+            color: #999;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- 主要內容 -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>MIG 資料調和文件系統</h1>
+        </div>
+
+        <!-- 系統狀態 -->
+        <div class="content-card">
+            <h3>系統檔案狀態</h3>
+            
+            <div th:if="${fileStatus != null}">
+                <table>
+                    <tr>
+                        <th>檔案存在</th>
+                        <td th:text="${fileStatus.exists} ?: '-'">-</td>
+                    </tr>
+                    <tr>
+                        <th>行數</th>
+                        <td th:text="${fileStatus.lines} ?: '-'">-</td>
+                    </tr>
+                    <tr>
+                        <th>最後修改時間</th>
+                        <td th:text="${fileStatus.lastModified != null && fileStatus.lastModified != 0} ? ${#dates.format(fileStatus.lastModified, 'yyyy-MM-dd HH:mm:ss')} : '-'">-</td>
+                    </tr>
+                    <tr th:if="${fileStatus.error != null and fileStatus.error != ''}">
+                        <th>錯誤訊息</th>
+                        <td th:text="${fileStatus.error}">-</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:if="${fileStatus == null}" class="no-data">尚未載入檔案狀態</div>
+        </div>
+
+        <!-- 範本檔案複製 -->
+        <div class="content-card">
+            <h3>範本檔案複製</h3>
+            <p style="color: #666; margin-bottom: 15px;">
+                將專案 template 資料夾複製到使用者下載目錄 (~/Downloads/template)
+            </p>
+
+            <div id="copyAlert" class="alert"></div>
+
+            <div class="btn-group">
+                <button type="button" id="copyBtn" class="btn btn-success">
+                    執行範本複製
+                </button>
+            </div>
+        </div>
+        
+        <!-- 資料編輯 -->
+        <div class="content-card">
+            <h3>資料編輯</h3>
+            <div class="btn-group">
+                <a class="btn btn-primary" href="/mig/den" target="_blank">步驟 1：新增 den</a>
+                <a class="btn" href="/twds" target="_blank">步驟 2：編輯 twds</a>
+                <a class="btn" href="/twdens" target="_blank">步驟 3：編輯 twdens</a>
+                <a class="btn" href="/twcls" target="_blank">步驟 4：編輯 twcls</a>
+                <a class="btn" href="/twids" target="_blank">步驟 5：編輯 twids</a>
+            </div>
+        </div>
+
+        <!-- 執行處理 -->
+        <div class="content-card">
+            <h3>執行處理</h3>
+            <div class="btn-group">
+                <a class="btn btn-primary" href="/harmo/runNX" target="_blank">步驟 6：執行 runNX</a>
+            </div>
+        </div>
+
+        <!-- 文件編輯 -->
+        <div class="content-card">
+            <h3>文件章節編輯</h3>
+            <div class="btn-group">
+                <a class="btn" href="/word8/word-editor8" target="_blank">步驟 7.1：編輯第八章</a>
+                <a class="btn" href="/word1/word-editor1" target="_blank">步驟 7.2：編輯第一章</a>
+                <a class="btn" href="/word2/word-editor2" target="_blank">步驟 7.3：編輯第二章</a>
+                <a class="btn" href="/word3/word-editor3" target="_blank">步驟 7.4：編輯第三章</a>
+                <a class="btn" href="/word4/word-editor4" target="_blank">步驟 7.5：編輯第四章</a>
+                <a class="btn" href="/word5/word-editor5" target="_blank">步驟 7.6：編輯第五章</a>
+                <a class="btn" href="/word6/word-editor6" target="_blank">步驟 7.7：編輯第六章</a>
+                <a class="btn" href="/word7/word-editor7" target="_blank">步驟 7.8：編輯第七章</a>
+            </div>
+        </div>
+
+        <!-- 文件匯出 -->
+        <div class="content-card">
+            <h3>文件匯出</h3>
+            <form action="/api/word/export" method="post" id="exportWordForm" enctype="multipart/form-data" target="_blank">
+                <input type="hidden" name="sections" id="sectionsInput" value='[]'>
+                <input type="file" name="file0">
+                <button type="submit" class="btn btn-primary">步驟 8：合併 Word 文件</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+        document.getElementById('exportWordForm').addEventListener('submit', function(e) {
+            var sections = [
+                {title: "第一章", content: "內容"},
+                {title: "第二章", content: "內容"}
+            ];
+            document.getElementById('sectionsInput').value = JSON.stringify(sections);
+        });
+
+        // 綁定複製按鈕事件
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const btn = this;
+            const alert = document.getElementById('copyAlert');
+            
+            // 禁用按鈕
+            btn.disabled = true;
+            btn.textContent = '執行中...';
+            
+            // 顯示處理中訊息
+            alert.className = 'alert alert-info show';
+            alert.textContent = '正在複製範本檔案...';
+            
+            fetch('/mig/copyTemplate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                btn.disabled = false;
+                btn.textContent = '執行範本複製';
+                
+                if (data.success) {
+                    alert.className = 'alert alert-success show';
+                    alert.textContent = '✓ ' + data.message;
+                } else {
+                    alert.className = 'alert alert-error show';
+                    alert.textContent = '✗ ' + data.message;
+                }
+                
+                // 3秒後自動隱藏訊息
+                setTimeout(() => {
+                    alert.classList.remove('show');
+                }, 3000);
+            })
+            .catch(error => {
+                btn.disabled = false;
+                btn.textContent = '執行範本複製';
+                alert.className = 'alert alert-error show';
+                alert.textContent = '✗ 複製失敗: ' + error.message;
+            });
+        });
+        
+    </script>
+</body>
+</html>

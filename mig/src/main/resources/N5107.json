@@ -1,0 +1,985 @@
+{
+  "xsd:schema" : {
+    "@attributeFormDefault" : "unqualified",
+    "@elementFormDefault" : "qualified",
+    "@targetNamespace" : "urn:wco:datamodel:TW:N5107:R-00-05",
+    "@version" : "R-00-05",
+    "@xmlns" : "urn:wco:datamodel:TW:N5107:R-00-05",
+    "@xmlns:ccts" : "urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2",
+    "@xmlns:ds" : "urn:wco:datamodel:WCO:DS:1",
+    "@xmlns:tsw" : "urn:SingleWindow:TW",
+    "@xmlns:twds" : "urn:wco:datamodel:TW:DS:1",
+    "@xmlns:xsd" : "http://www.w3.org/2001/XMLSchema",
+    "xsd:import" : [ {
+      "@namespace" : "urn:wco:datamodel:WCO:DS:1",
+      "@schemaLocation" : "../common/WCODS_1p0.xsd"
+    }, {
+      "@namespace" : "urn:wco:datamodel:TW:DS:1",
+      "@schemaLocation" : "../common/TWDS_1p0.xsd"
+    } ],
+    "xsd:element" : {
+      "@name" : "Response",
+      "xsd:annotation" : {
+        "xsd:documentation" : {
+          "@xml:lang" : "en",
+          "ccts:UniqueID" : "07B",
+          "ccts:Definition" : "Details of the response message.",
+          "ccts:Cardinality" : "1",
+          "ccts:ObjectClassTerm" : "Response",
+          "tsw:Remark" : { }
+        }
+      },
+      "xsd:complexType" : {
+        "xsd:sequence" : {
+          "xsd:element" : [ {
+            "@name" : "IssueDateTime",
+            "@type" : "ds:ResponseIssueDateTimeType",
+            "xsd:annotation" : {
+              "xsd:documentation" : {
+                "@xml:lang" : "en",
+                "ccts:UniqueID" : "WCOIDD029",
+                "ccts:DictionaryEntryName" : "Response. Issue. Date Time",
+                "ccts:Definition" : "Date at which a response was issued and when appropriate, signed or otherwise authenticated.",
+                "ccts:Cardinality" : "1",
+                "ccts:ObjectClassTerm" : "Response",
+                "ccts:PropertyTerm" : "Issue",
+                "ccts:RepresentationTerm" : "Date Time",
+                "tsw:ChineseName" : "通知日期與時間",
+                "tsw:Remark" : { },
+                "tsw:Format" : "an14"
+              }
+            }
+          }, {
+            "@name" : "AdditionalInformation",
+            "xsd:annotation" : {
+              "xsd:documentation" : {
+                "@xml:lang" : "en",
+                "ccts:UniqueID" : "03A",
+                "ccts:Definition" : "Special request to government from Declarant to take or not to take action.",
+                "ccts:Cardinality" : "1",
+                "ccts:ObjectClassTerm" : "Additional Information",
+                "tsw:Remark" : { }
+              }
+            },
+            "xsd:complexType" : {
+              "xsd:sequence" : {
+                "xsd:element" : [ {
+                  "@name" : "LimitDateTime",
+                  "@type" : "ds:AdditionalInformationLimitDateTimeType",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "WCOID264",
+                      "ccts:DictionaryEntryName" : "Additional Information. Limit. Date Time",
+                      "ccts:Definition" : "Date and time by when the event has to be completed.",
+                      "ccts:Cardinality" : "1",
+                      "ccts:ObjectClassTerm" : "Additional Information",
+                      "ccts:PropertyTerm" : "Limit",
+                      "ccts:RepresentationTerm" : "Date Time",
+                      "tsw:ChineseName" : "補辦期限",
+                      "tsw:Remark" : { },
+                      "tsw:Format" : "an8"
+                    }
+                  }
+                }
+                ]
+                  }
+                } 
+              }
+            , {
+            "@name" : "ContactOffice",
+            "xsd:annotation" : {
+              "xsd:documentation" : {
+                "@xml:lang" : "en",
+                "ccts:UniqueID" : "35A",
+                "ccts:Definition" : "Identifies the location of a government agency contact office.",
+                "ccts:Cardinality" : "1",
+                "ccts:ObjectClassTerm" : "Contact Office",
+                "tsw:Remark" : { }
+              }
+            },
+            "xsd:complexType" : {
+              "xsd:sequence" : {
+                "xsd:element" : {
+                  "@name" : "ID",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "WCOIDG002",
+                      "ccts:DictionaryEntryName" : "Contact Office. Identification. Identifier",
+                      "ccts:Definition" : "Code specifying the location of a government office where contact can be made.",
+                      "ccts:Cardinality" : "1",
+                      "ccts:ObjectClassTerm" : "Contact Office",
+                      "ccts:PropertyTerm" : "Identification",
+                      "ccts:RepresentationTerm" : "Identifier",
+                      "tsw:ChineseName" : "受理單位",
+                      "tsw:Remark" : { },
+                      "tsw:Format" : "an..17"
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:simpleContent" : {
+                      "xsd:restriction" : {
+                        "@base" : "ds:ContactOfficeIdentificationIDType",
+                        "xsd:minLength" : {
+                          "@value" : "0"
+                        },
+                        "xsd:maxLength" : {
+                          "@value" : "17"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }, {
+            "@name" : "Status",
+            "xsd:annotation" : {
+              "xsd:documentation" : {
+                "@xml:lang" : "en",
+                "ccts:UniqueID" : "12B",
+                "ccts:Definition" : "Details to identify the status.",
+                "ccts:Cardinality" : "1",
+                "ccts:ObjectClassTerm" : "Status",
+                "tsw:Remark" : { }
+              }
+            },
+            "xsd:complexType" : {
+              "xsd:sequence" : {
+                "xsd:element" : {
+                  "@name" : "NameCode",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "WCOID379",
+                      "ccts:DictionaryEntryName" : "Status. Name. Code",
+                      "ccts:Definition" : "Code specifying the processing status of a document.",
+                      "ccts:Cardinality" : "1",
+                      "ccts:ObjectClassTerm" : "Status",
+                      "ccts:PropertyTerm" : "Name",
+                      "ccts:RepresentationTerm" : "Code",
+                      "tsw:ChineseName" : "通關方式",
+                      "tsw:Remark" : { },
+                      "tsw:Format" : "an..3"
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:simpleContent" : {
+                      "xsd:restriction" : {
+                        "@base" : "ds:StatusNameCodeType",
+                        "xsd:minLength" : {
+                          "@value" : "0"
+                        },
+                        "xsd:maxLength" : {
+                          "@value" : "3"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }, {
+            "@name" : "Declaration",
+            "xsd:annotation" : {
+              "xsd:documentation" : {
+                "@xml:lang" : "en",
+                "ccts:UniqueID" : "42A",
+                "ccts:Definition" : "Any statement or action, in any form prescribed or accepted by the Governmental Agency, giving information or particulars required by the Governmental Agency.",
+                "ccts:Cardinality" : "1",
+                "ccts:ObjectClassTerm" : "Declaration",
+                "tsw:Remark" : { }
+              }
+            },
+            "xsd:complexType" : {
+              "xsd:sequence" : {
+                "xsd:element" : [ {
+                  "@name" : "ID",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "WCOIDD014",
+                      "ccts:DictionaryEntryName" : "Declaration. Identification. Identifier",
+                      "ccts:Definition" : "Reference number identifying a specific document.",
+                      "ccts:Cardinality" : "1",
+                      "ccts:ObjectClassTerm" : "Declaration",
+                      "ccts:PropertyTerm" : "Identification",
+                      "ccts:RepresentationTerm" : "Identifier",
+                      "tsw:ChineseName" : "報單號碼",
+                      "tsw:Remark" : { },
+                      "tsw:Format" : "an14"
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:simpleContent" : {
+                      "xsd:restriction" : {
+                        "@base" : "ds:DeclarationIdentificationIDType",
+                        "xsd:length" : {
+                          "@value" : "14"
+                        }
+                      }
+                    }
+                  }
+                }, {
+                  "@minOccurs" : "0",
+                  "@name" : "TotalPackageQuantity",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "WCOID146",
+                      "ccts:DictionaryEntryName" : "Declaration. Total Package. Quantity",
+                      "ccts:Definition" : "Count of total number of packages of the entire declaration/ consignment.",
+                      "ccts:Cardinality" : "0..1",
+                      "ccts:ObjectClassTerm" : "Declaration",
+                      "ccts:PropertyTerm" : "Total Package",
+                      "ccts:RepresentationTerm" : "Quantity",
+                      "tsw:ChineseName" : "總件數",
+                      "tsw:Remark" : { },
+                      "tsw:Format" : "n..8"
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:simpleContent" : {
+                      "xsd:restriction" : {
+                        "@base" : "ds:DeclarationTotalPackageQuantityType",
+                        "xsd:minInclusive" : {
+                          "@value" : "0"
+                        },
+                        "xsd:maxInclusive" : {
+                          "@value" : "99999999"
+                        }
+                      }
+                    }
+                  }
+                }, {
+                  "@minOccurs" : "0",
+                  "@name" : "TypeCode",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "WCOIDD013",
+                      "ccts:DictionaryEntryName" : "Declaration. Type. Code",
+                      "ccts:Definition" : "Code specifying the name of a document.",
+                      "ccts:Cardinality" : "0..1",
+                      "ccts:ObjectClassTerm" : "Declaration",
+                      "ccts:PropertyTerm" : "Type",
+                      "ccts:RepresentationTerm" : "Code",
+                      "tsw:ChineseName" : "報單類別",
+                      "tsw:Remark" : { },
+                      "tsw:Format" : "an2"
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:simpleContent" : {
+                      "xsd:restriction" : {
+                        "@base" : "ds:DeclarationTypeCodeType",
+                        "xsd:length" : {
+                          "@value" : "2"
+                        }
+                      }
+                    }
+                  }
+                }, {
+                  "@minOccurs" : "0",
+                  "@name" : "Agent",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "05A",
+                      "ccts:Definition" : "Person authorized to act on behalf of another party.",
+                      "ccts:Cardinality" : "0..1",
+                      "ccts:ObjectClassTerm" : "Agent",
+                      "tsw:Remark" : { }
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:sequence" : {
+                      "xsd:element" : [ {
+                        "@name" : "ID",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "WCOIDR004",
+                            "ccts:DictionaryEntryName" : "Agent. Identification. Identifier",
+                            "ccts:Definition" : "Identification of a party authorised to act on behalf of another party.",
+                            "ccts:Cardinality" : "1",
+                            "ccts:ObjectClassTerm" : "Agent",
+                            "ccts:PropertyTerm" : "Identification",
+                            "ccts:RepresentationTerm" : "Identifier",
+                            "tsw:ChineseName" : "報關業者箱號",
+                            "tsw:Remark" : { },
+                            "tsw:Format" : "an3"
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:simpleContent" : {
+                            "xsd:restriction" : {
+                              "@base" : "ds:AgentIdentificationIDType",
+                              "xsd:length" : {
+                                "@value" : "3"
+                              }
+                            }
+                          }
+                        }
+                      }, {
+                        "@name" : "RoleCode",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "WCOIDR005",
+                            "ccts:DictionaryEntryName" : "Agent. Role. Code",
+                            "ccts:Definition" : "Code giving specific meaning to a party.",
+                            "ccts:Cardinality" : "1",
+                            "ccts:ObjectClassTerm" : "Agent",
+                            "ccts:PropertyTerm" : "Role",
+                            "ccts:RepresentationTerm" : "Code",
+                            "tsw:ChineseName" : "*代理人號碼類別代碼",
+                            "tsw:Remark" : { },
+                            "tsw:Format" : "an2"
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:simpleContent" : {
+                            "xsd:restriction" : {
+                              "@base" : "ds:AgentRoleCodeType",
+                              "xsd:length" : {
+                                "@value" : "2"
+                              }
+                            }
+                          }
+                        }
+                      }, {
+                        "@name" : "tw_SubBoxID",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "TW100",
+                            "ccts:DictionaryEntryName" : "Agent. Sub Box. Identifier",
+                            "ccts:Definition" : "Sub-box code issued by Customs to a Customs broker.",
+                            "ccts:Cardinality" : "1",
+                            "ccts:ObjectClassTerm" : "Agent",
+                            "ccts:PropertyTerm" : "Sub Box",
+                            "ccts:RepresentationTerm" : "Identifier",
+                            "tsw:ChineseName" : "報關業者箱號附碼",
+                            "tsw:Remark" : { },
+                            "tsw:Format" : "an1"
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:simpleContent" : {
+                            "xsd:restriction" : {
+                              "@base" : "twds:AgentSubBoxIDType",
+                              "xsd:length" : {
+                                "@value" : "1"
+                              }
+                            }
+                          }
+                        }
+                      } ]
+                    }
+                  }
+                }, {
+                  "@name" : "BorderTransportMeans",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "15A",
+                      "ccts:Definition" : "Details of the means of transport crossing the border of the Customs territory.",
+                      "ccts:Cardinality" : "1",
+                      "ccts:ObjectClassTerm" : "Border Transport Means",
+                      "tsw:Remark" : { }
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:sequence" : {
+                      "xsd:element" : [ {
+                        "@minOccurs" : "0",
+                        "@name" : "ArrivalDateTime",
+                        "@type" : "ds:BorderTransportMeansArrivalDateTimeType",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "WCOID172",
+                            "ccts:DictionaryEntryName" : "Border Transport Means. Arrival. Date Time",
+                            "ccts:Definition" : "Date and time / scheduled date and time of arrival of means of transport at (for air) first airport, (land) arrival at first border post and (sea) arrival at first port, coded.",
+                            "ccts:Cardinality" : "0..1",
+                            "ccts:ObjectClassTerm" : "Border Transport Means",
+                            "ccts:PropertyTerm" : "Arrival",
+                            "ccts:RepresentationTerm" : "Date Time",
+                            "tsw:ChineseName" : "進口日期",
+                            "tsw:Remark" : { },
+                            "tsw:Format" : "an8"
+                          }
+                        }
+                      }, {
+                        "@name" : "TypeCode",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "WCOIDT010",
+                            "ccts:DictionaryEntryName" : "Border Transport Means. Type. Code",
+                            "ccts:Definition" : "Means and mode of transport used for crossing the border, coded.",
+                            "ccts:Cardinality" : "1",
+                            "ccts:ObjectClassTerm" : "Border Transport Means",
+                            "ccts:PropertyTerm" : "Type",
+                            "ccts:RepresentationTerm" : "Code",
+                            "tsw:ChineseName" : "海空運別",
+                            "tsw:Remark" : { },
+                            "tsw:Format" : "an1"
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:simpleContent" : {
+                            "xsd:restriction" : {
+                              "@base" : "ds:BorderTransportMeansTypeCodeType",
+                              "xsd:length" : {
+                                "@value" : "1"
+                              }
+                            }
+                          }
+                        }
+                      } ]
+                    }
+                  }
+                }, {
+                  "@minOccurs" : "0",
+                  "@name" : "Consignment",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "28A#",
+                      "ccts:Definition" : "Details about the transport between a consignor and a consignee as specified in the transport contract document.",
+                      "ccts:Cardinality" : "0..1",
+                      "ccts:ObjectClassTerm" : "Consignment",
+                      "tsw:Remark" : { }
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:sequence" : {
+                      "xsd:element" : [ {
+                        "@minOccurs" : "0",
+                        "@name" : "BoardedQuantity",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "WCOID314",
+                            "ccts:DictionaryEntryName" : "Consignment. Boarded. Quantity",
+                            "ccts:Definition" : "Total number shown on Bill of Lading or on split shipment. It will be the actual number of pieces boarded on the conveyance. (Not necessarily the smallest external packaging unit for the shipment).",
+                            "ccts:Cardinality" : "0..1",
+                            "ccts:ObjectClassTerm" : "Consignment",
+                            "ccts:PropertyTerm" : "Boarded",
+                            "ccts:RepresentationTerm" : "Quantity",
+                            "tsw:ChineseName" : "併袋筆數",
+                            "tsw:Remark" : { },
+                            "tsw:Format" : "n..4"
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:simpleContent" : {
+                            "xsd:restriction" : {
+                              "@base" : "ds:ConsignmentBoardedQuantityType",
+                              "xsd:minInclusive" : {
+                                "@value" : "0"
+                              },
+                              "xsd:maxInclusive" : {
+                                "@value" : "9999"
+                              }
+                            }
+                          }
+                        }
+                      }, {
+                        "@minOccurs" : "0",
+                        "@name" : "AssociatedTransportDocument",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "11A#",
+                            "ccts:Definition" : "Association between Master Bill(s) and House Bill(s).",
+                            "ccts:Cardinality" : "0..1",
+                            "ccts:ObjectClassTerm" : "Associated Transport Document",
+                            "tsw:Remark" : { }
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:sequence" : {
+                            "xsd:element" : {
+                              "@name" : "ID",
+                              "xsd:annotation" : {
+                                "xsd:documentation" : {
+                                  "@xml:lang" : "en",
+                                  "ccts:UniqueID" : "WCOIDD008",
+                                  "ccts:DictionaryEntryName" : "Associated Transport Document. Identification. Identifier",
+                                  "ccts:Definition" : "Previous transport document number or other assigned reference number associated with the shipment. Applies to secondary cargo document report only.",
+                                  "ccts:Cardinality" : "1",
+                                  "ccts:ObjectClassTerm" : "Associated Transport Document",
+                                  "ccts:PropertyTerm" : "Identification",
+                                  "ccts:RepresentationTerm" : "Identifier",
+                                  "tsw:ChineseName" : "併袋號碼",
+                                  "tsw:Remark" : { },
+                                  "tsw:Format" : "an..16"
+                                }
+                              },
+                              "xsd:complexType" : {
+                                "xsd:simpleContent" : {
+                                  "xsd:restriction" : {
+                                    "@base" : "ds:AssociatedTransportDocumentIdentificationIDType",
+                                    "xsd:minLength" : {
+                                      "@value" : "0"
+                                    },
+                                    "xsd:maxLength" : {
+                                      "@value" : "16"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      } ]
+                    }
+                  }
+                }, {
+                  "@name" : "GoodsShipment",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "67A",
+                      "ccts:Definition" : "Details about the movement and the handling of goods shipped together on one or more means of transport between original consignor and final consignee.",
+                      "ccts:Cardinality" : "1",
+                      "ccts:ObjectClassTerm" : "Goods Shipment",
+                      "tsw:Remark" : { }
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:sequence" : {
+                      "xsd:element" : [ {
+                        "@name" : "Consignment",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "28A",
+                            "ccts:Definition" : "Details about the transport between a consignor and a consignee as specified in the transport contract document.",
+                            "ccts:Cardinality" : "1",
+                            "ccts:ObjectClassTerm" : "Consignment",
+                            "tsw:Remark" : { }
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:sequence" : {
+                            "xsd:element" : [ {
+                              "@minOccurs" : "0",
+                              "@name" : "BorderTransportMeans",
+                              "xsd:annotation" : {
+                                "xsd:documentation" : {
+                                  "@xml:lang" : "en",
+                                  "ccts:UniqueID" : "15A",
+                                  "ccts:Definition" : "Details of the means of transport crossing the border of the Customs territory.",
+                                  "ccts:Cardinality" : "0..1",
+                                  "ccts:ObjectClassTerm" : "Border Transport Means",
+                                  "tsw:Remark" : { }
+                                }
+                              },
+                              "xsd:complexType" : {
+                                "xsd:sequence" : {
+                                  "xsd:element" : {
+                                    "@name" : "JourneyID",
+                                    "xsd:annotation" : {
+                                      "xsd:documentation" : {
+                                        "@xml:lang" : "en",
+                                        "ccts:UniqueID" : "WCOID149",
+                                        "ccts:DictionaryEntryName" : "Border Transport Means. Journey. Identifier",
+                                        "ccts:Definition" : "To identify a journey of a means of transport, for example voyage number, flight number, trip number.",
+                                        "ccts:Cardinality" : "1",
+                                        "ccts:ObjectClassTerm" : "Border Transport Means",
+                                        "ccts:PropertyTerm" : "Journey",
+                                        "ccts:RepresentationTerm" : "Identifier",
+                                        "tsw:ChineseName" : "船舶航次（海）/航機班次（空）",
+                                        "tsw:Remark" : { },
+                                        "tsw:Format" : "an..12"
+                                      }
+                                    },
+                                    "xsd:complexType" : {
+                                      "xsd:simpleContent" : {
+                                        "xsd:restriction" : {
+                                          "@base" : "ds:BorderTransportMeansJourneyIDType",
+                                          "xsd:minLength" : {
+                                            "@value" : "0"
+                                          },
+                                          "xsd:maxLength" : {
+                                            "@value" : "12"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }, {
+                              "@minOccurs" : "0",
+                              "@name" : "Carrier",
+                              "xsd:annotation" : {
+                                "xsd:documentation" : {
+                                  "@xml:lang" : "en",
+                                  "ccts:UniqueID" : "18A",
+                                  "ccts:Definition" : "Name and address details of the party undertaking or arranging transport of goods between named points.",
+                                  "ccts:Cardinality" : "0..1",
+                                  "ccts:ObjectClassTerm" : "Carrier",
+                                  "tsw:Remark" : { }
+                                }
+                              },
+                              "xsd:complexType" : {
+                                "xsd:sequence" : {
+                                  "xsd:element" : {
+                                    "@name" : "ID",
+                                    "xsd:annotation" : {
+                                      "xsd:documentation" : {
+                                        "@xml:lang" : "en",
+                                        "ccts:UniqueID" : "WCOIDR012",
+                                        "ccts:DictionaryEntryName" : "Carrier. Identification. Identifier",
+                                        "ccts:Definition" : "To identify a party providing the transport of goods between named points.",
+                                        "ccts:Cardinality" : "1",
+                                        "ccts:ObjectClassTerm" : "Carrier",
+                                        "ccts:PropertyTerm" : "Identification",
+                                        "ccts:RepresentationTerm" : "Identifier",
+                                        "tsw:ChineseName" : "運輸業者/代理行代碼",
+                                        "tsw:Remark" : { },
+                                        "tsw:Format" : "an..14"
+                                      }
+                                    },
+                                    "xsd:complexType" : {
+                                      "xsd:simpleContent" : {
+                                        "xsd:restriction" : {
+                                          "@base" : "ds:CarrierIdentificationIDType",
+                                          "xsd:minLength" : {
+                                            "@value" : "0"
+                                          },
+                                          "xsd:maxLength" : {
+                                            "@value" : "14"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }, {
+                              "@maxOccurs" : "4",
+                              "@name" : "TransportContractDocument",
+                              "xsd:annotation" : {
+                                "xsd:documentation" : {
+                                  "@xml:lang" : "en",
+                                  "ccts:UniqueID" : "30B",
+                                  "ccts:Definition" : "Information about the consignment which corresponds to one transport contract. (Known as consignment by the Transport group).",
+                                  "ccts:Cardinality" : "1..4",
+                                  "ccts:ObjectClassTerm" : "Transport Contract Document",
+                                  "tsw:Remark" : { }
+                                }
+                              },
+                              "xsd:complexType" : {
+                                "xsd:sequence" : {
+                                  "xsd:element" : [ {
+                                    "@name" : "ID",
+                                    "xsd:annotation" : {
+                                      "xsd:documentation" : {
+                                        "@xml:lang" : "en",
+                                        "ccts:UniqueID" : "WCOIDD023",
+                                        "ccts:DictionaryEntryName" : "Transport Contract Document. Identification. Identifier",
+                                        "ccts:Definition" : "Reference number to identify a document evidencing a transport contract.",
+                                        "ccts:Cardinality" : "1",
+                                        "ccts:ObjectClassTerm" : "Transport Contract Document",
+                                        "ccts:PropertyTerm" : "Identification",
+                                        "ccts:RepresentationTerm" : "Identifier",
+                                        "tsw:ChineseName" : "主提單號碼;分提單號碼;託運單主號;託運單分號",
+                                        "tsw:Remark" : { },
+                                        "tsw:Format" : "an..35"
+                                      }
+                                    },
+                                    "xsd:complexType" : {
+                                      "xsd:simpleContent" : {
+                                        "xsd:restriction" : {
+                                          "@base" : "ds:TransportContractDocumentIdentificationIDType",
+                                          "xsd:minLength" : {
+                                            "@value" : "0"
+                                          },
+                                          "xsd:maxLength" : {
+                                            "@value" : "35"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }, {
+                                    "@name" : "TypeCode",
+                                    "xsd:annotation" : {
+                                      "xsd:documentation" : {
+                                        "@xml:lang" : "en",
+                                        "ccts:UniqueID" : "WCOIDD024",
+                                        "ccts:DictionaryEntryName" : "Transport Contract Document. Type. Code",
+                                        "ccts:Definition" : "Code to identify the type of a document evidencing a transport contract.",
+                                        "ccts:Cardinality" : "1",
+                                        "ccts:ObjectClassTerm" : "Transport Contract Document",
+                                        "ccts:PropertyTerm" : "Type",
+                                        "ccts:RepresentationTerm" : "Code",
+                                        "tsw:ChineseName" : "*運輸合約文件類別代碼",
+                                        "tsw:Remark" : { },
+                                        "tsw:Format" : "an3"
+                                      }
+                                    },
+                                    "xsd:complexType" : {
+                                      "xsd:simpleContent" : {
+                                        "xsd:restriction" : {
+                                          "@base" : "ds:TransportContractDocumentTypeCodeType",
+                                          "xsd:length" : {
+                                            "@value" : "3"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  } ]
+                                }
+                              }
+                            } ]
+                          }
+                        }
+                      }, {
+                        "@maxOccurs" : "99",
+                        "@minOccurs" : "0",
+                        "@name" : "GovernmentAgencyGoodsItem",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "68A",
+                            "ccts:Definition" : "Goods item as declared to Government Agency.",
+                            "ccts:Cardinality" : "0..99",
+                            "ccts:ObjectClassTerm" : "Government Agency Goods Item",
+                            "tsw:Remark" : { }
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:sequence" : {
+                            "xsd:element" : [ {
+                              "@name" : "SequenceNumeric",
+                              "xsd:annotation" : {
+                                "xsd:documentation" : {
+                                  "@xml:lang" : "en",
+                                  "ccts:UniqueID" : "WCOID006",
+                                  "ccts:DictionaryEntryName" : "Government Agency Goods Item. Sequence. Numeric",
+                                  "ccts:Definition" : "Number indicating the position in a sequence.",
+                                  "ccts:Cardinality" : "1",
+                                  "ccts:ObjectClassTerm" : "Government Agency Goods Item",
+                                  "ccts:PropertyTerm" : "Sequence",
+                                  "ccts:RepresentationTerm" : "Numeric",
+                                  "tsw:ChineseName" : "項次",
+                                  "tsw:Remark" : { },
+                                  "tsw:Format" : "n..4"
+                                }
+                              },
+                              "xsd:simpleType" : {
+                                "xsd:restriction" : {
+                                  "@base" : "ds:GovernmentAgencyGoodsItemSequenceNumericType",
+                                  "xsd:minInclusive" : {
+                                    "@value" : "0"
+                                  },
+                                  "xsd:maxInclusive" : {
+                                    "@value" : "9999"
+                                  }
+                                }
+                              }
+                            }, {
+                              "@maxOccurs" : "9",
+                              "@minOccurs" : "0",
+                              "@name" : "AdditionalInformation",
+                              "xsd:annotation" : {
+                                "xsd:documentation" : {
+                                  "@xml:lang" : "en",
+                                  "ccts:UniqueID" : "03A",
+                                  "ccts:Definition" : "Special request to government from Declarant to take or not to take action.",
+                                  "ccts:Cardinality" : "0..9",
+                                  "ccts:ObjectClassTerm" : "Additional Information",
+                                  "tsw:Remark" : { }
+                                }
+                              },
+                              "xsd:complexType" : {
+                                "xsd:sequence" : {
+                                  "xsd:element" : {
+                                    "@name" : "StatementCode",
+                                    "xsd:annotation" : {
+                                      "xsd:documentation" : {
+                                        "@xml:lang" : "en",
+                                        "ccts:UniqueID" : "WCOID226",
+                                        "ccts:DictionaryEntryName" : "Additional Information. Statement. Code",
+                                        "ccts:Definition" : "Coded form of an additional statement.",
+                                        "ccts:Cardinality" : "1",
+                                        "ccts:ObjectClassTerm" : "Additional Information",
+                                        "ccts:PropertyTerm" : "Statement",
+                                        "ccts:RepresentationTerm" : "Code",
+                                        "tsw:ChineseName" : "輸出入規定",
+                                        "tsw:Remark" : { },
+                                        "tsw:Format" : "an3"
+                                      }
+                                    },
+                                    "xsd:complexType" : {
+                                      "xsd:simpleContent" : {
+                                        "xsd:restriction" : {
+                                          "@base" : "ds:AdditionalInformationStatementCodeType",
+                                          "xsd:length" : {
+                                            "@value" : "3"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }, {
+                              "@maxOccurs" : "9",
+                              "@name" : "Error",
+                              "xsd:annotation" : {
+                                "xsd:documentation" : {
+                                  "@xml:lang" : "en",
+                                  "ccts:UniqueID" : "53A+",
+                                  "ccts:Definition" : "Details to identify data validation errors.",
+                                  "ccts:Cardinality" : "1..9",
+                                  "ccts:ObjectClassTerm" : "Error",
+                                  "tsw:Remark" : { }
+                                }
+                              },
+                              "xsd:complexType" : {
+                                "xsd:sequence" : {
+                                  "xsd:element" : {
+                                    "@name" : "ValidationCode",
+                                    "xsd:annotation" : {
+                                      "xsd:documentation" : {
+                                        "@xml:lang" : "en",
+                                        "ccts:UniqueID" : "WCOID377",
+                                        "ccts:DictionaryEntryName" : "Error. Validation. Code",
+                                        "ccts:Definition" : "Code specifying a data validation error.",
+                                        "ccts:Cardinality" : "1",
+                                        "ccts:ObjectClassTerm" : "Error",
+                                        "ccts:PropertyTerm" : "Validation",
+                                        "ccts:RepresentationTerm" : "Code",
+                                        "tsw:ChineseName" : "應補辦事項代碼",
+                                        "tsw:Remark" : { },
+                                        "tsw:Format" : "an3"
+                                      }
+                                    },
+                                    "xsd:complexType" : {
+                                      "xsd:simpleContent" : {
+                                        "xsd:restriction" : {
+                                          "@base" : "ds:ErrorValidationCodeType",
+                                          "xsd:length" : {
+                                            "@value" : "3"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            } ]
+                          }
+                        }
+                      } ]
+                    }
+                  }
+                }, {
+                  "@name" : "GovernmentProcedure",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "70A",
+                      "ccts:Definition" : "Details about the current and previous government procedure.",
+                      "ccts:Cardinality" : "1",
+                      "ccts:ObjectClassTerm" : "Government Procedure",
+                      "tsw:Remark" : { }
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:sequence" : {
+                      "xsd:element" : {
+                        "@name" : "tw_TransportTypeCode",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "TW051",
+                            "ccts:DictionaryEntryName" : "Government Procedure. Transport Type. Code",
+                            "ccts:Definition" : "Import or export of declaration.",
+                            "ccts:Cardinality" : "1",
+                            "ccts:ObjectClassTerm" : "Government Procedure",
+                            "ccts:PropertyTerm" : "Transport Type",
+                            "ccts:RepresentationTerm" : "Code",
+                            "tsw:ChineseName" : "進出口別代碼",
+                            "tsw:Remark" : { },
+                            "tsw:Format" : "an1"
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:simpleContent" : {
+                            "xsd:restriction" : {
+                              "@base" : "twds:GovernmentProcedureTransportTypeCodeType",
+                              "xsd:length" : {
+                                "@value" : "1"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }, {
+                  "@minOccurs" : "0",
+                  "@name" : "Packaging",
+                  "xsd:annotation" : {
+                    "xsd:documentation" : {
+                      "@xml:lang" : "en",
+                      "ccts:UniqueID" : "93A",
+                      "ccts:Definition" : "Details related to packaging.",
+                      "ccts:Cardinality" : "0..1",
+                      "ccts:ObjectClassTerm" : "Packaging",
+                      "tsw:Remark" : { }
+                    }
+                  },
+                  "xsd:complexType" : {
+                    "xsd:sequence" : {
+                      "xsd:element" : {
+                        "@name" : "TypeCode",
+                        "xsd:annotation" : {
+                          "xsd:documentation" : {
+                            "@xml:lang" : "en",
+                            "ccts:UniqueID" : "WCOID141",
+                            "ccts:DictionaryEntryName" : "Packaging. Type. Code",
+                            "ccts:Definition" : "Code specifying the type of package of an item.",
+                            "ccts:Cardinality" : "1",
+                            "ccts:ObjectClassTerm" : "Packaging",
+                            "ccts:PropertyTerm" : "Type",
+                            "ccts:RepresentationTerm" : "Code",
+                            "tsw:ChineseName" : "件數單位",
+                            "tsw:Remark" : { },
+                            "tsw:Format" : "an..3"
+                          }
+                        },
+                        "xsd:complexType" : {
+                          "xsd:simpleContent" : {
+                            "xsd:restriction" : {
+                              "@base" : "ds:PackagingTypeCodeType",
+                              "xsd:minLength" : {
+                                "@value" : "0"
+                              },
+                              "xsd:maxLength" : {
+                                "@value" : "3"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                } ]
+              }
+            }
+          } ]
+        }
+      }
+    }
+  }
+}

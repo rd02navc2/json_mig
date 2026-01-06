@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MIG資料調和系統</title>
+
+<link th:href="@{/lib/tabulator/tabulator.min.css}" rel="stylesheet" nonce="bkZ0dkFwMjAyNA==" />
+
+<style nonce="bkZ0dkFwMjAyNA==">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== 全站字型 ===== */
+body, input, textarea, select, button {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  font-size: 16px;
+  background: #f0f0f0;
+  color: #000;
+  line-height: 1.8;
+  letter-spacing: 1px;
+}
+
+/* 超連結 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+/* 標題區 */
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* 選單 */
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* hover */
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+/* 選取狀態 */
+.sidebar-menu a.active,
+.sidebar-menu a[aria-current="page"],
+.sidebar-menu .active > a {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+/* ===== 右側主內容根容器 ===== */
+.main {
+  margin-left: 230px;   /* 與 sidebar 寬度一致 */
+  padding: 20px;
+}
+
+/* 公文頁首（改成素面色塊） */
+.header {
+  background: #fff;
+  color: black;
+  text-align: center;
+  padding: 16px 10px;
+  margin-bottom: 16px;
+}
+
+.header-title {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  margin-bottom: 4px;
+}
+
+.header-subtitle {
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+/* 主容器 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border: 1px solid #666;
+}
+
+/* 公文編號區（如未使用可保留樣式） */
+.doc-number {
+  background: #f0f0f0;
+  border-bottom: 1px solid #666;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+.doc-number span {
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+/* 內容區 */
+.content {
+  padding: 20px 26px;
+}
+
+/* 段落區塊 */
+.section {
+  margin-bottom: 24px;
+  border-left: 4px solid #003d79;
+  padding-left: 16px;
+}
+
+.section-header {
+  background: #e9f1fb;
+  padding: 10px 14px;
+  margin: 0 -16px 14px -16px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #c0d4f0;
+}
+
+/* 上傳區域 */
+.upload-area {
+  background: #fafafa;
+  border: 1px solid #999;
+  padding: 18px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.upload-area:hover {
+  background: #f0f5ff;
+  border-color: #003d79;
+}
+
+.upload-area label {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #003d79;
+  letter-spacing: 2px;
+}
+
+.upload-area input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #999;
+  background: white;
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.upload-area input[type="file"]:focus {
+  outline: 2px solid #003d79;
+  border-color: #003d79;
+}
+
+/* 表格容器 */
+#table-container {
+  border: 1px solid #999;
+  background: white;
+  min-height: 100px;
+}
+
+.table-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 14px;
+  background: #fafafa;
+  border: 1px dashed #ccc;
+}
+
+/* 狀態訊息 */
+#statusMessage {
+  margin: 16px 0;
+  padding: 10px 14px;
+  background: #fff9e6;
+  border: 1px solid #e6c200;
+  border-left: 4px solid #e6c200;
+  font-size: 14px;
+  font-weight: bold;
+  color: #664d00;
+  letter-spacing: 1px;
+  display: none;
+}
+
+#statusMessage.show {
+  display: block;
+}
+
+#statusMessage.success {
+  background: #e8f5e9;
+  border-color: #2e7d32;
+  color: #1b5e20;
+}
+
+#statusMessage.error {
+  background: #ffebee;
+  border-color: #c62828;
+  color: #b71c1c;
+}
+
+/* 按鈕區 */
+.button-area {
+  text-align: center;
+  margin-top: 20px;
+  padding: 16px;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #003d79;
+  color: white;
+  padding: 10px 40px;
+  border: 1px solid #003d79;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background: #002a5c;
+  border-color: #002a5c;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  background: #999;
+  border-color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 公文頁尾 */
+.footer {
+  margin-top: 20px;
+  padding: 10px 18px;
+  text-align: center;
+  background: #f0f0f0;
+  border-top: 1px solid #666;
+  font-size: 13px;
+  color: #666;
+  letter-spacing: 2px;
+}
+
+/* Tabulator 客製化：改成較素面 */
+.tabulator {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  font-size: 14px;
+  border: none !important;
+}
+
+.tabulator-header {
+  background: #e0e7f2 !important;
+  color: #003d79 !important;
+  font-weight: bold !important;
+}
+
+.tabulator-header .tabulator-col {
+  border-right: 1px solid #d0d8e5 !important;
+}
+
+.tabulator-row {
+  border-bottom: 1px solid #ddd !important;
+}
+
+.tabulator-row:hover {
+  background: #f0f5ff !important;
+}
+
+.tabulator-row.tabulator-row-even {
+  background: #fafafa;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+  .main {
+    margin-left: 0;
+    padding: 10px;
+  }
+  .header-title {
+    font-size: 18px;
+    letter-spacing: 3px;
+  }
+  .content {
+    padding: 16px 14px;
+  }
+  button {
+    padding: 8px 28px;
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+<body>
+
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<!-- 右側主內容 -->
+<div class="main">
+
+  <div class="header">
+    <div class="header-title">MIG資料調和系統-CH4</div>
+  </div>
+
+  <div class="container">
+    <div class="content">
+      
+      <!-- 第一段：上傳 Excel -->
+      <div class="section">
+        <div class="section-header">壹、上傳 Mapping Tree Excel 檔案</div>
+        <div class="upload-area">
+          <label>📋 請選擇 Excel 檔案（.xlsx 或 .xls 格式）：</label>
+          <input type="file" id="excelInput" accept=".xlsx,.xls" />
+        </div>
+      </div>
+
+      <!-- 第二段：預覽表格 -->
+      <div class="section">
+        <div class="section-header">貳、Mapping Tree 資料預覽</div>
+        <div id="table-container">
+          <div class="table-empty">
+            ※ 請先上傳 Excel 檔案以顯示資料預覽 ※
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三段：上傳 Word -->
+      <div class="section">
+        <div class="section-header">參、上傳 Word 範本並執行替換</div>
+        <div class="upload-area">
+          <label>📄 請選擇 Word 檔案（.docx 格式）：</label>
+          <input type="file" id="wordInput" accept=".docx" />
+        </div>
+        
+        <div id="statusMessage"></div>
+        
+        <div class="button-area">
+          <button id="sendToServer">送出並下載處理後的文件</button>
+        </div>
+      </div>
+
+      <div class="footer">
+        財政部關務署 · DOCX Mapping Tree 處理工具
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script
+  th:src="@{/lib/tabulator/tabulator.min.js}"
+  nonce="bkZ0dkFwMjAyNA=="
+></script>
+
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+const excelInput = document.getElementById('excelInput');
+const wordInput = document.getElementById('wordInput');
+const sendBtn = document.getElementById('sendToServer');
+const statusDiv = document.getElementById('statusMessage');
+
+let tableData = [];
+let table;
+
+function showStatus(message, type = 'info') {
+  statusDiv.textContent = message;
+  statusDiv.className = type + ' show';
+  statusDiv.style.display = 'block';
+}
+
+function renderTable() {
+  if(table) table.destroy();
+  
+  const container = document.getElementById('table-container');
+  
+  if (tableData.length === 0) {
+    container.innerHTML = '<div class="table-empty">※ 無資料或解析失敗，請重新上傳 Excel 檔案 ※</div>';
+    return;
+  }
+  
+  container.innerHTML = '';
+  
+  table = new Tabulator('#table-container', {
+    layout: "fitColumns",
+    height: "450px",
+    data: tableData,
+    movableColumns: true,
+    columns: [
+      {title: "迴圈", field: "loop", width: 90, editor: "input", headerSort: false},
+      {title: "M/C", field: "mc", width: 90, editor: "input", headerSort: false},
+      {title: "WCO/TW Class ID", field: "classId", width: 160, editor: "input", headerSort: false},
+      {title: "WCO/TW ID", field: "id", width: 160, editor: "input", headerSort: false},
+      {title: "XML Tag Name", field: "tag", editor: "input", headerSort: false},
+      {title: "中文名稱", field: "name", editor: "input", headerSort: false}
+    ]
+  });
+}
+
+excelInput.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+
+  showStatus('Excel 檔案上傳中，正在等待伺服器解析...', 'info');
+
+  const formData = new FormData();
+  formData.append('excel', file);
+
+  try {
+    const resp = await fetch('/word4/api/previewTable', {
+      method: 'POST',
+      body: formData
+    });
+
+    if(!resp.ok) { 
+      const text = await resp.text();
+      throw new Error(`狀態碼: ${resp.status}\n伺服器錯誤: ${text}`);
+    }
+
+    tableData = await resp.json();
+
+    if(!tableData.length) {
+      showStatus("警告：Excel 內容為空或無法找到指定的六個欄位。", 'error');
+    } else {
+      showStatus(`Excel 檔案解析完成，共載入 ${tableData.length} 筆資料。`, 'success');
+    }
+
+    renderTable();
+
+  } catch(err) {
+    showStatus('伺服器處理 Excel 失敗: ' + err.message, 'error');
+    tableData = [];
+    renderTable();
+  }
+});
+
+sendBtn.addEventListener('click', async () => {
+  if(!wordInput.files[0]) { 
+    showStatus('請先上傳 Word 範本', 'error'); 
+    return; 
+  }
+  if(!table || tableData.length === 0) { 
+    showStatus('請先上傳 Excel 並預覽', 'error'); 
+    return; 
+  }
+
+  sendBtn.disabled = true;
+  showStatus('正在處理 Word 範本並替換表格，請稍候...', 'info');
+
+  const form = new FormData();
+  const originalFile = wordInput.files[0];
+  form.append('word', originalFile);
+  form.append('tableJson', JSON.stringify(table.getData())); 
+
+  try {
+    const resp = await fetch('/word4/api/replaceTable', {
+      method: 'POST',
+      body: form
+    });
+
+    if(!resp.ok) { 
+      const text = await resp.text();
+      throw new Error(`狀態碼: ${resp.status}\n${text}`);
+    }
+
+    const modifiedBlob = await resp.blob();
+    
+    const originalFilename = originalFile.name;
+    const nameWithoutExt = originalFilename.replace(/\.[^/.]+$/, "");
+    const finalFilename = `${nameWithoutExt}_modified.docx`;
+
+    const url = URL.createObjectURL(modifiedBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = finalFilename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 1000);
+
+    showStatus(`文件處理完成，已開始下載：${finalFilename}`, 'success');
+    
+  } catch(err) {
+    showStatus('處理 Word 發生錯誤：' + err.message, 'error');
+  } finally {
+    sendBtn.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>

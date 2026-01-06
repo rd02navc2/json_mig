@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="GenHTML_TW.xslt" type="text/xsl"?>
+<!--
+	Schema agency	: Taiwan Customs
+	Schema type			: N5111
+	Schema version		: R-00-05
+	Schema date			: 2025/11/18
+
+	Copyright (C) Taiwan Customs (2025). All Rights Reserved.
+-->	
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:wco:datamodel:TW:N5111:R-00-05" version="R-00-05" xmlns="urn:wco:datamodel:TW:N5111:R-00-05" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns:ds="urn:wco:datamodel:WCO:DS:1" xmlns:tsw="urn:SingleWindow:TW" xmlns:twds="urn:wco:datamodel:TW:DS:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="urn:wco:datamodel:WCO:DS:1" schemaLocation="../common/WCODS_1p0.xsd"/>
+    <xsd:import namespace="urn:wco:datamodel:TW:DS:1" schemaLocation="../common/TWDS_1p0.xsd"/>
+    <xsd:element name="Response">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                <ccts:UniqueID>07B</ccts:UniqueID>
+                <ccts:Definition>Details of the response message.</ccts:Definition>
+                <ccts:Cardinality>1</ccts:Cardinality>
+                <ccts:ObjectClassTerm>Response</ccts:ObjectClassTerm>
+                <tsw:Remark/>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="IssueDateTime" type="ds:ResponseIssueDateTimeType">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>WCOIDD029</ccts:UniqueID>
+                            <ccts:DictionaryEntryName>Response. Issue. Date Time</ccts:DictionaryEntryName>
+                            <ccts:Definition>Date at which a response was issued and when appropriate, signed or otherwise authenticated.</ccts:Definition>
+                            <ccts:Cardinality>1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Response</ccts:ObjectClassTerm>
+                            <ccts:PropertyTerm>Issue</ccts:PropertyTerm>
+                            <ccts:RepresentationTerm>Date Time</ccts:RepresentationTerm>
+                            <tsw:ChineseName>核發日期</tsw:ChineseName>
+                            <tsw:Remark/>
+                            <tsw:Format>an8</tsw:Format>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="BankAccount">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>14A</ccts:UniqueID>
+                            <ccts:Definition>Details required for payment to a financial institution.</ccts:Definition>
+                            <ccts:Cardinality>1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Bank Account</ccts:ObjectClassTerm>
+                            <tsw:Remark/>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element minOccurs="0" name="ID">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOID372</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Bank Account. Identification. Identifier</ccts:DictionaryEntryName>
+                                        <ccts:Definition>Bank account identification.</ccts:Definition>
+                                        <ccts:Cardinality>0..1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Bank Account</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>銷帳編號</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an..16</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:BankAccountIdentificationIDType">
+                                            <xsd:minLength value="0"/>
+                                            <xsd:maxLength value="16"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="ReferenceID">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOIDR069</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Bank Account. Reference. Identifier</ccts:DictionaryEntryName>
+                                        <ccts:Definition>Bank that is to receive the deposit for duties, taxes, and fees.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Bank Account</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Reference</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>海關帳戶</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an..17</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:BankAccountReferenceIDType">
+                                            <xsd:minLength value="0"/>
+                                            <xsd:maxLength value="17"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Status">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>12B</ccts:UniqueID>
+                            <ccts:Definition>Details to identify the status.</ccts:Definition>
+                            <ccts:Cardinality>0..1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Status</ccts:ObjectClassTerm>
+                            <tsw:Remark/>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="NameCode">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOID379</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Status. Name. Code</ccts:DictionaryEntryName>
+                                        <ccts:Definition>Code specifying the processing status of a document.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Status</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Name</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>通關方式</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an..3</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:StatusNameCodeType">
+                                            <xsd:minLength value="0"/>
+                                            <xsd:maxLength value="3"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="Declaration">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>42A</ccts:UniqueID>
+                            <ccts:Definition>Any statement or action, in any form prescribed or accepted by the Governmental Agency, giving information or particulars required by the Governmental Agency.</ccts:Definition>
+                            <ccts:Cardinality>1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+                            <tsw:Remark/>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="DeclarationOfficeID">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOID065</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Declaration. Declaration Office. Identifier</ccts:DictionaryEntryName>
+                                        <ccts:Definition>To identify a location at which a declaration is lodged.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Declaration Office</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>核發關別代碼</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an2</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:DeclarationDeclarationOfficeIDType">
+                                            <xsd:length value="2"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element minOccurs="0" name="ID">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOIDD014</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Declaration. Identification. Identifier</ccts:DictionaryEntryName>
+                                        <ccts:Definition>Reference number identifying a specific document.</ccts:Definition>
+                                        <ccts:Cardinality>0..1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>報單號碼</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an14</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:DeclarationIdentificationIDType">
+                                            <xsd:length value="14"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Agent">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>05A</ccts:UniqueID>
+                                        <ccts:Definition>Person authorized to act on behalf of another party.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Agent</ccts:ObjectClassTerm>
+                                        <tsw:Remark/>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="ID">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOIDR004</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Agent. Identification. Identifier</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Identification of a party authorised to act on behalf of another party.</ccts:Definition>
+                                                    <ccts:Cardinality>1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Agent</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>報關業者箱號</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an3</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="ds:AgentIdentificationIDType">
+                                                        <xsd:length value="3"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="RoleCode">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOIDR005</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Agent. Role. Code</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Code giving specific meaning to a party.</ccts:Definition>
+                                                    <ccts:Cardinality>1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Agent</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Role</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>*代理人號碼類別代碼</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an2</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="ds:AgentRoleCodeType">
+                                                        <xsd:length value="2"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="tw_SubBoxID">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>TW100</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Agent. Sub Box. Identifier</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Sub-box code issued by Customs to a Customs broker.</ccts:Definition>
+                                                    <ccts:Cardinality>1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Agent</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Sub Box</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>報關業者箱號附碼</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an1</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="twds:AgentSubBoxIDType">
+                                                        <xsd:length value="1"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="DutyTaxFee">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>50A</ccts:UniqueID>
+                                        <ccts:Definition>Calculation one instance one duty, one tax, one fee about other duty tax fee information.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Duty Tax Fee</ccts:ObjectClassTerm>
+                                        <tsw:Remark/>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="Payment">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>94A</ccts:UniqueID>
+                                                    <ccts:Definition>Information about payment details.</ccts:Definition>
+                                                    <ccts:Cardinality>1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Payment</ccts:ObjectClassTerm>
+                                                    <tsw:Remark/>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="PaymentAmount">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>WCOID378#</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Payment. Payment. Amount</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>The actual amount paid, or to be paid.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Payment</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Payment</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>金額</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>n..12</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="ds:PaymentPaymentAmountType">
+                                                                    <xsd:minInclusive value="0"/>
+                                                                    <xsd:maxInclusive value="999999999999"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="ReferenceID">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>WCOID014</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Payment. Reference. Identifier</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>Reference number specifying a payment of a duty or tax.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Payment</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Reference</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>存款收款書號碼</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an14</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="ds:PaymentReferenceIDType">
+                                                                    <xsd:length value="14"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="tw_BelongDate">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>TW090</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Payment. Belong Date. Text</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>Payment Belong Date.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Payment</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Belong Date</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>款項所屬年月</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an6</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="twds:PaymentBelongDateTextType">
+                                                                    <xsd:length value="6"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="tw_DepositTypeCode">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>TW067</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Payment. Deposit Type. Code</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>Type of deposit including fines, guarantee,fees etc.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Payment</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Deposit Type</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>存款種類代碼</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an3</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="twds:PaymentDepositTypeCodeType">
+                                                                    <xsd:length value="3"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element minOccurs="0" name="tw_IssueReasonCode">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>TW070</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Payment. Issue Reason. Code</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>Code for reason of issuing duty memo/remittance application.</ccts:Definition>
+                                                                <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Payment</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Issue Reason</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>核發原因代碼</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an1</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="twds:PaymentIssueReasonCodeType">
+                                                                    <xsd:length value="1"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="ObligationGuarantee">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>90A</ccts:UniqueID>
+                                        <ccts:Definition>Details regarding undertaking given in cash, bond or as a written guarantee to ensure that an obligation will be fulfilled, e.g. under a transit procedure.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Obligation Guarantee</ccts:ObjectClassTerm>
+                                        <tsw:Remark/>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element minOccurs="0" name="ReferenceID">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOID100#</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Obligation Guarantee. Reference. Identifier</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Details regarding undertaking given in cash, bond or as a written guarantee to ensure that an obligation will be fulfilled, e.g. under a transit procedure.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Obligation Guarantee</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Reference</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>案號</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an8</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="ds:ObligationGuaranteeReferenceIDType">
+                                                        <xsd:length value="8"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element minOccurs="0" name="SecurityDetailsCode">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOID101</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Obligation Guarantee. Security Details. Code</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Codes specifying details regarding undertaking given in cash, bond or as a written guarantee to ensure that an obligation will be fulfilled, e.g. under a transit procedure.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Obligation Guarantee</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Security Details</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>押款原因</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an..3</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="ds:ObligationGuaranteeSecurityDetailsCodeType">
+                                                        <xsd:minLength value="0"/>
+                                                        <xsd:maxLength value="3"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Surety">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>19B</ccts:UniqueID>
+                                                    <ccts:Definition>Details related to a natural or legal person (generally a Bank or insurance company) who accepts responsibility in due legal form for the financial consequences of non-fulfillment of another's obligations to the Customs (CCC).</ccts:Definition>
+                                                    <ccts:Cardinality>1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Surety</ccts:ObjectClassTerm>
+                                                    <tsw:Remark/>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="ID">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>WCOIDR055</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Surety. Identification. Identifier</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>The party who agrees to be responsible for the debt or obligation of another (insurance company).</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Surety</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>繳款人統一編號</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an..14</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="ds:SuretyIdentificationIDType">
+                                                                    <xsd:minLength value="0"/>
+                                                                    <xsd:maxLength value="14"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="Name">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>WCOIDR054</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Surety. Name. Text</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>The name and address of the party who agrees to be responsible for the debt or obligation of another.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Surety</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Name</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>繳款人名稱</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an..70</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="ds:SuretyNameTextType">
+                                                                    <xsd:minLength value="0"/>
+                                                                    <xsd:maxLength value="70"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="tw_TypeCode">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>TW104</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Surety. Type. Code</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>Code giving specific meaning to a party type, example passport number,identification number,BAN ID.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Surety</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Type</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>身分識別代碼</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an..3</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="twds:SuretyTypeCodeType">
+                                                                    <xsd:minLength value="0"/>
+                                                                    <xsd:maxLength value="3"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+

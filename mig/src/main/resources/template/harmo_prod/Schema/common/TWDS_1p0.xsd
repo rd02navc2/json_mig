@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet href="GenAnnotation_tw.xslt" type="text/xsl"?><xsd:schema xmlns="urn:wco:datamodel:TW:DS:1" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:5" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:6" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:wco:datamodel:TW:DS:1">
+<!--
+	Schema agency	: Taiwan Customs
+	Schema type			: TWDS
+	Schema version		: 1
+	Schema date			: 2025/12/26
+
+  Copyright (C) Taiwan Customs (2025). All Rights Reserved.
+-->	
+    
+    <xsd:import namespace="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:6" schemaLocation="UnqualifiedDataType_6p0.xsd"/>
+    
+    <xsd:import namespace="urn:un:unece:uncefact:data:standard:QualifiedDataType:5" schemaLocation="QualifiedDataType_5p0.xsd"/>
+    
+    <!-- =========================================================================== -->
+    
+    <!-- ===== Type Definitions ===== -->
+    
+    <!-- =========================================================================== -->
+    
+    <!-- ===== Government Procedure. Transport Type. Code. Type===== -->
+    
+    <!-- =========================================================================== -->
+    
+    <xsd:complexType name="GovernmentProcedureTransportTypeCodeType">
+        
+        <xsd:annotation>
+            
+            <xsd:documentation xml:lang="en">
+                
+                <ccts:UniqueID>TW051</ccts:UniqueID>
+                
+                <ccts:DictionaryEntryName>Government Procedure. Transport Type. Code</ccts:DictionaryEntryName>
+                
+                <ccts:Definition>Import or export of declaration.</ccts:Definition>
+                
+                <ccts:ObjectClassTerm>Government Procedure</ccts:ObjectClassTerm>
+                
+                <ccts:PropertyTerm>Transport Type</ccts:PropertyTerm>
+                
+                <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                
+            </xsd:documentation>
+            
+        </xsd:annotation>
+        
+        <xsd:simpleContent>
+            
+            <xsd:restriction base="udt:CodeType"/>
+            
+        </xsd:simpleContent>
+        
+    </xsd:complexType>
+    
+    <!-- =========================================================================== -->
+    
+    <!-- ===== Agent. Sub Box. Identifier. Type===== -->
+    
+    <!-- =========================================================================== -->
+    
+    <xsd:complexType name="AgentSubBoxIDType">
+        
+        <xsd:annotation>
+            
+            <xsd:documentation xml:lang="en">
+                
+                <ccts:UniqueID>TW100</ccts:UniqueID>
+                
+                <ccts:DictionaryEntryName>Agent. Sub Box. Identifier</ccts:DictionaryEntryName>
+                
+                <ccts:Definition>Sub-box code issued by Customs to a Customs broker.</ccts:Definition>
+                
+                <ccts:ObjectClassTerm>Agent</ccts:ObjectClassTerm>
+                
+                <ccts:PropertyTerm>Sub Box</ccts:PropertyTerm>
+                
+                <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                
+            </xsd:documentation>
+            
+        </xsd:annotation>
+        
+        <xsd:simpleContent>
+            
+            <xsd:restriction base="udt:IDType"/>
+            
+        </xsd:simpleContent>
+        
+    </xsd:complexType>
+    
+</xsd:schema>

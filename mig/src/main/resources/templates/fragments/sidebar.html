@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- 側邊欄 Fragment -->
+    <div th:fragment="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h4>財政部關務署<br>MIG 資料調和系統</h4>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a th:href="@{/}" th:classappend="${currentPage == 'home'} ? 'active' : ''">系統首頁</a></li>
+            <li><a th:href="@{/mig/den}" th:classappend="${currentPage == 'den'} ? 'active' : ''">新增 den</a></li>
+            <li><a th:href="@{/twds}" th:classappend="${currentPage == 'twds'} ? 'active' : ''">編輯 twds</a></li>
+            <li><a th:href="@{/twdens}" th:classappend="${currentPage == 'twdens'} ? 'active' : ''">編輯 twdens</a></li>
+            <li><a th:href="@{/twcls}" th:classappend="${currentPage == 'twcls'} ? 'active' : ''">編輯 twcls</a></li>
+            <li><a th:href="@{/twids}" th:classappend="${currentPage == 'twids'} ? 'active' : ''">編輯 twids</a></li>
+            <li><a th:href="@{/harmo/runNX}" th:classappend="${currentPage == 'runNX'} ? 'active' : ''">執行 runNX</a></li>
+            <li><a th:href="@{/word8/word-editor8}" th:classappend="${currentPage == 'word8'} ? 'active' : ''">編輯第八章</a></li>
+            <li><a th:href="@{/word1/word-editor1}" th:classappend="${currentPage == 'word1'} ? 'active' : ''">編輯第一章</a></li>
+            <li><a th:href="@{/word2/word-editor2}" th:classappend="${currentPage == 'word2'} ? 'active' : ''">編輯第二章</a></li>
+            <li><a th:href="@{/word3/word-editor3}" th:classappend="${currentPage == 'word3'} ? 'active' : ''">編輯第三章</a></li>
+            <li><a th:href="@{/word4/word-editor4}" th:classappend="${currentPage == 'word4'} ? 'active' : ''">編輯第四章</a></li>
+            <li><a th:href="@{/word5/word-editor5}" th:classappend="${currentPage == 'word5'} ? 'active' : ''">編輯第五章</a></li>
+            <li><a th:href="@{/word6/word-editor6}" th:classappend="${currentPage == 'word6'} ? 'active' : ''">編輯第六章</a></li>
+            <li><a th:href="@{/word7/word-editor7}" th:classappend="${currentPage == 'word7'} ? 'active' : ''">編輯第七章</a></li>
+        </ul>
+    </div>
+</body>
+
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPath = window.location.pathname;
+    
+    // 根據 URL 自動加上 active
+    document.querySelectorAll('.sidebar-menu a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (currentPath === href || currentPath.includes(href.replace('/', ''))) {
+            link.classList.add('active');
+        }
+    });
+    
+    // 點擊切換 active
+    document.querySelectorAll('.sidebar-menu a').forEach(link => {
+        link.addEventListener('click', function() {
+            document.querySelectorAll('.sidebar-menu a').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
+</script>
+
+</html>

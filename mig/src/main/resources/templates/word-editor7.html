@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MIG資料調和系統</title>
+<style nonce="bkZ0dkFwMjAyNA==">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  background: #e8e8e8;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+  font-size: 16px;
+}
+
+/* 整體版面：左側 sidebar + 右側主內容 */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+/* 標題區 */
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* 選單 */
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* hover */
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+/* 選取狀態 */
+.sidebar-menu a.active,
+.sidebar-menu a[aria-current="page"],
+.sidebar-menu .active > a {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+/* 公文標題列 */
+.gov-header {
+  background: #fff;
+  color: black;
+  padding: 0;
+  text-align: center;
+}
+
+.header-top {
+  background: #fff;
+  padding: 8px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid #d4af37;
+}
+
+.header-main {
+  padding: 20px;
+}
+
+.header-main h1 {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  margin-bottom: 5px;
+}
+
+/* 主容器 */
+.container {
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* 公文卡片樣式 */
+.gov-card {
+  background: white;
+  border: 1px solid #b0b0b0;
+  margin-bottom: 20px;
+}
+
+/* 卡片標題列 */
+.card-header {
+  background: #f5f5f5;
+  border-bottom: 1px solid #b0b0b0;
+  padding: 12px 16px;
+  position: relative;
+}
+
+.card-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #2d5a8f;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  letter-spacing: 0.1em;
+  padding-left: 12px;
+}
+
+.card-body {
+  padding: 18px;
+}
+
+/* 說明區塊 */
+.gov-notice {
+  background: #fffef0;
+  border: 1px solid #d4af37;
+  border-left: 4px solid #d4af37;
+  padding: 10px 12px;
+  margin-top: 12px;
+  font-size: 15px;
+  color: #666;
+}
+
+.gov-notice::before {
+  content: "※ 說明：";
+  font-weight: bold;
+  color: black;
+  margin-right: 5px;
+}
+
+/* 按鈕樣式：盡量樸素 */
+.gov-btn {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  background: #2d5a8f;
+  color: white;
+  border: 1px solid black;
+  padding: 8px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+}
+
+.gov-btn:hover {
+  background: black;
+}
+
+.gov-btn:disabled {
+  background: #999;
+  border-color: #777;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.gov-btn-secondary {
+  background: #ffffff;
+  color: #2d5a8f;
+  border-color: #2d5a8f;
+}
+
+.gov-btn-secondary:hover {
+  background: #f3f3f3;
+}
+
+.gov-btn-danger {
+  background: #ffffff;
+  color: #c00;
+  border-color: #c00;
+}
+
+.gov-btn-danger:hover {
+  background: #fff0f0;
+}
+
+.gov-btn-small {
+  padding: 5px 14px;
+  font-size: 14px;
+}
+
+/* 新增代碼表區塊 */
+.add-section {
+  background: #f8f8f8;
+  border: 1px dashed #2d5a8f;
+  padding: 16px;
+  text-align: center;
+}
+
+.add-section-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.add-section label {
+  font-size: 15px;
+  font-weight: bold;
+  color: black;
+}
+
+.gov-input-number {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  width: 80px;
+  padding: 6px;
+  border: 1px solid #5a5a5a;
+  font-size: 15px;
+  text-align: center;
+  background: white;
+}
+
+.gov-input-number:focus {
+  outline: none;
+  border-color: #2d5a8f;
+}
+
+/* 代碼表容器 */
+#formsContainer {
+  margin-top: 20px;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 30px;
+  color: #999;
+  font-size: 15px;
+  border: 1px dashed #ccc;
+  background: #fafafa;
+}
+
+/* 代碼表卡片 */
+.code-table-card {
+  background: white;
+  border: 1px solid #b0b0b0;
+  margin-bottom: 16px;
+}
+
+/* 代碼表標題列 */
+.code-table-header {
+  background: #e8eef5;
+  border-bottom: 1px solid #2d5a8f;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.table-number {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2d5a8f;
+  min-width: 110px;
+}
+
+.code-table-name-input {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  flex: 1;
+  min-width: 260px;
+  padding: 6px 10px;
+  border: 1px solid #5a5a5a;
+  font-size: 15px;
+  background: white;
+}
+
+.code-table-name-input:focus {
+  outline: none;
+  border-color: #2d5a8f;
+}
+
+/* 每張代碼表下方統計 */
+.code-table-stats {
+  background: #fffef0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* 代碼表內容 */
+.code-table-body {
+  padding: 16px;
+}
+
+/* 代碼行容器 */
+.rows-container {
+  border: 1px solid #ddd;
+  background: #fafafa;
+  padding: 12px;
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+/* 代碼資料列 */
+.code-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 70px;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  align-items: center;
+}
+
+.code-row input {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  padding: 6px 8px;
+  border: 1px solid #999;
+  font-size: 15px;
+  background: white;
+}
+
+.code-row input:focus {
+  outline: none;
+  border-color: #2d5a8f;
+  background: #fffef0;
+}
+
+/* 操作按鈕區 */
+.action-buttons {
+  padding: 12px 16px;
+  border-top: 1px solid #ddd;
+  background: #f8f8f8;
+}
+
+/* 底部按鈕區 */
+.footer-actions {
+  text-align: right;
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: #f5f5f5;
+  border: 1px solid #b0b0b0;
+}
+
+/* 載入中樣式 */
+.loading {
+  text-align: center;
+  padding: 30px;
+  font-size: 16px;
+  color: #2d5a8f;
+}
+
+/* 公文編號樣式（如之後需要） */
+.doc-number {
+  text-align: right;
+  padding: 8px 16px;
+  color: #666;
+  font-size: 14px;
+  background: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 上方代碼表統計面板 */
+#statsPanel {
+  display: none;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #e8f4f8;
+  border: 1px solid #2d5a8f;
+}
+
+.stats-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 8px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2d5a8f;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #666;
+}
+/* ===== 右側主內容 ===== */
+.main-content {
+  margin-left: 240px;    
+  padding: 20px 24px;
+  flex: 1;
+  min-height: 100vh;
+  background: #e8e8e8;
+}
+
+/* 印刷樣式 */
+@media print {
+  body {
+    background: white;
+  }
+  .sidebar,
+  .footer-actions,
+  .gov-btn {
+    display: none;
+  }
+  .layout {
+    display: block;
+  }
+  .gov-card {
+    page-break-inside: avoid;
+    border: 1px solid black;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+  <!-- 右側主內容 -->
+  <div class="main-content">
+    <!-- 公文標題列 -->
+    <div class="gov-header">
+      <div class="header-main">
+        <h1>MIG資料調和系統-CH7</h1>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- 文件上傳區 -->
+      <div class="gov-card">
+        <div class="card-header">
+          <div class="card-title">壹、文件上傳作業</div>
+        </div>
+        <div class="card-body">
+          <input type="file" id="uploadDocxInput" accept=".docx" style="display:none" />
+          <button class="gov-btn" id="btnLoadDocx">選擇 DOCX 檔案</button>
+          <div class="gov-notice">
+            上傳後系統將自動讀取檔案中所有代碼表資料，並產生可編輯之表單供修改使用
+          </div>
+        </div>
+      </div>
+
+      <!-- 代碼表管理區 -->
+      <div class="gov-card">
+        <div class="card-header">
+          <div class="card-title">貳、代碼表管理作業</div>
+        </div>
+        <div class="card-body">
+          <!-- 新增代碼表功能 -->
+          <div class="add-section">
+            <div class="add-section-inner">
+              <label>新增代碼表數量：</label>
+              <input type="number" id="newTableCount" class="gov-input-number"
+                     min="1" max="10" value="1" />
+              <button class="gov-btn gov-btn-secondary" id="btnAddNewTables">
+                ➕ 新增代碼表
+              </button>
+            </div>
+          </div>
+
+          <!-- 代碼表表單容器 -->
+          <div id="formsContainer">
+            <div class="empty-message">
+              請先上傳 DOCX 檔案，或使用上方功能新增代碼表
+            </div>
+          </div>
+
+          <!-- 統計面板 -->
+          <div id="statsPanel">
+            <div class="stats-title">代碼表統計資訊</div>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div class="stat-number" id="totalCount">0</div>
+                <div class="stat-label">總代碼表數</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number" id="existingCount" style="color:#0066cc;">0</div>
+                <div class="stat-label">現有表格數</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number" id="newCount" style="color:#28a745;">0</div>
+                <div class="stat-label">新增表格數</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 匯出區 -->
+      <div class="footer-actions">
+        <button class="gov-btn" id="btnExport" style="font-size:16px; padding:8px 30px;">
+          匯出 DOCX 檔案
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+let formsContainer, btnExport, statsPanel;
+let uploadedFile = null;
+let tableCounter = 0;
+
+function init() {
+  formsContainer = document.getElementById('formsContainer');
+  btnExport = document.getElementById('btnExport');
+  statsPanel = document.getElementById('statsPanel');
+
+  // 上傳檔案
+  document.getElementById('btnLoadDocx').addEventListener('click', () => {
+    document.getElementById('uploadDocxInput').click();
+  });
+
+  document.getElementById('uploadDocxInput').addEventListener('change', function(e) {
+    if (e.target.files.length) {
+      uploadedFile = e.target.files[0];
+      fetchCodeTables(uploadedFile);
+    }
+  });
+
+  // 新增代碼表
+  document.getElementById('btnAddNewTables').addEventListener('click', () => {
+    let count = parseInt(document.getElementById('newTableCount').value) || 1;
+    if (count < 1 || count > 10) {
+      alert('請輸入 1 至 10 之間的數字');
+      return;
+    }
+
+    if (formsContainer.querySelector('.empty-message')) {
+      formsContainer.innerHTML = '';
+      tableCounter = 0;
+    }
+
+    let existingTables = formsContainer.querySelectorAll('.code-table-card');
+    if (existingTables.length > 0) {
+      tableCounter = existingTables.length;
+    }
+
+    for (let i = 0; i < count; i++) {
+      tableCounter++;
+      createCodeTableForm(tableCounter, null, true);
+    }
+
+    updateStatistics();
+    alert(`已新增 ${count} 個代碼表，目前共 ${tableCounter} 個代碼表`);
+  });
+
+  // 匯出檔案
+  btnExport.addEventListener('click', exportDocxHandler);
+}
+
+// 讀取代碼表
+function fetchCodeTables(file) {
+  let formData = new FormData();
+  formData.append('file', file);
+
+  formsContainer.innerHTML = '<div class="loading">正在讀取代碼表資料...</div>';
+
+  fetch('/word7/getCodeTables', {
+    method: 'POST',
+    body: formData
+  })
+    .then(resp => {
+      if (!resp.ok) throw new Error('伺服器回應錯誤');
+      return resp.json();
+    })
+    .then(data => {
+      formsContainer.innerHTML = '';
+      tableCounter = 0;
+
+      if (data && data.length > 0) {
+        data.forEach((table, idx) => {
+          tableCounter++;
+          createCodeTableForm(tableCounter, table);
+        });
+        updateStatistics();
+        alert(`成功讀取 ${data.length} 個代碼表`);
+      } else {
+        formsContainer.innerHTML =
+          '<div class="empty-message">⚠️ 此文件中未找到代碼表<br>請使用上方功能手動新增</div>';
+      }
+    })
+    .catch(err => {
+      console.error('讀取錯誤:', err);
+      alert('讀取代碼表失敗：' + err.message);
+      formsContainer.innerHTML =
+        '<div class="empty-message" style="color:#c00;">❌ 讀取失敗，請檢查檔案格式後重試</div>';
+    });
+}
+
+// 建立代碼表表單
+function createCodeTableForm(index, tableData = null, isNewTable = false) {
+  let card = document.createElement('div');
+  card.className = 'code-table-card';
+  card.dataset.tableIndex = index;
+  card.dataset.isNew = isNewTable ? 'true' : 'false';
+
+  if (isNewTable) {
+    card.style.borderColor = '#28a745';
+  }
+
+  let header = document.createElement('div');
+  header.className = 'code-table-header';
+
+  if (isNewTable) {
+    header.style.background = '#e8f5e9';
+  }
+
+  let numberSpan = document.createElement('span');
+  numberSpan.className = 'table-number';
+  numberSpan.textContent = `代碼表 ${index}`;
+  if (isNewTable) {
+    numberSpan.innerHTML = `代碼表 ${index} <span style="color:#28a745; font-size:13px;">【新增】</span>`;
+  }
+
+  let nameInput = document.createElement('input');
+  nameInput.type = 'text';
+  nameInput.className = 'code-table-name-input';
+  nameInput.value = tableData ? tableData.tableName : `新增代碼表 ${index}`;
+  nameInput.placeholder = '請輸入代碼表名稱...';
+
+  let deleteBtn = document.createElement('button');
+  deleteBtn.textContent = '刪除';
+  deleteBtn.className = 'gov-btn gov-btn-danger gov-btn-small';
+  deleteBtn.addEventListener('click', () => {
+    if (confirm(`確定要刪除「${nameInput.value}」？\n\n此操作無法復原。`)) {
+      card.remove();
+      updateAllTableNumbers();
+      updateStatistics();
+    }
+  });
+
+  header.appendChild(numberSpan);
+  header.appendChild(nameInput);
+  header.appendChild(deleteBtn);
+
+  let stats = document.createElement('div');
+  stats.className = 'code-table-stats';
+  let rowCount = (tableData && tableData.rows) ? tableData.rows.length : 0;
+  stats.textContent = `目前共有 ${rowCount} 筆代碼資料`;
+
+  let body = document.createElement('div');
+  body.className = 'code-table-body';
+
+  let rowsContainer = document.createElement('div');
+  rowsContainer.className = 'rows-container';
+
+  if (tableData && tableData.rows && tableData.rows.length > 0) {
+    tableData.rows.forEach(row => {
+      addCodeRow(rowsContainer, row.code || '', row.description || '');
+    });
+  } else {
+    addCodeRow(rowsContainer, '', '');
+    addCodeRow(rowsContainer, '', '');
+  }
+
+  body.appendChild(rowsContainer);
+
+  let actions = document.createElement('div');
+  actions.className = 'action-buttons';
+
+  let addRowBtn = document.createElement('button');
+  addRowBtn.textContent = '新增代碼列';
+  addRowBtn.className = 'gov-btn gov-btn-secondary gov-btn-small';
+  addRowBtn.addEventListener('click', () => {
+    addCodeRow(rowsContainer, '', '');
+    updateStats();
+  });
+
+  actions.appendChild(addRowBtn);
+
+  function updateStats() {
+    let count = rowsContainer.querySelectorAll('.code-row').length;
+    stats.textContent = `目前共有 ${count} 筆代碼資料`;
+  }
+
+  card.appendChild(header);
+  card.appendChild(stats);
+  card.appendChild(body);
+  card.appendChild(actions);
+  formsContainer.appendChild(card);
+
+  if (isNewTable) {
+    setTimeout(() => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  }
+}
+
+// 新增代碼列
+function addCodeRow(container, code = '', desc = '') {
+  let row = document.createElement('div');
+  row.className = 'code-row';
+
+  let codeInput = document.createElement('input');
+  codeInput.type = 'text';
+  codeInput.value = code;
+  codeInput.placeholder = '代碼（如：A01）';
+
+  let descInput = document.createElement('input');
+  descInput.type = 'text';
+  descInput.value = desc;
+  descInput.placeholder = '說明（如：應補送文件）';
+
+  let deleteBtn = document.createElement('button');
+  deleteBtn.textContent = '刪除';
+  deleteBtn.className = 'gov-btn gov-btn-danger gov-btn-small';
+  deleteBtn.addEventListener('click', () => {
+    if (container.querySelectorAll('.code-row').length > 1) {
+      row.remove();
+    } else {
+      alert('至少需保留一列代碼資料');
+    }
+  });
+
+  row.appendChild(codeInput);
+  row.appendChild(descInput);
+  row.appendChild(deleteBtn);
+  container.appendChild(row);
+}
+
+// 更新所有表格編號
+function updateAllTableNumbers() {
+  let allCards = formsContainer.querySelectorAll('.code-table-card');
+  tableCounter = 0;
+  allCards.forEach((card, idx) => {
+    tableCounter = idx + 1;
+    card.dataset.tableIndex = tableCounter;
+    let numberSpan = card.querySelector('.table-number');
+    if (numberSpan) {
+      let isNew = card.dataset.isNew === 'true';
+      if (isNew) {
+        numberSpan.innerHTML = `代碼表 ${tableCounter} <span style="color:#28a745; font-size:13px;">【新增】</span>`;
+      } else {
+        numberSpan.textContent = `代碼表 ${tableCounter}`;
+      }
+    }
+  });
+}
+
+// 匯出 DOCX
+function exportDocxHandler() {
+  if (!uploadedFile) {
+    alert('請先上傳 DOCX 檔案');
+    return;
+  }
+
+  let allForms = formsContainer.querySelectorAll('.code-table-card');
+  if (allForms.length === 0) {
+    alert('沒有代碼表可以匯出');
+    return;
+  }
+
+  btnExport.disabled = true;
+  btnExport.textContent = '處理中，請稍候...';
+
+  let formData = new FormData();
+  formData.append('file', uploadedFile);
+
+  let codeTables = [];
+  let existingCount = 0;
+  let newCount = 0;
+
+  allForms.forEach(formCard => {
+    let tableName = formCard.querySelector('.code-table-name-input').value.trim();
+    let tableRows = formCard.querySelectorAll('.code-row');
+    let isNew = formCard.dataset.isNew === 'true';
+
+    let tableData = [];
+
+    tableRows.forEach(row => {
+      let inputs = row.querySelectorAll('input');
+      let code = inputs[0].value.trim();
+      let desc = inputs[1].value.trim();
+      if (code || desc) {
+        tableData.push({ code, description: desc });
+      }
+    });
+
+    if (tableData.length > 0) {
+      codeTables.push({
+        tableName: tableName || '未命名代碼表',
+        rows: tableData,
+        isNew: isNew
+      });
+
+      if (isNew) {
+        newCount++;
+      } else {
+        existingCount++;
+      }
+    }
+  });
+
+  if (codeTables.length === 0) {
+    alert('所有代碼表都是空的，請至少填寫一筆資料');
+    btnExport.disabled = false;
+    btnExport.textContent = '💾 匯出 DOCX 檔案';
+    return;
+  }
+
+  formData.append('codeTables', JSON.stringify(codeTables));
+
+  fetch('/word7/replaceSecondPageXML', { method: 'POST', body: formData })
+    .then(resp => {
+      if (!resp.ok) throw new Error('伺服器處理失敗');
+      return resp.blob();
+    })
+    .then(blob => {
+      let url = URL.createObjectURL(blob);
+      let a = document.createElement('a');
+      a.href = url;
+      a.download = uploadedFile.name.replace(/\.docx$/i, '') + '_modified.docx';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      let message = `DOCX 匯出成功！\n\n`;
+      message += `更新統計：\n`;
+      message += `   • 更新現有代碼表：${existingCount} 個\n`;
+      message += `   • 新增代碼表：${newCount} 個\n`;
+      message += `   • 總計：${codeTables.length} 個代碼表`;
+
+      alert(message);
+    })
+    .catch(err => {
+      console.error('匯出錯誤:', err);
+      alert('匯出失敗：' + err.message);
+    })
+    .finally(() => {
+      btnExport.disabled = false;
+      btnExport.textContent = '匯出 DOCX 檔案';
+    });
+}
+
+// 更新統計資訊
+function updateStatistics() {
+  let allCards = formsContainer.querySelectorAll('.code-table-card');
+  let total = allCards.length;
+  let existing = 0;
+  let newTables = 0;
+
+  allCards.forEach(card => {
+    if (card.dataset.isNew === 'true') {
+      newTables++;
+    } else {
+      existing++;
+    }
+  });
+
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('existingCount').textContent = existing;
+  document.getElementById('newCount').textContent = newTables;
+
+  if (total > 0) {
+    statsPanel.style.display = 'block';
+  } else {
+    statsPanel.style.display = 'none';
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+
+</body>
+</html>

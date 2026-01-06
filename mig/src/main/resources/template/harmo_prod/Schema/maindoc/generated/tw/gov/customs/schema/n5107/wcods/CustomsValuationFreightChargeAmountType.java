@@ -1,0 +1,67 @@
+//
+// 此檔案是由 Eclipse Implementation of JAXB, v2.3.8 所產生 
+// 請參閱 https://eclipse-ee4j.github.io/jaxb-ri 
+// 一旦重新編譯來源綱要, 對此檔案所做的任何修改都將會遺失. 
+// 產生時間: 2025.10.20 於 05:05:05 PM CST 
+//
+
+
+package tw.gov.customs.schema.n5107.wcods;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+import un.unece.uncefact.data.standard.unqualifieddatatype._6.AmountType;
+
+
+/**
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns="urn:wco:datamodel:WCO:DS:1" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:5" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:6" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;WCOID117&lt;/ccts:UniqueID&gt;
+ * </pre>
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns="urn:wco:datamodel:WCO:DS:1" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:5" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:6" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;Customs Valuation. Freight Charge. Amount&lt;/ccts:DictionaryEntryName&gt;
+ * </pre>
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns="urn:wco:datamodel:WCO:DS:1" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:5" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:6" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;Costs incurred by the shipper in moving goods, by whatever means, from one place to another under the terms of the contract of carriage. In addition to transport costs, this may include such elements as packing, documentation, loading, unloading, and insurance (to the extent that they relate to the freight cost).&#13;
+ * &lt;/ccts:Definition&gt;
+ * </pre>
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;ccts:ObjectClassTerm xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns="urn:wco:datamodel:WCO:DS:1" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:5" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:6" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;Customs Valuation&lt;/ccts:ObjectClassTerm&gt;
+ * </pre>
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;ccts:PropertyTerm xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns="urn:wco:datamodel:WCO:DS:1" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:5" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:6" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;Freight Charge&lt;/ccts:PropertyTerm&gt;
+ * </pre>
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;ccts:RepresentationTerm xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns="urn:wco:datamodel:WCO:DS:1" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:5" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:6" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;Amount&lt;/ccts:RepresentationTerm&gt;
+ * </pre>
+ * 
+ * 
+ * <p>CustomsValuationFreightChargeAmountType complex type 的 Java 類別.
+ * 
+ * <p>下列綱要片段會指定此類別中包含的預期內容.
+ * 
+ * <pre>
+ * &lt;complexType name="CustomsValuationFreightChargeAmountType"&gt;
+ *   &lt;simpleContent&gt;
+ *     &lt;restriction base="&lt;urn:un:unece:uncefact:data:standard:UnqualifiedDataType:6&gt;AmountType"&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/simpleContent&gt;
+ * &lt;/complexType&gt;
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "CustomsValuationFreightChargeAmountType")
+public class CustomsValuationFreightChargeAmountType
+    extends AmountType
+{
+
+
+}

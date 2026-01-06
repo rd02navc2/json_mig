@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="GenHTML_TW.xslt" type="text/xsl"?>
+<!--
+	Schema agency	: Taiwan Customs
+	Schema type			: NX903
+	Schema version		: R-00-03
+	Schema date			: 2025/11/18
+
+	Copyright (C) Taiwan Customs (2025). All Rights Reserved.
+-->	
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:wco:datamodel:TW:NX903:R-00-03" version="R-00-03" xmlns="urn:wco:datamodel:TW:NX903:R-00-03" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns:ds="urn:wco:datamodel:WCO:DS:1" xmlns:tsw="urn:SingleWindow:TW" xmlns:twds="urn:wco:datamodel:TW:DS:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="urn:wco:datamodel:WCO:DS:1" schemaLocation="../common/WCODS_1p0.xsd"/>
+    <xsd:import namespace="urn:wco:datamodel:TW:DS:1" schemaLocation="../common/TWDS_1p0.xsd"/>
+    <xsd:element name="Response">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                <ccts:UniqueID>07B</ccts:UniqueID>
+                <ccts:Definition>Details of the response message.</ccts:Definition>
+                <ccts:Cardinality>1</ccts:Cardinality>
+                <ccts:ObjectClassTerm>Response</ccts:ObjectClassTerm>
+                <tsw:Remark/>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="FunctionalReferenceID">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>WCOIDD026</ccts:UniqueID>
+                            <ccts:DictionaryEntryName>Response. Functional Reference. Identifier</ccts:DictionaryEntryName>
+                            <ccts:Definition>Reference number identifying a specific information exchange.</ccts:Definition>
+                            <ccts:Cardinality>1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Response</ccts:ObjectClassTerm>
+                            <ccts:PropertyTerm>Functional Reference</ccts:PropertyTerm>
+                            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                            <tsw:ChineseName>訊息編號</tsw:ChineseName>
+                            <tsw:Remark/>
+                            <tsw:Format>an..20</tsw:Format>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:restriction base="ds:ResponseFunctionalReferenceIDType">
+                                <xsd:minLength value="0"/>
+                                <xsd:maxLength value="20"/>
+                            </xsd:restriction>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="IssueDateTime" type="ds:ResponseIssueDateTimeType">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>WCOIDD029</ccts:UniqueID>
+                            <ccts:DictionaryEntryName>Response. Issue. Date Time</ccts:DictionaryEntryName>
+                            <ccts:Definition>Date at which a response was issued and when appropriate, signed or otherwise authenticated.</ccts:Definition>
+                            <ccts:Cardinality>1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Response</ccts:ObjectClassTerm>
+                            <ccts:PropertyTerm>Issue</ccts:PropertyTerm>
+                            <ccts:RepresentationTerm>Date Time</ccts:RepresentationTerm>
+                            <tsw:ChineseName>通知日期與時間</tsw:ChineseName>
+                            <tsw:Remark/>
+                            <tsw:Format>an14</tsw:Format>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="ContactOffice">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>35A</ccts:UniqueID>
+                            <ccts:Definition>Identifies the location of a government agency contact office.</ccts:Definition>
+                            <ccts:Cardinality>1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Contact Office</ccts:ObjectClassTerm>
+                            <tsw:Remark/>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="ID">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOIDG002</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Contact Office. Identification. Identifier</ccts:DictionaryEntryName>
+                                        <ccts:Definition>Code specifying the location of a government office where contact can be made.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Contact Office</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>通知方代碼</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an..17</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:ContactOfficeIdentificationIDType">
+                                            <xsd:minLength value="0"/>
+                                            <xsd:maxLength value="17"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element maxOccurs="99" name="Error">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>53A</ccts:UniqueID>
+                            <ccts:Definition>Details to identify data validation errors.</ccts:Definition>
+                            <ccts:Cardinality>1..99</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Error</ccts:ObjectClassTerm>
+                            <tsw:Remark/>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="ValidationCode">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOID377</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Error. Validation. Code</ccts:DictionaryEntryName>
+                                        <ccts:Definition>Code specifying a data validation error.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Error</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Validation</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>錯誤種類代碼</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an1</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:ErrorValidationCodeType">
+                                            <xsd:length value="1"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="AdditionalInformation">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>03A+</ccts:UniqueID>
+                                        <ccts:Definition>Special request to government from Declarant to take or not to take action.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Additional Information</ccts:ObjectClassTerm>
+                                        <tsw:Remark/>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="Content">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOID105</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Additional Information. Content. Text</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Free text field available to the message sender for information.</ccts:Definition>
+                                                    <ccts:Cardinality>1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Additional Information</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Content</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>說明</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an..512</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="ds:AdditionalInformationContentTextType">
+                                                        <xsd:minLength value="0"/>
+                                                        <xsd:maxLength value="512"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="Declaration">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>42A</ccts:UniqueID>
+                            <ccts:Definition>Any statement or action, in any form prescribed or accepted by the Governmental Agency, giving information or particulars required by the Governmental Agency.</ccts:Definition>
+                            <ccts:Cardinality>1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+                            <tsw:Remark/>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element minOccurs="0" name="ID">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOIDD014</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Declaration. Identification. Identifier</ccts:DictionaryEntryName>
+                                        <ccts:Definition>Reference number identifying a specific document.</ccts:Definition>
+                                        <ccts:Cardinality>0..1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>報單號碼</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an14</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:DeclarationIdentificationIDType">
+                                            <xsd:length value="14"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="GoodsShipment">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>67A</ccts:UniqueID>
+                                        <ccts:Definition>Details about the movement and the handling of goods shipped together on one or more means of transport between original consignor and final consignee.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Goods Shipment</ccts:ObjectClassTerm>
+                                        <tsw:Remark/>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="GovernmentAgencyGoodsItem">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>68A</ccts:UniqueID>
+                                                    <ccts:Definition>Goods item as declared to Government Agency.</ccts:Definition>
+                                                    <ccts:Cardinality>1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Government Agency Goods Item</ccts:ObjectClassTerm>
+                                                    <tsw:Remark/>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="PreviousDocument">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>99A</ccts:UniqueID>
+                                                                <ccts:Definition>Information relating to the previous document.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Previous Document</ccts:ObjectClassTerm>
+                                                                <tsw:Remark/>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:sequence>
+                                                                <xsd:element minOccurs="0" name="tw_FunctionalReferenceID">
+                                                                    <xsd:annotation>
+                                                                        <xsd:documentation xml:lang="en">
+                                                                            <ccts:UniqueID>D026*</ccts:UniqueID>
+                                                                            <ccts:DictionaryEntryName>Previous Document. Functional Reference. Identifier</ccts:DictionaryEntryName>
+                                                                            <ccts:Definition>Reference number identifying a specific information exchange.</ccts:Definition>
+                                                                            <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                                            <ccts:ObjectClassTerm>Previous Document</ccts:ObjectClassTerm>
+                                                                            <ccts:PropertyTerm>Functional Reference</ccts:PropertyTerm>
+                                                                            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                                            <tsw:ChineseName>原訊息編號</tsw:ChineseName>
+                                                                            <tsw:Remark/>
+                                                                            <tsw:Format>an..20</tsw:Format>
+                                                                        </xsd:documentation>
+                                                                    </xsd:annotation>
+                                                                    <xsd:complexType>
+                                                                        <xsd:simpleContent>
+                                                                            <xsd:restriction base="twds:PreviousDocumentFunctionalReferenceIDType">
+                                                                                <xsd:minLength value="0"/>
+                                                                                <xsd:maxLength value="20"/>
+                                                                            </xsd:restriction>
+                                                                        </xsd:simpleContent>
+                                                                    </xsd:complexType>
+                                                                </xsd:element>
+                                                                <xsd:element name="tw_UniversallyUniqueID">
+                                                                    <xsd:annotation>
+                                                                        <xsd:documentation xml:lang="en">
+                                                                            <ccts:UniqueID>TW130</ccts:UniqueID>
+                                                                            <ccts:DictionaryEntryName>Previous Document. Universally Unique. Identifier</ccts:DictionaryEntryName>
+                                                                            <ccts:Definition>Original message UUID.</ccts:Definition>
+                                                                            <ccts:Cardinality>1</ccts:Cardinality>
+                                                                            <ccts:ObjectClassTerm>Previous Document</ccts:ObjectClassTerm>
+                                                                            <ccts:PropertyTerm>Universally Unique</ccts:PropertyTerm>
+                                                                            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                                            <tsw:ChineseName>原訊息UUID</tsw:ChineseName>
+                                                                            <tsw:Remark/>
+                                                                            <tsw:Format>an..64</tsw:Format>
+                                                                        </xsd:documentation>
+                                                                    </xsd:annotation>
+                                                                    <xsd:complexType>
+                                                                        <xsd:simpleContent>
+                                                                            <xsd:restriction base="twds:PreviousDocumentUniversallyUniqueIDType">
+                                                                                <xsd:minLength value="0"/>
+                                                                                <xsd:maxLength value="64"/>
+                                                                            </xsd:restriction>
+                                                                        </xsd:simpleContent>
+                                                                    </xsd:complexType>
+                                                                </xsd:element>
+                                                                <xsd:element name="TypeCode">
+                                                                    <xsd:annotation>
+                                                                        <xsd:documentation xml:lang="en">
+                                                                            <ccts:UniqueID>WCOIDD019</ccts:UniqueID>
+                                                                            <ccts:DictionaryEntryName>Previous Document. Type. Code</ccts:DictionaryEntryName>
+                                                                            <ccts:Definition>Type of document used for declaration previously presented, coded.</ccts:Definition>
+                                                                            <ccts:Cardinality>1</ccts:Cardinality>
+                                                                            <ccts:ObjectClassTerm>Previous Document</ccts:ObjectClassTerm>
+                                                                            <ccts:PropertyTerm>Type</ccts:PropertyTerm>
+                                                                            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                                            <tsw:ChineseName>原訊息類別</tsw:ChineseName>
+                                                                            <tsw:Remark/>
+                                                                            <tsw:Format>an..8</tsw:Format>
+                                                                        </xsd:documentation>
+                                                                    </xsd:annotation>
+                                                                    <xsd:complexType>
+                                                                        <xsd:simpleContent>
+                                                                            <xsd:restriction base="ds:PreviousDocumentTypeCodeType">
+                                                                                <xsd:minLength value="0"/>
+                                                                                <xsd:maxLength value="8"/>
+                                                                            </xsd:restriction>
+                                                                        </xsd:simpleContent>
+                                                                    </xsd:complexType>
+                                                                </xsd:element>
+                                                            </xsd:sequence>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+

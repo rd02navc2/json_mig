@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MIG資料調和系統</title>
+    <link th:href="@{/lib/bootstrap.min.css}" rel="stylesheet" nonce="bkZ0dkFwMjAyNA==">
+    <style nonce="bkZ0dkFwMjAyNA==">
+        body, input, textarea, select, button {
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-size: 16px;
+        }
+
+        /* 整體版面：左側側邊欄 + 右側主內容 */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        /* ===== 側邊欄 ===== */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #fafafa !important;
+            color: #1a1a1a !important;
+            overflow-y: auto;
+            z-index: 1000;
+            border-right: 1px solid #e0e0e0 !important;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+        }
+
+        /* 標題區 */
+        .sidebar-header {
+            padding: 20px 18px;
+            background: #ffffff !important;
+            border-bottom: 1px solid #e0e0e0 !important;
+        }
+
+        .sidebar-header h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0;
+            line-height: 1.4;
+            color: #1a1a1a !important;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* 選單 */
+        .sidebar-menu {
+            list-style: none;
+            padding: 4px 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin: 0;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 18px;
+            color: #4a4a4a !important;
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.15s ease;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        /* hover */
+        .sidebar-menu a:hover {
+            background: #f0f0f0 !important;
+            color: #1a1a1a !important;
+            border-left-color: #bdbdbd !important;
+        }
+
+        /* 選取狀態 */
+        .sidebar-menu a.active,
+        .sidebar-menu a[aria-current="page"],
+        .sidebar-menu .active > a {
+            background: #ffffff !important;
+            color: #1a1a1a !important;
+            border-left-color: #1a1a1a !important;
+            font-weight: 500;
+        }
+
+        /* ===== 主內容區 ===== */
+        .main-content {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            padding: 0;
+        }
+
+        .main-content h1 {
+            font-size: 26px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 卡片樣式優化 */
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            margin-bottom: 1.5rem;
+            background: #ffffff;
+        }
+
+        .card-header {
+            border-bottom: 1px solid #e0e0e0;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 14px 20px;
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        /* 表單元素 */
+        .form-label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        textarea.form-control {
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 14px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            transition: border-color 0.2s ease;
+        }
+
+        textarea.form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.1);
+        }
+
+        /* 按鈕樣式 */
+        .btn {
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(13,110,253,0.3);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5c636a;
+            border-color: #565e64;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(108,117,125,0.3);
+        }
+
+        /* 結果顯示區 */
+        pre.result-box {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border: 1px solid #e0e0e0;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* 容器調整 */
+        .container-fluid {
+            padding: 30px 40px;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+                width: calc(100% - 200px);
+            }
+
+            .container-fluid {
+                padding: 20px;
+            }
+
+            .main-content h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <!-- 右側主內容 -->
+    <div class="main-content">
+        <div class="container-fluid my-2">
+            <h1 class="mb-4">MIG 資料調和系統-Harmo 多筆 NX 訊息處理</h1>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form th:action="@{/harmo/runNX}" method="post">
+                        <div class="mb-3">
+                            <label for="nxInput" class="form-label">NX 訊息輸入 (每行一筆，用逗號分隔 5 欄)</label>
+                            <textarea id="nxInput" name="nxInput" rows="10" class="form-control"
+                                      th:text="${nxInput}"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">執行 NX 流程</button>
+                        <button type="button" class="btn btn-secondary ms-2" onclick="loadSample()">載入範例多筆訊息</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-secondary text-white">結果</div>
+                <div class="card-body">
+                    <pre class="result-box" th:if="${result}" th:utext="${result}"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+function loadSample() {
+    const sample = `N5107, Response, maindoc/N5107.xsd, R-00-05, 應補辦事項通知
+N5108, Response, maindoc/N5108.xsd, R-00-05, 倉儲、承攬或運輸業申報訊息回覆通知
+N5109, Response, maindoc/N5109.xsd, R-00-04, 查驗貨物通知`;
+    document.getElementById("nxInput").value = sample;
+}
+</script>
+</body>
+</html>

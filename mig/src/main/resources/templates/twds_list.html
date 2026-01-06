@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MIG資料調和系統</title>
+    <!-- Bootstrap 5 CSS -->
+    <link th:href="@{/lib/bootstrap.min.css}" rel="stylesheet" nonce="bkZ0dkFwMjAyNA==">
+    <script th:src="@{/lib/jquery/jquery-3.6.0.min.js}" nonce="bkZ0dkFwMjAyNA=="></script>
+    <style nonce="bkZ0dkFwMjAyNA==">
+        body, input, textarea, select, button {
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-size: 16px;
+        }
+
+        /* 整體版面：左側側邊欄 + 右側主內容 */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+/* 標題區 */
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* 選單 */
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* hover */
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+/* 選取狀態 */
+.sidebar-menu a.active,
+.sidebar-menu a[aria-current="page"],
+.sidebar-menu .active > a {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+        /* 右側主內容 */
+        .main-content {
+            flex: 1;
+            padding: 20px 24px;
+            margin-left: 240px;
+        } 
+
+        /* 可編輯欄位樣式 */
+        td[contenteditable="true"] {
+            background-color: #fff7e6;
+            cursor: text;
+        }
+        td[contenteditable="true"]:focus {
+            outline: 2px solid #ffa500;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <!-- 右側主內容 -->
+    <div class="main-content">
+        <div class="container-fluid my-2">
+            <h2 class="mb-4">MIG資料調和系統-Twds 管理列表</h2>
+
+            <!-- 新增表單 -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">新增 Twds 資料</div>
+                <div class="card-body">
+                    <form id="addTwdsForm">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">CH Name</label>
+                                <input type="text" class="form-control" name="chName" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">SN</label>
+                                <input type="text" class="form-control" name="sn">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">EN Name</label>
+                                <input type="text" class="form-control" name="enName">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">CH Def</label>
+                                <input type="text" class="form-control" name="chDef">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">EN Def</label>
+                                <input type="text" class="form-control" name="enDef">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Format</label>
+                                <input type="text" class="form-control" name="format">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Code List</label>
+                                <input type="text" class="form-control" name="codeList">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Sample</label>
+                                <input type="text" class="form-control" name="sample">
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <button type="submit" class="btn btn-success w-100">新增</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="formMessage" class="mt-2"></div>
+                </div>
+            </div>
+
+            <!-- 列表 -->
+            <div class="card">
+                <div class="card-header bg-secondary text-white">目前資料</div>
+                <div class="card-body p-0">
+                    <table class="table table-striped table-hover mb-0" id="twdsTable">
+                        <thead class="table-light">
+                        <tr>
+                            <th>CH Name</th>
+                            <th>SN</th>
+                            <th>EN Name</th>
+                            <th>CH Def</th>
+                            <th>EN Def</th>
+                            <th>Format</th>
+                            <th>Code List</th>
+                            <th>Sample</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="twds : ${twdsList}" th:id="'row-' + ${twds.chName}">
+                            <td contenteditable="true" class="editable" data-field="chName" th:text="${twds.chName}"></td>
+                            <td contenteditable="true" class="editable" data-field="sn" th:text="${twds.sn}"></td>
+                            <td contenteditable="true" class="editable" data-field="enName" th:text="${twds.enName}"></td>
+                            <td contenteditable="true" class="editable" data-field="chDef" th:text="${twds.chDef}"></td>
+                            <td contenteditable="true" class="editable" data-field="enDef" th:text="${twds.enDef}"></td>
+                            <td contenteditable="true" class="editable" data-field="format" th:text="${twds.format}"></td>
+                            <td contenteditable="true" class="editable" data-field="codeList" th:text="${twds.codeList}"></td>
+                            <td contenteditable="true" class="editable" data-field="sample" th:text="${twds.sample}"></td>
+                            <td>
+                                <button class="btn btn-sm btn-danger delete-btn" th:data-chname="${twds.chName}">刪除</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/lib/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+$(document).ready(function () {
+
+    $("#addTwdsForm").submit(function (e) {
+        e.preventDefault();
+
+        let data = {
+            chName: $("input[name='chName']").val(),
+            sn: $("input[name='sn']").val(),
+            enName: $("input[name='enName']").val(),
+            chDef: $("input[name='chDef']").val(),
+            enDef: $("input[name='enDef']").val(),
+            format: $("input[name='format']").val(),
+            codeList: $("input[name='codeList']").val(),
+            sample: $("input[name='sample']").val()
+        };
+
+        $.ajax({
+            url: "/twds/ajax/add",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function(res) {
+                if(res.status === "success") {
+                    let twds = res.data;
+
+                    let newRow = `
+                        <tr id="row-${twds.chName}">
+                            <td contenteditable="true" class="editable" data-field="chName">${twds.chName}</td>
+                            <td contenteditable="true" class="editable" data-field="sn">${twds.sn}</td>
+                            <td contenteditable="true" class="editable" data-field="enName">${twds.enName}</td>
+                            <td contenteditable="true" class="editable" data-field="chDef">${twds.chDef}</td>
+                            <td contenteditable="true" class="editable" data-field="enDef">${twds.enDef}</td>
+                            <td contenteditable="true" class="editable" data-field="format">${twds.format}</td>
+                            <td contenteditable="true" class="editable" data-field="codeList">${twds.codeList}</td>
+                            <td contenteditable="true" class="editable" data-field="sample">${twds.sample}</td>
+                            <td><button class="btn btn-sm btn-danger delete-btn" data-chname="${twds.chName}">刪除</button></td>
+                        </tr>
+                    `;
+                    $("#twdsTable tbody").append(newRow);
+                    $("#formMessage").html(`<div class="alert alert-success">${res.message}</div>`);
+                    $("#addTwdsForm")[0].reset();
+                } else {
+                    $("#formMessage").html(`<div class="alert alert-danger">${res.message}</div>`);
+                }
+            },
+            error: function() {
+                $("#formMessage").html(`<div class="alert alert-danger">新增 AJAX 發生錯誤</div>`);
+            }
+        });
+    });
+
+    $("#twdsTable").on("blur", ".editable", function () {
+        let td = $(this);
+        let newValue = td.text().trim();
+        let field = td.data("field");
+        let chName = td.closest("tr").attr("id").replace("row-", "");
+        let data = {};
+        data[field] = newValue;
+
+        $.ajax({
+            url: "/twds/ajax/update/" + chName,
+            type: "PATCH",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function(res) {
+                if(res.status === "success") {
+                    td.css("background-color", "#d4ffd4");
+                    setTimeout(() => td.css("background-color", "#fff7e6"), 500);
+                } else {
+                    td.css("background-color", "#ffd4d4");
+                    alert("更新失敗：" + res.message);
+                }
+            },
+            error: function() {
+                td.css("background-color", "#ffd4d4");
+                alert("更新 AJAX 發生錯誤！");
+            }
+        });
+    });
+
+    $("#twdsTable").on("click", ".delete-btn", function () {
+        if (!confirm("確定要刪除嗎？")) return;
+
+        let chName = $(this).data("chname");
+        let row = $(this).closest("tr");
+
+        $.ajax({
+            url: "/twds/ajax/" + chName,
+            type: "DELETE",
+            success: function (res) {
+                if (res.status === "success") {
+                    row.remove();
+                    alert(res.message);
+                } else {
+                    alert("刪除失敗：" + res.message);
+                }
+            },
+            error: function () {
+                alert("刪除 AJAX 發生錯誤！");
+            }
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>

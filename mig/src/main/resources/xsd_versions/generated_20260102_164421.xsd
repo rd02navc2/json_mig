@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet href="GenHTML_TW.xslt" type="text/xsl"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:wco:datamodel:TW:N5107:R-00-05" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns:ds="urn:wco:datamodel:WCO:DS:1" xmlns:tsw="urn:SingleWindow:TW" xmlns:twds="urn:wco:datamodel:TW:DS:1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:wco:datamodel:TW:N5107:R-00-05" version="R-00-05">
+  <!-- Schema agency	: Taiwan Customs
+ Schema type		: N5107
+ Schema version	: R-00-05
+ Schema date		: 2026/01/02
+ Copyright (C) Taiwan Customs (2026). All Rights Reserved.-->
+  <xsd:import namespace="urn:wco:datamodel:WCO:DS:1" schemaLocation="../common/WCODS_1p0.xsd"/>
+  <xsd:import namespace="urn:wco:datamodel:TW:DS:1" schemaLocation="../common/TWDS_1p0.xsd"/>
+  <xsd:element name="Response">
+    <xsd:complexType>
+      <xsd:sequence/>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

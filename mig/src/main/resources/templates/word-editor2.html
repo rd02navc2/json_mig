@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MIG資料調和系統</title>
+<style nonce="bkZ0dkFwMjAyNA==">
+  *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+  }
+
+  body, input, textarea, select, button {
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    font-size: 16px;
+    background: #f0f0f0;
+    color: #000000;
+    line-height: 1.8;
+    letter-spacing: 1px;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+/* 標題區 */
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* 選單 */
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* hover */
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+/* 選取狀態 */
+.sidebar-menu a.active,
+.sidebar-menu a[aria-current="page"],
+.sidebar-menu .active > a {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+  .main {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .header-bar{
+    background:#ffffff;
+    padding:8px 0;
+    text-align:center;
+    border-bottom:3px solid #000000;
+    margin-bottom:20px;
+  }
+
+  .header-bar h1{
+    color:#000000;
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+    margin:0;
+  }
+
+  .header-bar .sub{
+    color:#000000;
+    font-size:13px;
+    margin-top:2px;
+    letter-spacing:1px;
+  }
+
+  .wrap{
+    max-width:750px;
+    margin:0 auto;
+    background:#ffffff;
+    border:1px solid #000000;
+  }
+
+  .doc-header{
+    background:#f5f5f5;
+    border-bottom:1px solid #000000;
+    padding:16px 24px;
+    text-align:center;
+  }
+
+  .doc-header .title{
+    font-size:22px;
+    font-weight:bold;
+    color:#000000;
+    letter-spacing:3px;
+    margin-bottom:6px;
+  }
+
+  .doc-header .subtitle{
+    font-size:14px;
+    color:#000000;
+    letter-spacing:1px;
+  }
+
+  .content-area{
+    padding:20px 26px;
+  }
+
+  .section{
+    margin-bottom:20px;
+    border:1px solid #000000;
+    background:#fafafa;
+    padding:16px;
+  }
+
+  .section-title{
+    font-size:15px;
+    font-weight:bold;
+    color:#000000;
+    margin-bottom:10px;
+    padding-bottom:6px;
+    border-bottom:2px solid #000000;
+    letter-spacing:2px;
+  }
+
+  .section-title::before{
+    content:"■ ";
+    color:#000000;
+  }
+
+  .form-group{
+    margin-bottom:12px;
+  }
+
+  .form-label{
+    display:block;
+    font-weight:bold;
+    color:#000000;
+    margin-bottom:6px;
+    font-size:14px;
+  }
+
+  .upload-zone{
+    border:1px dashed #000000;
+    padding:24px;
+    text-align:center;
+    background:#ffffff;
+    cursor:pointer;
+    transition:background 0.2s, border-color 0.2s;
+    position:relative;
+  }
+
+  .upload-zone.drag{
+    background:#e3f2fd;
+    border-color:#000000;
+  }
+
+  .upload-zone:hover{
+    background:#f0f7ff;
+  }
+
+  .upload-icon{
+    font-size:30px;
+    color:#000000;
+    margin-bottom:8px;
+  }
+
+  .upload-text{
+    font-size:14px;
+    color:#000000;
+    margin-bottom:10px;
+    font-weight:bold;
+  }
+
+  .btn {
+    display:inline-block;
+    padding:8px 18px;
+    border:1px solid #000000;
+    cursor:pointer;
+    font-weight:bold;
+    background:#ffffff;
+    color:#000000;
+    font-size:14px;
+    font-family:"Microsoft JhengHei","微軟正黑體",sans-serif;
+    transition:background 0.2s, border-color 0.2s, color 0.2s;
+    letter-spacing:1px;
+  }
+
+  .btn:hover:not(:disabled){
+    background:#e8e8e8;
+    border-color:#000000;
+    color:#000000;
+  }
+
+  .btn:disabled{
+    opacity:0.5;
+    cursor:not-allowed;
+    background:#cccccc;
+    border-color:#999999;
+    color:#000000;
+  }
+
+  .btn-secondary{
+    background:#f0f0f0;
+    border-color:#000000;
+    color:#000000;
+  }
+
+  .btn-secondary:hover:not(:disabled){
+    background:#e0e0e0;
+    border-color:#000000;
+    color:#000000;
+  }
+
+  .btn-primary{
+    background:#e0e0e0;
+    border-color:#000000;
+    font-size:15px;
+    padding:10px 26px;
+    color:#000000;
+  }
+
+  .btn-primary:hover:not(:disabled){
+    background:#d0d0d0;
+    border-color:#000000;
+    color:#000000;
+  }
+
+  .file-info{
+    margin-top:10px;
+    padding:8px;
+    background:#fff3cd;
+    border:1px solid #ffc107;
+    border-radius:3px;
+    color:#000000;
+    font-weight:bold;
+    font-size:14px;
+  }
+
+  .alert{
+    padding:10px 12px;
+    margin-bottom:12px;
+    border-left:4px solid #000000;
+    font-size:14px;
+    color:#000000;
+  }
+
+  .alert-success{
+    background:#d4edda;
+    border-color:#000000;
+  }
+
+  .alert-error{
+    background:#f8d7da;
+    border-color:#000000;
+  }
+
+  .hidden{
+    display:none;
+  }
+
+  .preview-box{
+    margin-top:10px;
+    padding:10px;
+    background:#ffffff;
+    border:1px solid #000000;
+    text-align:center;
+    color:#000000;
+  }
+
+  .preview-box img{
+    max-width:100%;
+    max-height:260px;
+    border:1px solid #000000;
+  }
+
+  .status-box{
+    margin-top:10px;
+    padding:8px;
+    background:#e8f4f8;
+    border:1px solid #000000;
+    color:#000000;
+    font-size:14px;
+  }
+
+  .footer-bar{
+    background:#f5f5f5;
+    border-top:1px solid #000000;
+    padding:10px 18px;
+    text-align:center;
+    color:#000000;
+    font-size:13px;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+  <!-- 右側主畫面 -->
+  <div class="main">
+    <div class="wrap">
+      <div class="doc-header">
+        <div class="title">MIG資料調和系統-CH2</div>
+      </div>
+
+      <div class="content-area">
+
+        <div id="alertBox" class="hidden"></div>
+
+        <!-- 壹、上傳 DOCX -->
+        <div class="section">
+          <div class="section-title">壹、上傳 DOCX 文件檔案</div>
+          <div class="form-group">
+            <div class="form-label">請選擇 .docx 檔案：</div>
+
+            <div class="upload-zone" id="uploadArea">
+              <div class="upload-icon"></div>
+              <div class="upload-text">點擊或拖放 Word 檔案</div>
+              <button class="btn btn-secondary" id="selectFileBtn" type="button">瀏覽檔案</button>
+              <input id="fileInput" type="file" accept=".docx" class="hidden"/>
+            </div>
+
+            <div id="fileName" class="file-info hidden"></div>
+          </div>
+        </div>
+
+        <!-- 貳、選擇圖片並插入 -->
+        <div class="section">
+          <div class="section-title">貳、選擇訊息類別圖並插入</div>
+          <div class="form-group">
+            <div class="form-label">請選擇圖片：</div>
+
+            <div class="upload-zone" id="imageUploadArea">
+              <div class="upload-icon"></div>
+              <div class="upload-text">點擊或拖放圖片</div>
+              <button class="btn btn-secondary" id="selectImageBtn" type="button">瀏覽圖片</button>
+              <input id="categoryImageInput" type="file" accept="image/*" class="hidden"/>
+            </div>
+
+            <div id="categoryImagePreview" class="preview-box hidden"></div>
+
+            <div style="margin-top:12px;">
+              <button id="insertCategoryImageBtn" class="btn btn-secondary" type="button" disabled>執行插入</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 參、下載 -->
+        <div class="section" style="text-align:center;">
+          <div class="section-title">參、下載修改後文件</div>
+
+          <button id="downloadBtn" class="btn btn-primary" type="button" disabled>下載 DOCX</button>
+          <div id="downloadStatus" class="status-box hidden"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================   JS   ========================== -->
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+document.addEventListener('DOMContentLoaded', ()=>{
+
+  /* ------- 全域變數 ------- */
+  let uploadedFile = null;
+  let selectedCategoryImage = null;
+  let modifiedBlob = null;
+  let modifiedFilename = '';
+
+  /* ------- DOM ------- */
+  const fileInput = document.getElementById('fileInput');
+  const selectFileBtn = document.getElementById('selectFileBtn');
+  const fileNameEl = document.getElementById('fileName');
+
+  const categoryImageInput = document.getElementById('categoryImageInput');
+  const selectImageBtn = document.getElementById('selectImageBtn');
+  const categoryImagePreview = document.getElementById('categoryImagePreview');
+
+  const insertCategoryImageBtn = document.getElementById('insertCategoryImageBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const downloadStatus = document.getElementById('downloadStatus');
+  const alertBox = document.getElementById('alertBox');
+  const imageUploadArea = document.getElementById('imageUploadArea');
+
+  /* UI STATE */
+  function updateButtonState() {
+    insertCategoryImageBtn.disabled = !(uploadedFile && selectedCategoryImage);
+    downloadBtn.disabled = !(modifiedBlob && modifiedBlob.size>0);
+
+    if(modifiedBlob){
+      downloadStatus.textContent = `已生成修改檔（${(modifiedBlob.size/1024).toFixed(2)} KB）`;
+      downloadStatus.classList.remove('hidden');
+    }else{
+      downloadStatus.classList.add('hidden');
+    }
+  }
+
+  function showAlert(msg,type){
+    alertBox.className = 'alert alert-'+type;
+    alertBox.textContent = msg;
+    alertBox.classList.remove('hidden');
+    setTimeout(()=> alertBox.classList.add('hidden'),5000);
+  }
+
+  /* 上傳 DOCX */
+  selectFileBtn.addEventListener('click', ()=> fileInput.click());
+  fileInput.addEventListener('change', e=>{
+    const file = e.target.files[0];
+    if(!file || !file.name.toLowerCase().endsWith('.docx')){
+      showAlert('僅支援 .docx','error');
+      return;
+    }
+    uploadedFile = file;
+    modifiedBlob = null;
+    fileNameEl.textContent = file.name;
+    fileNameEl.classList.remove('hidden');
+    updateButtonState();
+  });
+
+  /* 圖片上傳 + 拖放 */
+  selectImageBtn.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    categoryImageInput.click();
+  });
+  imageUploadArea.addEventListener('click', ()=> categoryImageInput.click());
+
+  imageUploadArea.addEventListener('dragover', e=>{
+    e.preventDefault();
+    imageUploadArea.classList.add('drag');
+  });
+
+  imageUploadArea.addEventListener('dragleave', ()=>{
+    imageUploadArea.classList.remove('drag');
+  });
+
+  imageUploadArea.addEventListener('drop', e=>{
+    e.preventDefault();
+    imageUploadArea.classList.remove('drag');
+    if(e.dataTransfer.files.length){
+      handleImageFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  categoryImageInput.addEventListener('change', e=>{
+    if(e.target.files.length){
+      handleImageFile(e.target.files[0]);
+    }
+  });
+
+  function handleImageFile(file){
+    if(!file.type.startsWith('image/')){
+      showAlert('僅支援圖片格式','error');
+      selectedCategoryImage = null;
+    }else{
+      selectedCategoryImage = file;
+      const imgUrl = URL.createObjectURL(file);
+      categoryImagePreview.innerHTML = `<img src="${imgUrl}"/>`;
+      categoryImagePreview.classList.remove('hidden');
+      modifiedBlob = null;
+    }
+    updateButtonState();
+  }
+
+  /* 呼叫後端插入圖片 */
+  insertCategoryImageBtn.addEventListener('click', async ()=>{
+
+    if(!uploadedFile || !selectedCategoryImage){
+      showAlert('必須選擇 Word 與 圖片','error');
+      return;
+    }
+
+    insertCategoryImageBtn.disabled = true;
+    insertCategoryImageBtn.textContent = '處理中...';
+
+    try{
+      const formData = new FormData();
+      formData.append('file', uploadedFile);
+      formData.append('image', selectedCategoryImage);
+
+      const response = await fetch('/word3/replaceCategoryImage', {
+        method:'POST',
+        body:formData
+      });
+
+      if(!response.ok) throw new Error(await response.text());
+
+      modifiedBlob = await response.blob();
+      modifiedFilename = uploadedFile.name.replace(/\.docx$/i,'') + '_modified.docx';
+
+      showAlert('插入完成，請下載檔案','success');
+
+    }catch(err){
+      modifiedBlob = null;
+      showAlert('錯誤：' + err.message,'error');
+    }
+
+    insertCategoryImageBtn.textContent = '執行插入';
+    insertCategoryImageBtn.disabled = false;
+    updateButtonState();
+  });
+
+  /* 下載 DOCX */
+  downloadBtn.addEventListener('click', ()=>{
+
+    if(!modifiedBlob){
+      showAlert('沒有可下載檔案','error');
+      return;
+    }
+
+    const url = URL.createObjectURL(modifiedBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = modifiedFilename || 'modified.docx';
+    a.click();
+
+    setTimeout(()=>{
+      URL.revokeObjectURL(url);
+    },1000);
+
+    showAlert('下載完成','success');
+  });
+
+  /* 初始化 */
+  updateButtonState();
+
+});
+</script>
+
+</body>
+</html>

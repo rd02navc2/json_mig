@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MIG資料調和系統</title>
+
+<link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+<script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+
+<style nonce="bkZ0dkFwMjAyNA==">
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 全站字型 */
+body, input, textarea, select, button {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  font-size: 16px;
+  background:#f2f2f0;
+  color:#000;
+}
+
+/* 超連結 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+/* 標題區 */
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* 選單 */
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* hover */
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+/* 選取狀態 */
+.sidebar-menu a.active,
+.sidebar-menu a[aria-current="page"],
+.sidebar-menu .active > a {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+/* ===== 右側主內容 ===== */
+.main-content {
+  margin-left: 230px;     /* 與 sidebar 寬度一致 */
+  padding: 24px;
+}
+
+/* 內容寬度限制 */
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* 頂部公文標題 */
+.gov-header{
+  text-align:center;
+  font-size:20px;
+  padding:14px;
+  font-weight:bold;
+  color:#fff;
+  background:#1F2E5E;
+  border:1px solid #162345;
+  border-radius:3px;
+  letter-spacing:3px;
+}
+
+/* 卡片（公文欄位外框規格） */
+.card{
+  background:#ffffff;
+  border-radius:3px;
+  padding:20px;
+  margin-top:18px;
+  border:1px solid #9c9c9c;
+}
+
+h1{
+  font-size:18px;
+  margin:0 0 8px;
+  font-weight:bold;
+  text-align:center;
+  letter-spacing:2px;
+  color:#2a2a2a;
+}
+
+.note{
+  font-size:14px;
+  text-align:center;
+  margin-top:6px;
+  color:#333;
+}
+
+/* 檔案上傳區 */
+.upload{
+  border:1px solid #6e6e6e;
+  padding:26px 16px;
+  text-align:center;
+  border-radius:2px;
+  cursor:pointer;
+  background:#fafafa;
+  transition:0.2s;
+  font-size:15px;
+}
+.upload:hover{background:#f0f0f0}
+.upload.drag{background:#e0e0e0}
+input[type=file]{display:none}
+
+/* 預覽區 */
+.preview{
+  white-space:pre-wrap;
+  font-family:"Courier New",monospace;
+  background:#fff;
+  padding:18px;
+  border-radius:2px;
+  height:380px;
+  overflow:auto;
+  border:1px solid #4f4f4f;
+  font-size:14px;
+  color:#000;
+  line-height:1.6;
+}
+
+/* 按鈕 */
+.btn{
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  padding:10px 24px;
+  border-radius:2px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:15px;
+  transition:0.15s;
+  letter-spacing:1px;
+  border:1px solid #162345;
+  background:#1F2E5E;
+  color:#fff;
+}
+.btn:hover{
+  background:#162345;
+}
+.btn:disabled{
+  opacity:0.55;
+  cursor:not-allowed;
+}
+
+/* 提示訊息 */
+.alert{
+  padding:10px 14px;
+  border-radius:2px;
+  margin-top:14px;
+  font-size:14px;
+  border:1px solid;
+}
+.alert-success{background:#eef7ee;color:#0d3a18;border-color:#9ccc9c}
+.alert-error{background:#f8ecec;color:#5d1a1a;border-color:#d5a0a0}
+
+.hidden{display:none}
+
+/* 檔案名稱顯示 */
+#fileName{
+  margin-top:8px;
+  color:#123;
+  font-size:14px;
+}
+
+/* 標籤樣式 */
+label{
+  font-weight:700;
+  font-size:15px;
+  color:#1F2E5E;
+}
+
+/* RWD：窄螢幕時 sidebar 放上方 */
+@media (max-width: 768px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 12px;
+  }
+}
+</style>
+</head>
+<body>
+
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<!-- 右側主內容 -->
+<div class="main">
+  <div class="wrap">
+    <div class="card">
+      <h1>MIG資料調和系統-CH5</h1>
+    </div>
+
+    <div id="alertBox" class="hidden"></div>
+
+    <!-- 上傳區 -->
+    <div class="card">
+      <div class="upload" id="uploadArea">
+        <div style="font-size:16px;font-weight:600">上傳或拖放 .docx</div>
+        <div id="fileName"></div>
+        <input id="fileInput" type="file" accept=".docx"/>
+      </div>
+    </div>
+
+    <!-- 文件預覽 -->
+    <div class="card">
+      <label>文件預覽</label>
+      <div id="previewContent" class="preview">尚未上傳文件</div>
+    </div>
+
+    <!-- 下載區 -->
+    <div class="card" style="text-align:right">
+      <button id="downloadBtn" class="btn" disabled>
+        下載修改後 DOCX
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+document.addEventListener('DOMContentLoaded', ()=>{
+
+  const uploadArea = document.getElementById('uploadArea');
+  const fileInput = document.getElementById('fileInput');
+  const fileNameEl = document.getElementById('fileName');
+  const previewContent = document.getElementById('previewContent');
+  const alertBox = document.getElementById('alertBox');
+  const downloadBtn = document.getElementById('downloadBtn');
+  let uploadedFile = null;
+
+  function showAlert(msg,type){
+    alertBox.className='alert alert-'+type;
+    alertBox.textContent=msg;
+    alertBox.classList.remove('hidden');
+    setTimeout(()=>alertBox.classList.add('hidden'),4500);
+  }
+
+  uploadArea.addEventListener('click', ()=>fileInput.click());
+  uploadArea.addEventListener('dragover', e => { 
+    e.preventDefault(); 
+    uploadArea.classList.add('drag'); 
+  });
+  uploadArea.addEventListener('dragleave', ()=> uploadArea.classList.remove('drag'));
+  uploadArea.addEventListener('drop', e => { 
+    e.preventDefault(); 
+    uploadArea.classList.remove('drag');
+    if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', e => {
+    if(e.target.files.length) handleFile(e.target.files[0]);
+  });
+
+  async function handleFile(file){
+    if(!file.name.toLowerCase().endsWith('.docx')){
+      showAlert('僅支援 .docx 檔案','error');
+      return;
+    }
+
+    uploadedFile = file;
+    fileNameEl.textContent = '已選擇：' + file.name;
+
+    try{
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/word5/parseLite', { method: 'POST', body: formData });
+      const result = await response.json();
+
+      if(result.success){
+        previewContent.textContent = result.fullText || '(文件內容為空)';
+        downloadBtn.disabled = false;
+        showAlert('解析成功！','success');
+      } else {
+        showAlert('解析失敗：' + result.error,'error');
+      }
+
+    }catch(err){
+      showAlert('上傳錯誤：' + err.message,'error');
+    }
+  }
+
+  // 下載
+  downloadBtn.addEventListener('click', async ()=>{
+    if(!uploadedFile){
+      showAlert('請先上傳檔案','error');
+      return;
+    }
+
+    try{
+      downloadBtn.disabled = true;
+      downloadBtn.textContent = '處理中...';
+
+      const formData = new FormData();
+      formData.append('file', uploadedFile);
+
+      const response = await fetch('/word5/exportLite', { method: 'POST', body: formData });
+      if(!response.ok) throw new Error('下載失敗');
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = uploadedFile.name.replace(/\.docx$/i,'') + '_modified.docx';
+      a.click();
+      URL.revokeObjectURL(url);
+      showAlert('已下載修改後的 DOCX','success');
+
+    }catch(err){
+      showAlert('下載失敗：'+err.message,'error');
+    }finally{
+      downloadBtn.disabled = false;
+      downloadBtn.textContent = '下載修改後 DOCX';
+    }
+  });
+
+});
+</script>
+
+</body>
+</html>

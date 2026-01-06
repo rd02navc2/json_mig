@@ -1,0 +1,175 @@
+{
+  "name": "MyMapping",
+  "cls": "Response",
+  "messages": [
+    "N5101",
+    "N5102",
+    "N5103",
+    "N5107",
+    "N5108",
+    "N5109",
+    "N5110",
+    "N5111",
+    "N5116",
+    "N5117",
+    "N5135",
+    "N5151",
+    "N5158",
+    "N5162",
+    "N5165",
+    "N5166",
+    "N5167",
+    "N5168",
+    "N5170",
+    "N5201",
+    "N5202",
+    "N5203",
+    "N5204",
+    "N5205",
+    "N5251",
+    "N5252",
+    "N5262",
+    "N5301",
+    "N5302",
+    "N5401",
+    "N5402",
+    "N5403",
+    "N5404",
+    "NX201_01",
+    "NX201_07",
+    "NX202",
+    "NX301",
+    "NX301_DN",
+    "NX302",
+    "NX302_DN",
+    "NX401",
+    "NX402",
+    "NX5105",
+    "NX5106",
+    "NX601",
+    "NX602",
+    "NX603",
+    "NX801",
+    "NX802",
+    "NX901",
+    "NX902",
+    "NX903"
+  ],
+  "fields": {
+    "FunctionalReferenceID": {
+      "name": "FunctionalReferenceID",
+      "type": "string",
+      "dsRef": {
+        "den": "Response. Functional Reference. Identifier",
+        "uid": "D026",
+        "cls": "Response"
+      },
+      "mappings": [
+        "N5109,car=1,boro=,chn=查驗貨物通知編號",
+        "NX903,car=1,boro=,chn=訊息編號"
+      ]
+    },
+    "FunctionCode": {
+      "name": "FunctionCode",
+      "type": "string",
+      "dsRef": {
+        "den": "Response. Function. Code",
+        "uid": "017",
+        "cls": "Response"
+      },
+      "mappings": [
+        "N5116,car=1,boro=,chn=訊息功能代碼",
+        "N5166,car=1,boro=,chn=訊息功能代碼",
+        "N5204,car=1,boro=,chn=訊息功能代碼",
+        "NX302,car=1,boro=,chn=訊息功能代碼",
+        "NX302_DN,car=1,boro=,chn=訊息功能代碼",
+        "NX402,car=1,boro=,chn=訊息功能代碼",
+        "NX602,car=1,boro=,chn=訊息功能代碼",
+        "NX802,car=1,boro=,chn=訊息功能代碼"
+      ]
+    },
+    "tw_OriginalSenderCode": {
+      "name": "tw_OriginalSenderCode",
+      "type": "string"
+    },
+    "IssueDateTime": {
+      "name": "IssueDateTime",
+      "type": "string",
+      "dsRef": {
+        "den": "Response. Issue. Date Time",
+        "uid": "D029",
+        "cls": "Response"
+      },
+      "mappings": [
+        "N5107,car=1,boro=,chn=通知日期與時間",
+        "N5111,car=1,boro=,chn=核發日期",
+        "N5402,car=1,boro=,chn=核准日期與時間",
+        "N5403,car=1,boro=,chn=通知日期與時間",
+        "NX202,car=0..1,boro=,chn=文件核發日期",
+        "NX302,car=1,boro=,chn=通知日期與時間",
+        "NX302_DN,car=1,boro=,chn=通知日期與時間",
+        "NX402,car=1,boro=,chn=通知日期與時間",
+        "NX602,car=1,boro=,chn=通知日期與時間",
+        "NX901,car=0..1,boro=,chn=通知日期與時間",
+        "NX902,car=0..1,boro=,chn=通知日期與時間",
+        "NX903,car=1,boro=,chn=通知日期與時間"
+      ]
+    },
+    "tw_GoodsStatusCode": {
+      "name": "tw_GoodsStatusCode",
+      "type": "string",
+      "dsRef": {
+        "den": "Response. Goods Status. Code",
+        "uid": "TW539",
+        "cls": "Response"
+      }
+    }
+  },
+  "children": {
+    "AdditionalDocument": {
+      "name": "AdditionalDocument_Moved",
+      "cls": "Additional Document",
+      "fields": {
+        "AmountAmount": {
+          "name": "AmountAmount",
+          "type": "string",
+          "dsRef": {
+            "den": "Additional Document. Amount. Amount",
+            "uid": "263",
+            "cls": "Additional Document"
+          }
+        },
+        "AuthenticationLocationName": {
+          "name": "AuthenticationLocationName",
+          "type": "string",
+          "dsRef": {
+            "den": "Additional Document. Authentication Location Name. Text",
+            "uid": "D017",
+            "cls": "Additional Document"
+          }
+        },
+        "ID": {
+          "name": "ID",
+          "type": "string",
+          "dsRef": {
+            "den": "Additional Document. Identification. Identifier",
+            "uid": "D005",
+            "cls": "Additional Document"
+          },
+          "mappings": ["NX202,car=0..1,boro=,chn=輸出入許可文件號碼"]
+        },
+        "LPCOExpirationDateTime": {
+          "name": "LPCOExpirationDateTime",
+          "type": "string",
+          "dsRef": {
+            "den": "Additional Document. LPCO Expiration. Date Time",
+            "uid": "275",
+            "cls": "Additional Document"
+          },
+          "mappings": ["NX202,car=0..1,boro=,chn=文件有效日期"]
+        }
+      },
+      "children": {}
+    }
+  }
+}

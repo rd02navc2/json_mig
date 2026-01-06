@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ds="urn:wco:datamodel:WCO:DataStructure:2" xmlns:twds="urn:custom:twds" elementFormDefault="qualified">
+  <xsd:element maxOccurs="1" minOccurs="1" name="Response">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="1" minOccurs="1" name="IssueDateTime">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID>WCOIDD029</ccts:UniqueID>
+              <ccts:DictionaryEntryName>Response. Issue. Date Time</ccts:DictionaryEntryName>
+              <ccts:Definition>Date at which a response was issued and when appropriate, signed or otherwise authenticated.</ccts:Definition>
+              <ccts:Cardinality>1</ccts:Cardinality>
+              <ccts:ObjectClassTerm>Response</ccts:ObjectClassTerm>
+              <ccts:PropertyTerm>Issue</ccts:PropertyTerm>
+              <ccts:RepresentationTerm>Date Time</ccts:RepresentationTerm>
+              <tsw:ChineseName>通知日期與時間</tsw:ChineseName>
+              <tsw:Remark/>
+              <tsw:Format>an14</tsw:Format>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element maxOccurs="1" minOccurs="1" name="AdditionalInformation">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element maxOccurs="1" minOccurs="1" name="LimitDateTime">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <ccts:UniqueID>WCOID264</ccts:UniqueID>
+                    <ccts:DictionaryEntryName>Additional Information. Limit. Date Time</ccts:DictionaryEntryName>
+                    <ccts:Definition>Date and time by when the event has to be completed.</ccts:Definition>
+                    <ccts:Cardinality>1</ccts:Cardinality>
+                    <ccts:ObjectClassTerm>Additional Information</ccts:ObjectClassTerm>
+                    <ccts:PropertyTerm>Limit</ccts:PropertyTerm>
+                    <ccts:RepresentationTerm>Date Time</ccts:RepresentationTerm>
+                    <tsw:ChineseName>補辦期限</tsw:ChineseName>
+                    <tsw:Remark/>
+                    <tsw:Format>an8</tsw:Format>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID>03A</ccts:UniqueID>
+              <ccts:Definition>Special request to government from Declarant to take or not to take action.</ccts:Definition>
+              <ccts:Cardinality>1</ccts:Cardinality>
+              <ccts:ObjectClassTerm>Additional Information</ccts:ObjectClassTerm>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element maxOccurs="1" minOccurs="1" name="ContactOffice">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element maxOccurs="1" minOccurs="1" name="ID">
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="ds:ContactOfficeIdentificationIDType">
+                      <xsd:minLength value="0"/>
+                      <xsd:maxLength value="17"/>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <ccts:UniqueID>WCOIDG002</ccts:UniqueID>
+                    <ccts:DictionaryEntryName>Contact Office. Identification. Identifier</ccts:DictionaryEntryName>
+                    <ccts:Definition>Code specifying the location of a government office where contact can be made.</ccts:Definition>
+                    <ccts:Cardinality>1</ccts:Cardinality>
+                    <ccts:ObjectClassTerm>Contact Office</ccts:ObjectClassTerm>
+                    <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                    <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                    <tsw:ChineseName>受理單位</tsw:ChineseName>
+                    <tsw:Remark/>
+                    <tsw:Format>an..17</tsw:Format>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID>35A</ccts:UniqueID>
+              <ccts:Definition>Identifies the location of a government agency contact office.</ccts:Definition>
+              <ccts:Cardinality>1</ccts:Cardinality>
+              <ccts:ObjectClassTerm>Contact Office</ccts:ObjectClassTerm>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element maxOccurs="1" minOccurs="1" name="Status">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element maxOccurs="1" minOccurs="1" name="NameCode">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <ccts:UniqueID>WCOID379</ccts:UniqueID>
+                    <ccts:DictionaryEntryName>Status. Name. Code</ccts:DictionaryEntryName>
+                    <ccts:Definition>Code specifying the processing status of a document.</ccts:Definition>
+                    <ccts:Cardinality>1</ccts:Cardinality>
+                    <ccts:ObjectClassTerm>Status</ccts:ObjectClassTerm>
+                    <ccts:PropertyTerm>Name</ccts:PropertyTerm>
+                    <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                    <tsw:ChineseName>通關方式</tsw:ChineseName>
+                    <tsw:Remark/>
+                    <tsw:Format>an..3</tsw:Format>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID>12B</ccts:UniqueID>
+              <ccts:Definition>Details to identify the status.</ccts:Definition>
+              <ccts:Cardinality>1</ccts:Cardinality>
+              <ccts:ObjectClassTerm>Status</ccts:ObjectClassTerm>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element maxOccurs="1" minOccurs="1" name="Declaration">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element maxOccurs="1" minOccurs="1" name="ID">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <ccts:UniqueID>WCOIDD014</ccts:UniqueID>
+                    <ccts:DictionaryEntryName>Declaration. Identification. Identifier</ccts:DictionaryEntryName>
+                    <ccts:Definition>Reference number identifying a specific document.</ccts:Definition>
+                    <ccts:Cardinality>1</ccts:Cardinality>
+                    <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+                    <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                    <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                    <tsw:ChineseName>報單號碼</tsw:ChineseName>
+                    <tsw:Remark/>
+                    <tsw:Format>an14</tsw:Format>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element maxOccurs="1" minOccurs="0" name="TotalPackageQuantity">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <ccts:UniqueID>WCOID146</ccts:UniqueID>
+                    <ccts:DictionaryEntryName>Declaration. Total Package. Quantity</ccts:DictionaryEntryName>
+                    <ccts:Definition>Count of total number of packages of the entire declaration/ consignment.</ccts:Definition>
+                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                    <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+                    <ccts:PropertyTerm>Total Package</ccts:PropertyTerm>
+                    <ccts:RepresentationTerm>Quantity</ccts:RepresentationTerm>
+                    <tsw:ChineseName>總件數</tsw:ChineseName>
+                    <tsw:Remark/>
+                    <tsw:Format>n..8</tsw:Format>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element maxOccurs="1" minOccurs="0" name="TypeCode">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <ccts:UniqueID>WCOIDD013</ccts:UniqueID>
+                    <ccts:DictionaryEntryName>Declaration. Type. Code</ccts:DictionaryEntryName>
+                    <ccts:Definition>Code specifying the name of a document.</ccts:Definition>
+                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                    <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+                    <ccts:PropertyTerm>Type</ccts:PropertyTerm>
+                    <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                    <tsw:ChineseName>報單類別</tsw:ChineseName>
+                    <tsw:Remark/>
+                    <tsw:Format>an2</tsw:Format>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element maxOccurs="1" minOccurs="0" name="Agent">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="ID">
+                      <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                          <ccts:UniqueID>WCOIDR004</ccts:UniqueID>
+                          <ccts:DictionaryEntryName>Agent. Identification. Identifier</ccts:DictionaryEntryName>
+                          <ccts:Definition>Identification of a party authorised to act on behalf of another party.</ccts:Definition>
+                          <ccts:Cardinality>1</ccts:Cardinality>
+                          <ccts:ObjectClassTerm>Agent</ccts:ObjectClassTerm>
+                          <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                          <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                          <tsw:ChineseName>報關業者箱號</tsw:ChineseName>
+                          <tsw:Remark/>
+                          <tsw:Format>an3</tsw:Format>
+                        </xsd:documentation>
+                      </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="RoleCode">
+                      <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                          <ccts:UniqueID>WCOIDR005</ccts:UniqueID>
+                          <ccts:DictionaryEntryName>Agent. Role. Code</ccts:DictionaryEntryName>
+                          <ccts:Definition>Code giving specific meaning to a party.</ccts:Definition>
+                          <ccts:Cardinality>1</ccts:Cardinality>
+                          <ccts:ObjectClassTerm>Agent</ccts:ObjectClassTerm>
+                          <ccts:PropertyTerm>Role</ccts:PropertyTerm>
+                          <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                          <tsw:ChineseName>*代理人號碼類別代碼</tsw:ChineseName>
+                          <tsw:Remark/>
+                          <tsw:Format>an2</tsw:Format>
+                        </xsd:documentation>
+                      </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="tw_SubBoxID">
+                      <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                          <ccts:UniqueID>TW100</ccts:UniqueID>
+                          <ccts:DictionaryEntryName>Agent. Sub Box. Identifier</ccts:DictionaryEntryName>
+                          <ccts:Definition>Sub-box code issued by Customs to a Customs broker.</ccts:Definition>
+                          <ccts:Cardinality>1</ccts:Cardinality>
+                          <ccts:ObjectClassTerm>Agent</ccts:ObjectClassTerm>
+                          <ccts:PropertyTerm>Sub Box</ccts:PropertyTerm>
+                          <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                          <tsw:ChineseName>報關業者箱號附碼</tsw:ChineseName>
+                          <tsw:Remark/>
+                          <tsw:Format>an1</tsw:Format>
+                        </xsd:documentation>
+                      </xsd:annotation>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <ccts:UniqueID>05A</ccts:UniqueID>
+                    <ccts:Definition>Person authorized to act on behalf of another party.</ccts:Definition>
+                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                    <ccts:ObjectClassTerm>Agent</ccts:ObjectClassTerm>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID>42A</ccts:UniqueID>
+              <ccts:Definition>Any statement or action, in any form prescribed or accepted by the Governmental Agency, giving information or particulars required by the Governmental Agency.</ccts:Definition>
+              <ccts:Cardinality>1</ccts:Cardinality>
+              <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID>07B</ccts:UniqueID>
+        <ccts:Definition>Details of the response message.</ccts:Definition>
+        <ccts:Cardinality>1</ccts:Cardinality>
+        <ccts:ObjectClassTerm>Response</ccts:ObjectClassTerm>
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

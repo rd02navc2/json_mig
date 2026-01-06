@@ -1,0 +1,4169 @@
+@startuml
+' Generated automatically from C:/MIG_5262/Jeff/harmo_prod/Schema/maindoc/N5107.xsd
+skinparam classAttributeIconSize 0
+
+class anyType {
+}
+
+class DeclarationDeclarationOfficeIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TradeTermsDescriptionTextType {
+  + @languageID : language
+}
+
+class AuthenticatorNameTextType {
+  + @languageID : language
+}
+
+class DeconsolidatorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DraymanOrLightermanNameTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansGrossWeightMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class BorderTransportMeansBallastOrCargoTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class TransitTransportMeansTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AdditionalInformationRequestOverrideCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class PaymentReferenceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class InvoiceTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AddressPostcodeIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TradeTermsLocationNameTextType {
+  + @languageID : language
+}
+
+class HandlingInstructionsTextType {
+  + @languageID : language
+}
+
+class TransportEquipmentFullnessCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ConsolidatorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class InsuranceCompanyNameTextType {
+  + @languageID : language
+}
+
+class AdditionalInformationReconciliationReasonCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AdditionalDocumentTypeTextType {
+  + @languageID : language
+}
+
+class MasterNationalityCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class TranshipmentLocationNameTextType {
+  + @languageID : language
+}
+
+class DistributorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommercialDriversLicenseCountrySubdivisionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class TransitPrincipalIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ContainerTerminalOperatorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommodityCommercialDescriptionTextType {
+  + @languageID : language
+}
+
+class PropertyOperatorNameTextType {
+  + @languageID : language
+}
+
+class ItineraryNameTextType {
+  + @languageID : language
+}
+
+class AdditionalDocumentIssuingPartyIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommercialDriversLicenseCountryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class TransitOfficeIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansSecurityLevelCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class PackagingPackagingMaterialDescriptionTextType {
+  + @languageID : language
+}
+
+class CustomsValuationPaymentTermsCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GoodsConsignedPlaceIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TradeTermsLocationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class RegisteredFacilityNameTextType {
+  + @languageID : language
+}
+
+class CommodityRelatedPackagingDangerousGoodsPackingRequirementGroupCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class StorageGeographicRegionTextType {
+  + @languageID : language
+}
+
+class FeedlotNameTextType {
+  + @languageID : language
+}
+
+class AddressCountrySubDivisionIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CargoFacilityLocationNameTextType {
+  + @languageID : language
+}
+
+class NotifyPartyNameTextType {
+  + @languageID : language
+}
+
+class ConsignmentValueAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class ImporterNameTextType {
+  + @languageID : language
+}
+
+class CommodityCargoDescriptionTextType {
+  + @languageID : language
+}
+
+class CommodityClassificationNameCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GoodsMeasureTariffQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class AdditionalDocumentIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CustomsValuationExitToEntryChargeAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class ConsigneeNameTextType {
+  + @languageID : language
+}
+
+class AdditionalDocumentTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class FreightPaymentMethodCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AuthorisedPersonNameTextType {
+  + @languageID : language
+}
+
+class OrganicCertifyingOrganizationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class OriginRegionIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class SuretyIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommodityRelatedPackagingPackingMethodDescriptionTextType {
+  + @languageID : language
+}
+
+class ConsignmentTotalPackageQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class PaymentTaxAssessedAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class CertificateOfResponsibilityHolderIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansTransportEquipmentQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class CertifierNameTextType {
+  + @languageID : language
+}
+
+class RepresentativePersonContactFunctionTextType {
+  + @languageID : language
+}
+
+class SuretyNameTextType {
+  + @languageID : language
+}
+
+class EntryOfficeIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class AssemblerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ControlReviewPlaceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ProducerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransitPrincipalNameTextType {
+  + @languageID : language
+}
+
+class DepartureTransportMeansNameTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansBunkerFuelValueAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class CommodityRelatedPackagingMarkingTextType {
+  + @languageID : language
+}
+
+class EquipmentOwnerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CarrierNameTextType {
+  + @languageID : language
+}
+
+class AssemberNameTextType {
+  + @languageID : language
+}
+
+class ConsignmentCarrierAssignedIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansBunkerFuelQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class LPCOAuthorizedPartyNameTextType {
+  + @languageID : language
+}
+
+class CommercialDriversLicenseEndorsementCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ConstituentElementCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class DepartureTransportMeansRegistrationNationalityIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DeclarationGoodsItemQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class TradeTermsConditionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ContactOfficeIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransportEquipmentLicensePlateIssuingCountryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class WarehouseIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ExhibitorNameTextType {
+  + @languageID : language
+}
+
+class IntermediateCarrierNameTextType {
+  + @languageID : language
+}
+
+class DutyTaxFeeAdValoremTaxBaseAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class BorderTransportMeansConveyancePortLocationTextType {
+  + @languageID : language
+}
+
+class LandingLocationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class FacilityPlaceTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityRelatedPackagingInnermostUnitQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class ConsignmentGrossVolumeMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class DeclarationAuthenticationTextType {
+  + @languageID : language
+}
+
+class AdditionalDocumentIssueLocationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BankAccountIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommodityProcessTypeIdentificationCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class StuffingEstablishmentIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class StuffingEstablishmentNameTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansMaximumDraftMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class DeclarationTotalPackageQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class ManufacturerNameTextType {
+  + @languageID : language
+}
+
+class CurrencyExchangeCurrencyTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class VeterinarianIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class UCRIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransportContractDocumentIssuingPartyIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransitDestinationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CustomsValuationChargesTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GovernmentProcedureCurrentCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class FreightRateTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ConsignorNameTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansCrewQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class CustomsValuationFreightChargeApportionmentCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GoodsMeasureNetWeightMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class ManufacturerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommoditySizeMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class ConstituentElementYieldAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class CommoditySensitiveGoodsCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class MasterNameTextType {
+  + @languageID : language
+}
+
+class ConsignorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansConstructionPlaceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ShipSecurityOfficerNameTextType {
+  + @languageID : language
+}
+
+class ConstituentElementQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class InsuranceCompanyIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class UltimateConsigneeNameTextType {
+  + @languageID : language
+}
+
+class TransportContractDocumentIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DistillerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransitDestinationNameTextType {
+  + @languageID : language
+}
+
+class PackagingMarksNumbersTextType {
+  + @languageID : language
+}
+
+class ClassificationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommodityIntendedUseTextType {
+  + @languageID : language
+}
+
+class CrewMemberEndorsementTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class DeliveryDestinationNameTextType {
+  + @languageID : language
+}
+
+class CommodityCategoryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GovernmentAgencyGoodsItemStatisticalValueAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class BorderTransportMeansNetWeightMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class DeclarationSubsequentDeclarationOfficeIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TemperatureCategoryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GovernmentAgencyIdentificationCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ClassificationIdentificationTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class DeclarationFunctionalReferenceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TradeTermsCountryRelationshipCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GovernmentProcedureDescriptionTextType {
+  + @languageID : language
+}
+
+class AuthenticatorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class InvoiceLineItemChargeAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class PointerDocumentSectionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class SourcePoliticalRegionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ItineraryFunctionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ErrorValidationCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AdditionalInformationContentTextType {
+  + @languageID : language
+}
+
+class CommodityIntendedUseCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class VerifierNameTextType {
+  + @languageID : language
+}
+
+class PropertyOperatorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class PaymentOfficeIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class PortFacilitySecurityOfficerNameTextType {
+  + @languageID : language
+}
+
+class ExporterIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransportEquipmentRegistrationCountrySubdivisionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class PreviousDocumentIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ExporterNameTextType {
+  + @languageID : language
+}
+
+class InvoiceIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DeclarationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class OriginCountryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityRelatedPackagingFillerDescriptionTextType {
+  + @languageID : language
+}
+
+class TemperatureStorageRequirementMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class TransportEquipmentSealIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class AdditionalInformationStatementDescriptionTextType {
+  + @languageID : language
+}
+
+class LoadingLocationNameTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansFirstArrivalLocationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class FeedlotIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class PropertyOwnerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ConsignmentItemAssociatedGovernmentProcedureCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class StevedoreIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class GrowerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansShipToShipActivityLocationTextType {
+  + @languageID : language
+}
+
+class AdditionalDocumentIssuingPartyNameTextType {
+  + @languageID : language
+}
+
+class ObligationGuaranteeReferenceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class AdditionalInformationStatementTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AddressCountryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CustomsValuationMethodCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class VehicleOwnerNameTextType {
+  + @languageID : language
+}
+
+class ConsortiumCarrierIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansLengthMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class BorderTransportMeansPassengerQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class ObligationGuaranteeSecurityDetailsCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AssociatedTransportDocumentIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class UnloadingPartyNameTextType {
+  + @languageID : language
+}
+
+class GovernmentProcedurePreviousCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class FinalTransportMeansLoadingPlaceIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class PreviousDocumentTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AgentRoleCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class UltimateConsigneeIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class GovernmentServiceRequestorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ItineraryIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ResponsibleGovernmentAgencyIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class AdditionalDocumentAuthenticationLocationNameTextType {
+  + @languageID : language
+}
+
+class FacilityPlaceNameTextType {
+  + @languageID : language
+}
+
+class ExaminationPlaceNameTextType {
+  + @languageID : language
+}
+
+class DepartureTransportMeansTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GoodsConsignedPlaceNameTextType {
+  + @languageID : language
+}
+
+class CarrierIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CrewMemberIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ConstituentElementDescriptionTextType {
+  + @languageID : language
+}
+
+class TransportEquipmentCharacteristicCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityValueAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class ArrivalTransportMeansIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DeclarationInvoiceAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class AuthorisedPersonIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ContainerOperatorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class RepairPartyIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransitTransportMeansJourneyIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class GoodsLocationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommodityDescriptionTextType {
+  + @languageID : language
+}
+
+class DeclarationTotalGrossMassMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class AddressCityTextType {
+  + @languageID : language
+}
+
+class RecognizedSecurityOrganizationNameTextType {
+  + @languageID : language
+}
+
+class NotifyPartyIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CustomsValuationFreightChargeAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class GovernmentServiceRequestorNameTextType {
+  + @languageID : language
+}
+
+class TransitTransportMeansIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ISPSResponsiblePartyNameTextType {
+  + @languageID : language
+}
+
+class PaymentMethodCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityIDTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityCommercialCategorizationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DeclarationSealsAffixedQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class GoodsShipmentFreeTradeZoneStatusCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class RegisteredFacilityIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansShipToShipActivityTextType {
+  + @languageID : language
+}
+
+class VerifierIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class VehicleOwnerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class PointerTagIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DepartureConveyanceFacilityIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class GoodsMeasureTariffQuantityAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class SubmitterNameTextType {
+  + @languageID : language
+}
+
+class TransportMeansIntermediateTransportMeansModeAndTypeIdentificationCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AmendmentChangeReasonCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class TransportMeansOwnerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommodityCriteriaConformanceCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommunicationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class WarehouseNameTextType {
+  + @languageID : language
+}
+
+class FreeTradeZoneNameTextType {
+  + @languageID : language
+}
+
+class ConstituentElementNameTextType {
+  + @languageID : language
+}
+
+class PackagingVolumeMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class AgentFunctionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ExitOfficeIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ExhibitorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DeclarationVersionIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ItineraryRoutingRegionIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CrewMemberArrivalInCountryLocationNameTextType {
+  + @languageID : language
+}
+
+class GoodsShipmentExportationRegionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class LoadingLocationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class UNDGContactNameTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansStayIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransportMeansOwnerNationalityCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityCharacteristicTextType {
+  + @languageID : language
+}
+
+class CommodityCriteriaConformanceTextType {
+  + @languageID : language
+}
+
+class GoodsMeasureGrossMassMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class TransitTransportMeansRegistrationNationalityIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansCallPurposeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityCharacteristicCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ConsigneeIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansNameTextType {
+  + @languageID : language
+}
+
+class CertifierIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommunicationTypeIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ContactNameTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansJourneyIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class SourceGeographicRegionTextType {
+  + @languageID : language
+}
+
+class ConsignmentBoardedQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class TerminalIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class IntermediateCarrierIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DeclarationLoadingListQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class TransportEquipmentNameTextType {
+  + @languageID : language
+}
+
+class GoodsReceiptPlaceNameTextType {
+  + @languageID : language
+}
+
+class DeconsolidatorNameTextType {
+  + @languageID : language
+}
+
+class SellerNameTextType {
+  + @languageID : language
+}
+
+class AddressLineTextType {
+  + @languageID : language
+}
+
+class AdditionalDocumentLPCOExemptionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GrowerNameTextType {
+  + @languageID : language
+}
+
+class ResponseFunctionalReferenceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TemperatureFlashpointMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class DistillerNameTextType {
+  + @languageID : language
+}
+
+class CommodityProcessTypeDescriptionTextType {
+  + @languageID : language
+}
+
+class TransportEquipmentIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ExaminationPlaceIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class UnloadingPartyIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class BorderTransportMeansScheduledConveyanceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class FacilityPlaceIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class AcceptancePlaceNameTextType {
+  + @languageID : language
+}
+
+class TransitControlDurationInDaysQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class OrganicCertifyingOrganizationNameTextType {
+  + @languageID : language
+}
+
+class StorageCountryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityPhysicalStateCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class TravelDocumentIssueLocationTextType {
+  + @languageID : language
+}
+
+class DeclarationTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityIdentityQualifierCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AssociatedTransportDocumentTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class FreightRateAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class TransportEquipmentSupplierPartyTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class BorderTransportMeansRegistrationNationalityCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class BuyerNameTextType {
+  + @languageID : language
+}
+
+class CommodityGoodsGroupNameTextType {
+  + @languageID : language
+}
+
+class DutyTaxFeeSpecificTaxBaseQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class ConsignmentItemGoodsStatusCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AgentIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DutyTaxFeeDutyRegimeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ValuationAdjustmentAmountAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class ConsignmentGoodsStatusCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ProducerNameTextType {
+  + @languageID : language
+}
+
+class SellerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransportContractDocumentIssueLocationTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansBunkerFuelTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class DeliveryDestinationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class StoragePoliticalRegionIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DeclarationFunctionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AgentNameTextType {
+  + @languageID : language
+}
+
+class EquipmentOwnerNameTextType {
+  + @languageID : language
+}
+
+class LoadingProofPartyNameTextType {
+  + @languageID : language
+}
+
+class LPCOAuthorizedPartyIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ArrivalTransportMeansRegistrationNationalityIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransportContractDocumentTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GoodsShipmentExportationCountryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ConsolidatorNameTextType {
+  + @languageID : language
+}
+
+class CommodityCountQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class BankAccountReferenceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ApprovedEstablishmentPlaceIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class GovernmentOfficerNameTextType {
+  + @languageID : language
+}
+
+class PackagingQuantityQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class HandlingInstructionsCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class DeclarationStatusCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class DutyTaxFeeDeductionQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class AdditionalDocumentAmountAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class VeterinarianNameTextType {
+  + @languageID : language
+}
+
+class SupplierNameTextType {
+  + @languageID : language
+}
+
+class TransportEquipmentAttachedCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class UCRTraderAssignedReferenceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ConsignmentItemRelatedPackagingDangerousGoodsPackingRequirementGroupCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class UnloadingLocationNameTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class AdditionalDocumentIssueLocationTextType {
+  + @languageID : language
+}
+
+class RepresentativePersonNameTextType {
+  + @languageID : language
+}
+
+class TransitControlResultCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GovernmentOfficerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommodityNameTextType {
+  + @languageID : language
+}
+
+class PropertyOwnerNameTextType {
+  + @languageID : language
+}
+
+class SubmitterIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CustomsValuationPartyRelationshipCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class PermittedPortIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class MasterIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DistributorNameTextType {
+  + @languageID : language
+}
+
+class ConsortiumCarrierNameTextType {
+  + @languageID : language
+}
+
+class ImporterIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ArrivalTransportMeansNameTextType {
+  + @languageID : language
+}
+
+class CommodityCategoryQualifierCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class TranshipmentLocationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TerminalNameTextType {
+  + @languageID : language
+}
+
+class DeclarationIssueLocationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class FreeTradeZoneIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class FreightRateQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class ArrivalTransportMeansTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ItineraryRoutingCountryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GoodsLocationNameTextType {
+  + @languageID : language
+}
+
+class GoodsShipmentTransactionNatureCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityRelatedPackagingHierarchicCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ArrivalConveyanceFacilityIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class IntermediateConsigneeIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class PackagingTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ResponseFunctionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class DutyTaxFeeTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class StowPositionIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class SourceTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AdditionalDocumentNameTextType {
+  + @languageID : language
+}
+
+class TransportEquipmentEventStatusCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class BorderTransportMeansSummerDeadWeightTonnageMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class AdditionalInformationStatementCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class TransportContractDocumentConditionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class BorderTransportMeansTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class ApprovedEstablishmentPlaceNameTextType {
+  + @languageID : language
+}
+
+class SourceCountryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class CommodityLotNumberIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class DutyTaxFeeDeductAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class BuyerIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CustomsValuationOtherChargeDeductionAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class CommodityGoodsGroupNameCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class PaymentPaymentAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class DraymanOrLightermanIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class UnloadingLocationIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class RepairPartyNameTextType {
+  + @languageID : language
+}
+
+class ObligationGuaranteeInvalidTransitCountryCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GoodsReceiptPlaceIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ValuationAdjustmentAdditionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class DepartureTransportMeansIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class AddressCountrySubDivisionNameTextType {
+  + @languageID : language
+}
+
+class TemperatureActualMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class AppealOfficeIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class AdditionalDocumentQuantityQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class TransitDepartureIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class TransportMeansOperatorIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class LandingLocationNameTextType {
+  + @languageID : language
+}
+
+class GovernmentAgencyGoodsItemCustomsValueAmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class NonVesselOperatingCarrierIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CommodityCharacteristicQualifierCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class PackagingSizeDescriptionTextType {
+  + @languageID : language
+}
+
+class CommodityNameQualifierCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class SupplierIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class CompanySecurityOfficerNameTextType {
+  + @languageID : language
+}
+
+class BorderTransportMeansRegistrationCountrySubdivisionCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class StatusNameCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class SoundType {
+  + @format : string
+  + @mimeCode : MIMEMediaTypeContentType
+  + @encodingCode : CharacterSetEncodingCodeContentType
+  + @uri : anyURI
+  + @filename : string
+}
+
+class VideoType {
+  + @format : string
+  + @mimeCode : MIMEMediaTypeContentType
+  + @encodingCode : CharacterSetEncodingCodeContentType
+  + @uri : anyURI
+  + @filename : string
+}
+
+class GraphicType {
+  + @format : string
+  + @mimeCode : MIMEMediaTypeContentType
+  + @encodingCode : CharacterSetEncodingCodeContentType
+  + @uri : anyURI
+  + @filename : string
+}
+
+class BinaryObjectType {
+  + @format : string
+  + @mimeCode : MIMEMediaTypeContentType
+  + @encodingCode : CharacterSetEncodingCodeContentType
+  + @characterSetCode : CharacterSetCodeContentType
+  + @uri : anyURI
+  + @filename : string
+}
+
+class QuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class AmountType {
+  + @currencyID : ISO3AlphaCurrencyCodeContentType
+}
+
+class PictureType {
+  + @format : string
+  + @mimeCode : MIMEMediaTypeContentType
+  + @encodingCode : CharacterSetEncodingCodeContentType
+  + @uri : anyURI
+  + @filename : string
+}
+
+class CodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listAgencyName : string
+  + @listName : string
+  + @listVersionID : token
+  + @name : string
+  + @languageID : language
+  + @listURI : anyURI
+  + @listSchemeURI : anyURI
+}
+
+class MeasureType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class NameType {
+  + @languageID : language
+}
+
+class IDType {
+  + @schemeID : token
+  + @schemeName : string
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeAgencyName : string
+  + @schemeVersionID : token
+  + @schemeDataURI : anyURI
+  + @schemeURI : anyURI
+}
+
+class TextType {
+  + @languageID : language
+}
+
+class PaymentTermsEventTimeReferenceCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class TimeReferenceCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class PackageTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class ReportingThresholdTriggerTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class ReferenceCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class ResourceCostCategoryCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class TransportMeansCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class PriceTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class SecurityClassificationTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class AdjustmentReasonCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class BillingDocumentCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class TaxCategoryCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class CurrencyCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class EarnedValueCalculationMethodCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class LocationFunctionCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class CountryIDType {
+  + @schemeID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeVersionID : token
+}
+
+class DurationMeasureType {
+  + @unitCode : MeasurementUnitCommonCodeDurationContentType
+}
+
+class PaymentTermsIDType {
+  + @schemeID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeVersionID : token
+}
+
+class ScheduleTaskTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class DocumentStatusCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class TaxTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class DeliveryTermsCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class GovernmentActionCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class IBANIDType {
+  + @schemeID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeVersionID : token
+}
+
+class StatusCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class AcknowledgementCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class PaymentMeansCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class ProjectTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class PartyRoleCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class ProcessTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class ResourcePlanMeasureTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class AddressTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class PaymentMethodCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class TemperatureTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class ContractTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class CostManagementCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class DocumentCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class CargoTypeClassificationCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class CostReportingCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class MeasuredAttributeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class HierarchicalStructureTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class PaymentGuaranteeMeansCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class FundingTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class ScheduleTaskRelationshipTypeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+}
+
+class TransportModeCodeType {
+  + @listID : token
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listVersionID : token
+  + @name : string
+}
+
+class BorderTransportMeansRegistrationTextType {
+  + @languageID : language
+}
+
+class SamplingPeriodCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class PreviousDocumentFunctionalReferenceIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ConsignmentShippingOrderNumberTextType {
+  + @languageID : language
+}
+
+class TransportEquipmentFullContainerQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+class ApplicantIdentificationIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class AgentSubBoxIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class PreviousDocumentUniversallyUniqueIDType {
+  + @schemeID : token
+  + @schemeVersionID : token
+  + @schemeAgencyID : AgencyIdentificationCodeContentType
+  + @schemeDataURI : anyURI
+  + @schemeName : string
+  + @schemeAgencyName : string
+  + @schemeURI : anyURI
+}
+
+class ConsignmentManifestSerialNumberTextType {
+  + @languageID : language
+}
+
+class ApplicationTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class GovernmentProcedureTransportTypeCodeType {
+  + @languageID : language
+  + @listURI : anyURI
+  + @listAgencyID : AgencyIdentificationCodeContentType
+  + @listSchemeURI : anyURI
+  + @listAgencyName : string
+  + @listVersionID : token
+  + @name : string
+  + @listID : token
+  + @listName : string
+}
+
+class AdditionalInformationProcessNumberTextType {
+  + @languageID : language
+}
+
+class TransportEquipmentEmptyContainerQuantityType {
+  + @unitCode : MeasurementUnitCommonCodeContentType
+}
+
+IDType <|-- DeclarationDeclarationOfficeIDType
+TextType <|-- TradeTermsDescriptionTextType
+TextType <|-- AuthenticatorNameTextType
+IDType <|-- DeconsolidatorIdentificationIDType
+TextType <|-- DraymanOrLightermanNameTextType
+MeasureType <|-- BorderTransportMeansGrossWeightMeasureType
+CodeType <|-- BorderTransportMeansBallastOrCargoTypeCodeType
+CodeType <|-- TransitTransportMeansTypeCodeType
+CodeType <|-- AdditionalInformationRequestOverrideCodeType
+IDType <|-- CommodityIdentificationIDType
+IDType <|-- PaymentReferenceIDType
+CodeType <|-- InvoiceTypeCodeType
+IDType <|-- AddressPostcodeIDType
+TextType <|-- TradeTermsLocationNameTextType
+TextType <|-- HandlingInstructionsTextType
+CodeType <|-- TransportEquipmentFullnessCodeType
+IDType <|-- ConsolidatorIdentificationIDType
+TextType <|-- InsuranceCompanyNameTextType
+CodeType <|-- AdditionalInformationReconciliationReasonCodeType
+TextType <|-- AdditionalDocumentTypeTextType
+CodeType <|-- MasterNationalityCodeType
+TextType <|-- TranshipmentLocationNameTextType
+IDType <|-- DistributorIdentificationIDType
+CodeType <|-- CommercialDriversLicenseCountrySubdivisionCodeType
+IDType <|-- TransitPrincipalIdentificationIDType
+IDType <|-- ContainerTerminalOperatorIdentificationIDType
+TextType <|-- CommodityCommercialDescriptionTextType
+TextType <|-- PropertyOperatorNameTextType
+TextType <|-- ItineraryNameTextType
+IDType <|-- AdditionalDocumentIssuingPartyIDType
+CodeType <|-- CommercialDriversLicenseCountryCodeType
+IDType <|-- TransitOfficeIdentificationIDType
+CodeType <|-- BorderTransportMeansSecurityLevelCodeType
+TextType <|-- PackagingPackagingMaterialDescriptionTextType
+CodeType <|-- CustomsValuationPaymentTermsCodeType
+IDType <|-- GoodsConsignedPlaceIdentificationIDType
+IDType <|-- TradeTermsLocationIDType
+TextType <|-- RegisteredFacilityNameTextType
+CodeType <|-- CommodityRelatedPackagingDangerousGoodsPackingRequirementGroupCodeType
+TextType <|-- StorageGeographicRegionTextType
+TextType <|-- FeedlotNameTextType
+IDType <|-- AddressCountrySubDivisionIDType
+TextType <|-- CargoFacilityLocationNameTextType
+TextType <|-- NotifyPartyNameTextType
+AmountType <|-- ConsignmentValueAmountType
+TextType <|-- ImporterNameTextType
+TextType <|-- CommodityCargoDescriptionTextType
+CodeType <|-- CommodityClassificationNameCodeType
+QuantityType <|-- GoodsMeasureTariffQuantityType
+IDType <|-- AdditionalDocumentIdentificationIDType
+AmountType <|-- CustomsValuationExitToEntryChargeAmountType
+TextType <|-- ConsigneeNameTextType
+CodeType <|-- AdditionalDocumentTypeCodeType
+CodeType <|-- FreightPaymentMethodCodeType
+TextType <|-- AuthorisedPersonNameTextType
+IDType <|-- OrganicCertifyingOrganizationIdentificationIDType
+IDType <|-- OriginRegionIDType
+IDType <|-- SuretyIdentificationIDType
+TextType <|-- CommodityRelatedPackagingPackingMethodDescriptionTextType
+QuantityType <|-- ConsignmentTotalPackageQuantityType
+AmountType <|-- PaymentTaxAssessedAmountType
+IDType <|-- CertificateOfResponsibilityHolderIdentificationIDType
+QuantityType <|-- BorderTransportMeansTransportEquipmentQuantityType
+TextType <|-- CertifierNameTextType
+TextType <|-- RepresentativePersonContactFunctionTextType
+TextType <|-- SuretyNameTextType
+IDType <|-- EntryOfficeIdentificationIDType
+IDType <|-- AssemblerIdentificationIDType
+IDType <|-- ControlReviewPlaceIDType
+IDType <|-- ProducerIdentificationIDType
+TextType <|-- TransitPrincipalNameTextType
+TextType <|-- DepartureTransportMeansNameTextType
+AmountType <|-- BorderTransportMeansBunkerFuelValueAmountType
+TextType <|-- CommodityRelatedPackagingMarkingTextType
+IDType <|-- EquipmentOwnerIdentificationIDType
+TextType <|-- CarrierNameTextType
+TextType <|-- AssemberNameTextType
+IDType <|-- ConsignmentCarrierAssignedIDType
+QuantityType <|-- BorderTransportMeansBunkerFuelQuantityType
+TextType <|-- LPCOAuthorizedPartyNameTextType
+CodeType <|-- CommercialDriversLicenseEndorsementCodeType
+CodeType <|-- ConstituentElementCodeType
+IDType <|-- DepartureTransportMeansRegistrationNationalityIDType
+QuantityType <|-- DeclarationGoodsItemQuantityType
+CodeType <|-- TradeTermsConditionCodeType
+IDType <|-- ContactOfficeIdentificationIDType
+CodeType <|-- TransportEquipmentLicensePlateIssuingCountryCodeType
+IDType <|-- WarehouseIdentificationIDType
+TextType <|-- ExhibitorNameTextType
+TextType <|-- IntermediateCarrierNameTextType
+AmountType <|-- DutyTaxFeeAdValoremTaxBaseAmountType
+TextType <|-- BorderTransportMeansConveyancePortLocationTextType
+IDType <|-- LandingLocationIdentificationIDType
+CodeType <|-- FacilityPlaceTypeCodeType
+QuantityType <|-- CommodityRelatedPackagingInnermostUnitQuantityType
+MeasureType <|-- ConsignmentGrossVolumeMeasureType
+TextType <|-- DeclarationAuthenticationTextType
+IDType <|-- AdditionalDocumentIssueLocationIDType
+IDType <|-- BankAccountIdentificationIDType
+CodeType <|-- CommodityProcessTypeIdentificationCodeType
+IDType <|-- StuffingEstablishmentIdentificationIDType
+TextType <|-- StuffingEstablishmentNameTextType
+MeasureType <|-- BorderTransportMeansMaximumDraftMeasureType
+QuantityType <|-- DeclarationTotalPackageQuantityType
+TextType <|-- ManufacturerNameTextType
+CodeType <|-- CurrencyExchangeCurrencyTypeCodeType
+IDType <|-- VeterinarianIdentificationIDType
+IDType <|-- UCRIdentificationIDType
+IDType <|-- TransportContractDocumentIssuingPartyIDType
+IDType <|-- TransitDestinationIdentificationIDType
+CodeType <|-- CustomsValuationChargesTypeCodeType
+CodeType <|-- GovernmentProcedureCurrentCodeType
+CodeType <|-- FreightRateTypeCodeType
+TextType <|-- ConsignorNameTextType
+QuantityType <|-- BorderTransportMeansCrewQuantityType
+CodeType <|-- CustomsValuationFreightChargeApportionmentCodeType
+MeasureType <|-- GoodsMeasureNetWeightMeasureType
+IDType <|-- ManufacturerIdentificationIDType
+MeasureType <|-- CommoditySizeMeasureType
+AmountType <|-- ConstituentElementYieldAmountType
+CodeType <|-- CommoditySensitiveGoodsCodeType
+TextType <|-- MasterNameTextType
+IDType <|-- ConsignorIdentificationIDType
+IDType <|-- BorderTransportMeansConstructionPlaceIDType
+TextType <|-- ShipSecurityOfficerNameTextType
+QuantityType <|-- ConstituentElementQuantityType
+IDType <|-- InsuranceCompanyIdentificationIDType
+TextType <|-- UltimateConsigneeNameTextType
+IDType <|-- TransportContractDocumentIdentificationIDType
+IDType <|-- DistillerIdentificationIDType
+TextType <|-- TransitDestinationNameTextType
+TextType <|-- PackagingMarksNumbersTextType
+IDType <|-- ClassificationIdentificationIDType
+TextType <|-- CommodityIntendedUseTextType
+CodeType <|-- CrewMemberEndorsementTypeCodeType
+TextType <|-- DeliveryDestinationNameTextType
+CodeType <|-- CommodityCategoryCodeType
+AmountType <|-- GovernmentAgencyGoodsItemStatisticalValueAmountType
+MeasureType <|-- BorderTransportMeansNetWeightMeasureType
+IDType <|-- DeclarationSubsequentDeclarationOfficeIDType
+CodeType <|-- TemperatureCategoryCodeType
+CodeType <|-- GovernmentAgencyIdentificationCodeType
+CodeType <|-- ClassificationIdentificationTypeCodeType
+IDType <|-- DeclarationFunctionalReferenceIDType
+CodeType <|-- TradeTermsCountryRelationshipCodeType
+TextType <|-- GovernmentProcedureDescriptionTextType
+IDType <|-- AuthenticatorIdentificationIDType
+AmountType <|-- InvoiceLineItemChargeAmountType
+CodeType <|-- PointerDocumentSectionCodeType
+CodeType <|-- SourcePoliticalRegionCodeType
+CodeType <|-- ItineraryFunctionCodeType
+CodeType <|-- ErrorValidationCodeType
+TextType <|-- AdditionalInformationContentTextType
+CodeType <|-- CommodityIntendedUseCodeType
+TextType <|-- VerifierNameTextType
+IDType <|-- PropertyOperatorIdentificationIDType
+IDType <|-- PaymentOfficeIdentificationIDType
+TextType <|-- PortFacilitySecurityOfficerNameTextType
+IDType <|-- ExporterIdentificationIDType
+CodeType <|-- TransportEquipmentRegistrationCountrySubdivisionCodeType
+IDType <|-- PreviousDocumentIdentificationIDType
+TextType <|-- ExporterNameTextType
+IDType <|-- InvoiceIdentificationIDType
+IDType <|-- DeclarationIdentificationIDType
+CodeType <|-- OriginCountryCodeType
+TextType <|-- CommodityRelatedPackagingFillerDescriptionTextType
+MeasureType <|-- TemperatureStorageRequirementMeasureType
+IDType <|-- TransportEquipmentSealIDType
+TextType <|-- AdditionalInformationStatementDescriptionTextType
+TextType <|-- LoadingLocationNameTextType
+IDType <|-- BorderTransportMeansFirstArrivalLocationIDType
+IDType <|-- FeedlotIdentificationIDType
+IDType <|-- PropertyOwnerIdentificationIDType
+CodeType <|-- ConsignmentItemAssociatedGovernmentProcedureCodeType
+IDType <|-- StevedoreIdentificationIDType
+IDType <|-- GrowerIdentificationIDType
+TextType <|-- BorderTransportMeansShipToShipActivityLocationTextType
+TextType <|-- AdditionalDocumentIssuingPartyNameTextType
+IDType <|-- ObligationGuaranteeReferenceIDType
+CodeType <|-- AdditionalInformationStatementTypeCodeType
+CodeType <|-- AddressCountryCodeType
+CodeType <|-- CustomsValuationMethodCodeType
+TextType <|-- VehicleOwnerNameTextType
+IDType <|-- ConsortiumCarrierIdentificationIDType
+MeasureType <|-- BorderTransportMeansLengthMeasureType
+QuantityType <|-- BorderTransportMeansPassengerQuantityType
+CodeType <|-- ObligationGuaranteeSecurityDetailsCodeType
+IDType <|-- AssociatedTransportDocumentIdentificationIDType
+TextType <|-- UnloadingPartyNameTextType
+CodeType <|-- GovernmentProcedurePreviousCodeType
+IDType <|-- FinalTransportMeansLoadingPlaceIdentificationIDType
+CodeType <|-- PreviousDocumentTypeCodeType
+CodeType <|-- AgentRoleCodeType
+IDType <|-- UltimateConsigneeIdentificationIDType
+IDType <|-- GovernmentServiceRequestorIdentificationIDType
+IDType <|-- ItineraryIdentificationIDType
+IDType <|-- ResponsibleGovernmentAgencyIdentificationIDType
+TextType <|-- AdditionalDocumentAuthenticationLocationNameTextType
+TextType <|-- FacilityPlaceNameTextType
+TextType <|-- ExaminationPlaceNameTextType
+CodeType <|-- DepartureTransportMeansTypeCodeType
+TextType <|-- GoodsConsignedPlaceNameTextType
+IDType <|-- CarrierIdentificationIDType
+IDType <|-- CrewMemberIdentificationIDType
+TextType <|-- ConstituentElementDescriptionTextType
+CodeType <|-- TransportEquipmentCharacteristicCodeType
+AmountType <|-- CommodityValueAmountType
+IDType <|-- ArrivalTransportMeansIdentificationIDType
+AmountType <|-- DeclarationInvoiceAmountType
+IDType <|-- AuthorisedPersonIdentificationIDType
+IDType <|-- ContainerOperatorIdentificationIDType
+IDType <|-- RepairPartyIdentificationIDType
+IDType <|-- TransitTransportMeansJourneyIDType
+IDType <|-- GoodsLocationIdentificationIDType
+TextType <|-- CommodityDescriptionTextType
+MeasureType <|-- DeclarationTotalGrossMassMeasureType
+TextType <|-- AddressCityTextType
+TextType <|-- RecognizedSecurityOrganizationNameTextType
+IDType <|-- NotifyPartyIdentificationIDType
+AmountType <|-- CustomsValuationFreightChargeAmountType
+TextType <|-- GovernmentServiceRequestorNameTextType
+IDType <|-- TransitTransportMeansIdentificationIDType
+TextType <|-- ISPSResponsiblePartyNameTextType
+CodeType <|-- PaymentMethodCodeType
+CodeType <|-- CommodityIDTypeCodeType
+IDType <|-- CommodityCommercialCategorizationIDType
+QuantityType <|-- DeclarationSealsAffixedQuantityType
+CodeType <|-- GoodsShipmentFreeTradeZoneStatusCodeType
+IDType <|-- RegisteredFacilityIdentificationIDType
+TextType <|-- BorderTransportMeansShipToShipActivityTextType
+IDType <|-- VerifierIdentificationIDType
+IDType <|-- VehicleOwnerIdentificationIDType
+IDType <|-- PointerTagIDType
+IDType <|-- DepartureConveyanceFacilityIdentificationIDType
+AmountType <|-- GoodsMeasureTariffQuantityAmountType
+TextType <|-- SubmitterNameTextType
+CodeType <|-- TransportMeansIntermediateTransportMeansModeAndTypeIdentificationCodeType
+CodeType <|-- AmendmentChangeReasonCodeType
+IDType <|-- TransportMeansOwnerIdentificationIDType
+CodeType <|-- CommodityCriteriaConformanceCodeType
+IDType <|-- CommunicationIdentificationIDType
+TextType <|-- WarehouseNameTextType
+TextType <|-- FreeTradeZoneNameTextType
+TextType <|-- ConstituentElementNameTextType
+MeasureType <|-- PackagingVolumeMeasureType
+CodeType <|-- AgentFunctionCodeType
+IDType <|-- ExitOfficeIdentificationIDType
+IDType <|-- ExhibitorIdentificationIDType
+IDType <|-- DeclarationVersionIDType
+IDType <|-- ItineraryRoutingRegionIDType
+TextType <|-- CrewMemberArrivalInCountryLocationNameTextType
+CodeType <|-- GoodsShipmentExportationRegionCodeType
+IDType <|-- LoadingLocationIdentificationIDType
+TextType <|-- UNDGContactNameTextType
+IDType <|-- BorderTransportMeansStayIDType
+CodeType <|-- TransportMeansOwnerNationalityCodeType
+TextType <|-- CommodityCharacteristicTextType
+TextType <|-- CommodityCriteriaConformanceTextType
+MeasureType <|-- GoodsMeasureGrossMassMeasureType
+IDType <|-- TransitTransportMeansRegistrationNationalityIDType
+CodeType <|-- BorderTransportMeansCallPurposeCodeType
+CodeType <|-- CommodityCharacteristicCodeType
+IDType <|-- ConsigneeIdentificationIDType
+TextType <|-- BorderTransportMeansNameTextType
+IDType <|-- CertifierIdentificationIDType
+IDType <|-- CommunicationTypeIDType
+TextType <|-- ContactNameTextType
+IDType <|-- BorderTransportMeansJourneyIDType
+TextType <|-- SourceGeographicRegionTextType
+QuantityType <|-- ConsignmentBoardedQuantityType
+IDType <|-- TerminalIdentificationIDType
+IDType <|-- IntermediateCarrierIdentificationIDType
+QuantityType <|-- DeclarationLoadingListQuantityType
+TextType <|-- TransportEquipmentNameTextType
+TextType <|-- GoodsReceiptPlaceNameTextType
+TextType <|-- DeconsolidatorNameTextType
+TextType <|-- SellerNameTextType
+TextType <|-- AddressLineTextType
+CodeType <|-- AdditionalDocumentLPCOExemptionCodeType
+TextType <|-- GrowerNameTextType
+IDType <|-- ResponseFunctionalReferenceIDType
+MeasureType <|-- TemperatureFlashpointMeasureType
+TextType <|-- DistillerNameTextType
+TextType <|-- CommodityProcessTypeDescriptionTextType
+IDType <|-- TransportEquipmentIdentificationIDType
+IDType <|-- ExaminationPlaceIdentificationIDType
+IDType <|-- UnloadingPartyIdentificationIDType
+IDType <|-- BorderTransportMeansScheduledConveyanceIDType
+IDType <|-- FacilityPlaceIdentificationIDType
+TextType <|-- AcceptancePlaceNameTextType
+QuantityType <|-- TransitControlDurationInDaysQuantityType
+TextType <|-- OrganicCertifyingOrganizationNameTextType
+CodeType <|-- StorageCountryCodeType
+CodeType <|-- CommodityPhysicalStateCodeType
+TextType <|-- TravelDocumentIssueLocationTextType
+CodeType <|-- DeclarationTypeCodeType
+CodeType <|-- CommodityIdentityQualifierCodeType
+CodeType <|-- AssociatedTransportDocumentTypeCodeType
+AmountType <|-- FreightRateAmountType
+CodeType <|-- TransportEquipmentSupplierPartyTypeCodeType
+CodeType <|-- BorderTransportMeansRegistrationNationalityCodeType
+TextType <|-- BuyerNameTextType
+TextType <|-- CommodityGoodsGroupNameTextType
+QuantityType <|-- DutyTaxFeeSpecificTaxBaseQuantityType
+CodeType <|-- ConsignmentItemGoodsStatusCodeType
+IDType <|-- AgentIdentificationIDType
+CodeType <|-- DutyTaxFeeDutyRegimeCodeType
+AmountType <|-- ValuationAdjustmentAmountAmountType
+CodeType <|-- ConsignmentGoodsStatusCodeType
+TextType <|-- ProducerNameTextType
+IDType <|-- SellerIdentificationIDType
+TextType <|-- TransportContractDocumentIssueLocationTextType
+CodeType <|-- BorderTransportMeansBunkerFuelTypeCodeType
+IDType <|-- DeliveryDestinationIdentificationIDType
+IDType <|-- StoragePoliticalRegionIDType
+CodeType <|-- DeclarationFunctionCodeType
+TextType <|-- AgentNameTextType
+TextType <|-- EquipmentOwnerNameTextType
+TextType <|-- LoadingProofPartyNameTextType
+IDType <|-- LPCOAuthorizedPartyIdentificationIDType
+IDType <|-- ArrivalTransportMeansRegistrationNationalityIDType
+CodeType <|-- TransportContractDocumentTypeCodeType
+CodeType <|-- GoodsShipmentExportationCountryCodeType
+TextType <|-- ConsolidatorNameTextType
+QuantityType <|-- CommodityCountQuantityType
+IDType <|-- BankAccountReferenceIDType
+IDType <|-- ApprovedEstablishmentPlaceIdentificationIDType
+TextType <|-- GovernmentOfficerNameTextType
+QuantityType <|-- PackagingQuantityQuantityType
+CodeType <|-- HandlingInstructionsCodeType
+CodeType <|-- DeclarationStatusCodeType
+QuantityType <|-- DutyTaxFeeDeductionQuantityType
+AmountType <|-- AdditionalDocumentAmountAmountType
+TextType <|-- VeterinarianNameTextType
+TextType <|-- SupplierNameTextType
+CodeType <|-- TransportEquipmentAttachedCodeType
+IDType <|-- UCRTraderAssignedReferenceIDType
+CodeType <|-- ConsignmentItemRelatedPackagingDangerousGoodsPackingRequirementGroupCodeType
+TextType <|-- UnloadingLocationNameTextType
+IDType <|-- BorderTransportMeansIdentificationIDType
+TextType <|-- AdditionalDocumentIssueLocationTextType
+TextType <|-- RepresentativePersonNameTextType
+CodeType <|-- TransitControlResultCodeType
+IDType <|-- GovernmentOfficerIdentificationIDType
+TextType <|-- CommodityNameTextType
+TextType <|-- PropertyOwnerNameTextType
+IDType <|-- SubmitterIdentificationIDType
+CodeType <|-- CustomsValuationPartyRelationshipCodeType
+IDType <|-- PermittedPortIdentificationIDType
+IDType <|-- MasterIdentificationIDType
+TextType <|-- DistributorNameTextType
+TextType <|-- ConsortiumCarrierNameTextType
+IDType <|-- ImporterIdentificationIDType
+TextType <|-- ArrivalTransportMeansNameTextType
+CodeType <|-- CommodityCategoryQualifierCodeType
+IDType <|-- TranshipmentLocationIdentificationIDType
+TextType <|-- TerminalNameTextType
+IDType <|-- DeclarationIssueLocationIDType
+IDType <|-- FreeTradeZoneIdentificationIDType
+QuantityType <|-- FreightRateQuantityType
+CodeType <|-- ArrivalTransportMeansTypeCodeType
+CodeType <|-- ItineraryRoutingCountryCodeType
+TextType <|-- GoodsLocationNameTextType
+CodeType <|-- GoodsShipmentTransactionNatureCodeType
+CodeType <|-- CommodityRelatedPackagingHierarchicCodeType
+IDType <|-- ArrivalConveyanceFacilityIdentificationIDType
+IDType <|-- IntermediateConsigneeIdentificationIDType
+CodeType <|-- PackagingTypeCodeType
+CodeType <|-- ResponseFunctionCodeType
+CodeType <|-- DutyTaxFeeTypeCodeType
+IDType <|-- StowPositionIdentificationIDType
+CodeType <|-- SourceTypeCodeType
+TextType <|-- AdditionalDocumentNameTextType
+CodeType <|-- TransportEquipmentEventStatusCodeType
+MeasureType <|-- BorderTransportMeansSummerDeadWeightTonnageMeasureType
+CodeType <|-- AdditionalInformationStatementCodeType
+CodeType <|-- TransportContractDocumentConditionCodeType
+CodeType <|-- BorderTransportMeansTypeCodeType
+TextType <|-- ApprovedEstablishmentPlaceNameTextType
+CodeType <|-- SourceCountryCodeType
+IDType <|-- CommodityLotNumberIDType
+AmountType <|-- DutyTaxFeeDeductAmountType
+IDType <|-- BuyerIdentificationIDType
+AmountType <|-- CustomsValuationOtherChargeDeductionAmountType
+CodeType <|-- CommodityGoodsGroupNameCodeType
+AmountType <|-- PaymentPaymentAmountType
+IDType <|-- DraymanOrLightermanIdentificationIDType
+IDType <|-- UnloadingLocationIdentificationIDType
+TextType <|-- RepairPartyNameTextType
+CodeType <|-- ObligationGuaranteeInvalidTransitCountryCodeType
+IDType <|-- GoodsReceiptPlaceIdentificationIDType
+CodeType <|-- ValuationAdjustmentAdditionCodeType
+IDType <|-- DepartureTransportMeansIdentificationIDType
+TextType <|-- AddressCountrySubDivisionNameTextType
+MeasureType <|-- TemperatureActualMeasureType
+IDType <|-- AppealOfficeIdentificationIDType
+QuantityType <|-- AdditionalDocumentQuantityQuantityType
+IDType <|-- TransitDepartureIdentificationIDType
+IDType <|-- TransportMeansOperatorIdentificationIDType
+TextType <|-- LandingLocationNameTextType
+AmountType <|-- GovernmentAgencyGoodsItemCustomsValueAmountType
+IDType <|-- NonVesselOperatingCarrierIdentificationIDType
+CodeType <|-- CommodityCharacteristicQualifierCodeType
+TextType <|-- PackagingSizeDescriptionTextType
+CodeType <|-- CommodityNameQualifierCodeType
+IDType <|-- SupplierIdentificationIDType
+TextType <|-- CompanySecurityOfficerNameTextType
+CodeType <|-- BorderTransportMeansRegistrationCountrySubdivisionCodeType
+CodeType <|-- StatusNameCodeType
+TextType <|-- BorderTransportMeansRegistrationTextType
+CodeType <|-- SamplingPeriodCodeType
+IDType <|-- PreviousDocumentFunctionalReferenceIDType
+TextType <|-- ConsignmentShippingOrderNumberTextType
+QuantityType <|-- TransportEquipmentFullContainerQuantityType
+IDType <|-- ApplicantIdentificationIDType
+IDType <|-- AgentSubBoxIDType
+IDType <|-- PreviousDocumentUniversallyUniqueIDType
+TextType <|-- ConsignmentManifestSerialNumberTextType
+CodeType <|-- ApplicationTypeCodeType
+CodeType <|-- GovernmentProcedureTransportTypeCodeType
+TextType <|-- AdditionalInformationProcessNumberTextType
+QuantityType <|-- TransportEquipmentEmptyContainerQuantityType
+
+@enduml

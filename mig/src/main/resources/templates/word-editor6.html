@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MIG資料調和系統</title>
+
+<!-- SheetJS -->
+<script th:src="@{/lib/xlsx.full.min.js}"></script>
+
+<style nonce="bkZ0dkFwMjAyNA==">
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  font-size: 16px;
+  background: #f2f3f5;
+  line-height: 1.6;
+  color: #222;
+}
+
+/* 超連結與列表預設 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ul, ol {
+  list-style: none;
+}
+
+/* 整體左右欄版型 */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+/* 標題區 */
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* 選單 */
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* hover */
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+/* 選取狀態 */
+.sidebar-menu a.active,
+.sidebar-menu a[aria-current="page"],
+.sidebar-menu .active > a {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+/* 右側主內容區 */
+.main-content {
+  flex: 1;
+  margin-left: 230px;
+  padding: 18px 18px 24px;
+}
+
+/* 頁首 (右側) */
+.gov-header {
+  text-align: left;
+  font-size: 22px;
+  font-weight: bold;
+  background: #ffffff;
+  color: black;
+  padding: 14px 18px;
+  border: 1px solid #d0d4da;
+  margin-bottom: 15px;
+}
+
+/* 容器 */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 卡片 */
+.card {
+  background: #fff;
+  border-radius: 4px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  border: 1px solid #d0d4da;
+}
+
+/* 區塊標題 */
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #c5c9d3;
+  display: flex;
+  align-items: center;
+}
+
+/* 編輯指示燈 */
+.edit-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #4CAF50;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* 表單欄位 */
+label {
+  font-size: 15px;
+  margin-top: 8px;
+  display: block;
+  font-weight: 500;
+  color: #333;
+}
+
+input[type="file"],
+input[type="text"],
+textarea {
+  width: 100%;
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  font-size: 15px;
+  padding: 8px 10px;
+  margin-top: 4px;
+  border: 1px solid #c2c7d0;
+  border-radius: 4px;
+  background: #fafafa;
+  transition: all 0.15s;
+}
+
+input[type="file"]:focus,
+input[type="text"]:focus,
+textarea:focus {
+  border-color: black;
+  outline: none;
+  background: #ffffff;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* 動態欄位樣式 */
+.dynamic-field {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: #f7f8fa;
+  border-radius: 4px;
+  border-left: 3px solid black;
+  display: flex;
+  align-items: center;
+}
+.dynamic-field label {
+  color: black;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+  min-width: 140px;
+  flex-shrink: 0;
+}
+.dynamic-field input[type="text"] {
+  flex: 1;
+  font-size: 14px;
+  padding: 6px 8px;
+  margin: 0;
+  margin-left: 8px;
+  background: #ffffff;
+}
+.dynamic-field .dynamic-text {
+  flex: 1;
+  font-size: 14px;
+  margin-left: 8px;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+/* 按鈕 */
+button {
+  font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+  padding: 8px 18px;
+  font-size: 15px;
+  background: black;
+  color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  margin-top: 10px;
+  margin-right: 8px;
+}
+button:hover {
+  background: #254c9b;
+}
+button:active {
+  background: black;
+}
+button:disabled {
+  background: #b0b3b8;
+  border-color: #b0b3b8;
+  cursor: not-allowed;
+}
+
+/* 按鈕組 */
+.button-group {
+  margin-top: 12px;
+}
+
+/* 提示文字 */
+.note {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+  margin-top: 6px;
+}
+
+/* 狀態訊息 */
+.status-message {
+  padding: 8px 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  display: none;
+}
+.status-success {
+  background: #e6f4ea;
+  color: #145a32;
+  border: 1px solid #c7e6d0;
+}
+.status-error {
+  background: #fbeaea;
+  color: #7b241c;
+  border: 1px solid #f5c6cb;
+}
+.status-info {
+  background: #e8f1fb;
+  color: #154360;
+  border: 1px solid #c9ddf5;
+}
+
+/* 統計資訊 */
+.stats-box {
+  background: #f7f8fa;
+  padding: 10px 12px;
+  border-left: 3px solid black;
+  margin-top: 10px;
+  border-radius: 3px;
+}
+.stats-box strong {
+  color: black;
+  font-size: 14px;
+}
+
+/* JSON 預覽區 */
+.json-preview {
+  background: #2f3136;
+  color: #f8f8f2;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  max-height: 360px;
+  overflow: auto;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* 表格樣式 */
+.preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.preview-table th,
+.preview-table td {
+  border: 1px solid #d0d4da;
+  padding: 8px;
+  text-align: left;
+}
+.preview-table th {
+  background: #e3e7f0;
+  color: black;
+  font-weight: bold;
+}
+.preview-table tr:nth-child(even) {
+  background: #fafbfc;
+}
+.preview-table tr:hover {
+  background: #eef3fa;
+}
+
+/* 空狀態 */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888;
+  font-size: 14px;
+}
+
+/* 分隔線 */
+.divider {
+  height: 1px;
+  background: #d0d4da;
+  margin: 20px 0;
+}
+
+/* 響應式 */
+@media (max-width: 900px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 12px;
+  }
+  .gov-header {
+    font-size: 18px;
+    padding: 10px 12px;
+  }
+  button {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 6px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+  <!-- 右側主內容 -->
+  <div class="main-content">
+    <div class="gov-header">MIG資料調和系統-CH6</div>
+
+    <div class="container">
+
+      <!-- Excel 上傳區 -->
+      <div class="card">
+        <div class="section-title">壹、上傳 Ch8 下載的 Excel 檔案</div>
+        <label>請選擇 Ch8_export.xlsx 檔案：</label>
+        <input type="file" id="excelInput" accept=".xlsx,.xls" />
+        <div class="note">系統將自動讀取 Excel 並篩選出欄位11為「M」的資料列，提取欄位4的值</div>
+        <div id="uploadStatusExcel" class="status-message"></div>
+
+        <!-- 統計資訊 -->
+        <div id="statsBox" class="stats-box" style="display:none;">
+          <strong>處理結果：</strong>
+          <span id="statsText"></span>
+        </div>
+      </div>
+
+      <!-- XML 範例列預覽 -->
+      <div class="card">
+        <div class="section-title">貳、自動抓取的 XML 範例列預覽</div>
+        <div class="note" style="margin-bottom:10px;">
+          篩選條件：欄位11 (第11欄) = "M" 時，提取欄位4 (第4欄) 的值
+        </div>
+
+        <!-- 表格預覽 -->
+        <div id="tableContainer" style="max-height:450px; overflow:auto; border:1px solid #d0d4da; border-radius:4px; background:#fff;">
+          <div class="empty-state">※ 請先上傳 Excel 檔案 ※</div>
+        </div>
+
+        <!-- 按鈕組 -->
+        <div class="button-group">
+          <button id="btnViewJson">檢視 JSON 格式</button>
+          <button id="btnCopyJson">複製 JSON</button>
+          <button id="btnDownloadJson">下載 JSON</button>
+        </div>
+
+        <!-- JSON 預覽 -->
+        <div id="jsonPreview" class="json-preview" style="display:none;"></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- DOCX 上傳 -->
+      <div class="card">
+        <div class="section-title">參、DOCX 檔案上傳</div>
+        <input type="file" id="uploadDocxInput" accept=".docx" style="display:none" />
+        <button id="btnLoadDocx">選擇 DOCX 檔案</button>
+        <div class="note">載入後會自動填充說明文字與表頭資料欄位，第 1 個欄位唯讀，其餘可編輯；但第 1 個欄位不會輸出到 Word</div>
+        <div id="uploadStatusDocx" class="status-message"></div>
+      </div>
+
+      <!-- 說明文字欄位 -->
+      <div class="card">
+        <div class="section-title"><span class="edit-indicator"></span>肆、說明文字（可編輯）</div>
+        <div class="note" style="margin-bottom:10px;">
+          此欄位內容將顯示在表頭資料之前，作為說明段落
+        </div>
+        <label>說明內容</label>
+        <textarea id="descriptionText" placeholder="請輸入說明文字..." style="height:100px;"></textarea>
+        <div class="note">預設內容會從 DOCX 中自動載入，您可以直接編輯修改</div>
+      </div>
+
+      <!-- 動態欄位：表頭資料 -->
+      <div class="card">
+        <div class="section-title"><span class="edit-indicator"></span>伍、表頭資料欄位</div>
+        <div class="note" style="margin-bottom:10px; color:#b22222; font-weight:bold;">
+          第 1 個欄位為標題欄位，僅顯示不提供編輯，且不會輸出到 Word；其餘欄位為可編輯內容，會儲存回 DOCX
+        </div>
+        <div class="note" style="margin-bottom:10px; color:#555;">
+          輸出格式範例：<br>
+          &nbsp;&nbsp;表頭資料：<br>
+          &nbsp;&nbsp;<br>
+          &nbsp;&nbsp;海空運別　：海運（1）<br>
+          &nbsp;&nbsp;報單號碼　：AA/12/345/67890<br>
+          <br>
+          字體：標楷體 12
+        </div>
+        <div id="dynamicFieldsContainer">
+          <div class="empty-state" style="padding:30px;">
+            ※ 請先上傳 Excel 檔案以自動生成欄位 ※
+          </div>
+        </div>
+        <div class="note">欄位標題由 Excel 欄位4自動生成，搭配 DOCX 內容，可在此編輯後儲存</div>
+      </div>
+
+      <!-- XML/XSD 內容 -->
+      <div class="card">
+        <div class="section-title">陸、XML / XSD 內容</div>
+        <textarea id="xmlArea" placeholder="請貼上 XSD 或 XML 的內容..." style="height:200px;"></textarea>
+        <div class="note">貼上或載入後，將自動取代 DOCX 第二頁 XML 區塊</div>
+        <div class="button-group">
+          <input type="file" id="xsdFileInput" accept=".xsd,.xml" style="display:none" />
+          <button id="btnLoadXSD">選擇 XSD/XML 檔案</button>
+          <button id="btnApplyXML">套用 XML / XSD</button>
+        </div>
+        <div id="xmlStatus" class="status-message"></div>
+      </div>
+
+      <!-- 匯出 DOCX -->
+      <div class="card" style="text-align:center;">
+        <button id="btnExport" style="font-size:16px; padding:10px 26px; font-weight:bold;">
+          下載修改後 DOCX
+        </button>
+      </div>
+
+    </div><!-- container -->
+  </div><!-- main-content -->
+</div><!-- layout -->
+
+<script>
+(function() {
+  // ===== 全域變數 =====
+  const excelInput = document.getElementById('excelInput');
+  const uploadStatusExcel = document.getElementById('uploadStatusExcel');
+  const statsBox = document.getElementById('statsBox');
+  const statsText = document.getElementById('statsText');
+  const tableContainer = document.getElementById('tableContainer');
+  const jsonPreview = document.getElementById('jsonPreview');
+  const btnViewJson = document.getElementById('btnViewJson');
+  const btnCopyJson = document.getElementById('btnCopyJson');
+  const btnDownloadJson = document.getElementById('btnDownloadJson');
+  const descriptionTextArea = document.getElementById('descriptionText');
+
+  let extractedData = [];
+  let jsonOutput = [];
+
+  // ===== DOCX 相關變數 =====
+  let uploadedFile = null;
+  let xmlContent = "";
+
+  const docxInput = document.getElementById('uploadDocxInput');
+  const btnLoadDocx = document.getElementById('btnLoadDocx');
+  const uploadStatusDocx = document.getElementById('uploadStatusDocx');
+  const xmlStatus = document.getElementById('xmlStatus');
+
+  // ===== 工具函數 =====
+  function showStatus(element, message, type) {
+    element.textContent = message;
+    element.className = 'status-message status-' + type;
+    element.style.display = 'block';
+    setTimeout(() => {
+      element.style.display = 'none';
+    }, 5000);
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // ===== Excel 處理部分 =====
+  excelInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    showStatus(uploadStatusExcel, '正在讀取 Excel 檔案...', 'info');
+
+    try {
+      const data = await file.arrayBuffer();
+      const workbook = XLSX.read(data, { type: 'array' });
+
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+      if (jsonData.length === 0) {
+        showStatus(uploadStatusExcel, 'Excel 檔案為空', 'error');
+        return;
+      }
+
+      extractedData = [];
+      let totalRows = 0;
+      let matchedRows = 0;
+
+      for (let i = 1; i < jsonData.length; i++) {
+        const row = jsonData[i];
+        totalRows++;
+
+        const col11Value = row[10] ? String(row[10]).trim() : '';
+
+        if (col11Value === 'M') {
+          matchedRows++;
+          const col4Value = row[3] ? String(row[3]).trim() : '';
+
+          if (col4Value) {
+            extractedData.push({
+              rowIndex: i + 1,
+              column4Value: col4Value,
+              column11Value: col11Value
+            });
+          }
+        }
+      }
+
+      statsBox.style.display = 'block';
+      statsText.textContent =
+        '共掃描 ' + totalRows + ' 列資料，找到 ' + matchedRows +
+        ' 列符合條件 (欄位11="M")，成功提取 ' + extractedData.length + ' 個欄位4的值';
+
+      jsonOutput = extractedData.map(item => item.column4Value);
+      renderTable();
+      renderDynamicFields();
+
+      showStatus(uploadStatusExcel, 'Excel 解析完成！共提取 ' + extractedData.length + ' 筆資料', 'success');
+
+    } catch (err) {
+      console.error(err);
+      showStatus(uploadStatusExcel, 'Excel 讀取失敗：' + err.message, 'error');
+      extractedData = [];
+      jsonOutput = [];
+      renderTable();
+    }
+  });
+
+  function renderTable() {
+    if (extractedData.length === 0) {
+      tableContainer.innerHTML = '<div class="empty-state">※ 無符合條件的資料 ※</div>';
+      return;
+    }
+
+    let html = '<table class="preview-table">';
+    html += '<thead><tr>';
+    html += '<th style="width:80px;">#</th>';
+    html += '<th style="width:120px;">Excel 列號</th>';
+    html += '<th style="width:120px;">欄位11值</th>';
+    html += '<th>欄位4值 (提取結果)</th>';
+    html += '</tr></thead><tbody>';
+
+    extractedData.forEach((item, index) => {
+      html += '<tr>';
+      html += '<td>' + (index + 1) + '</td>';
+      html += '<td>第 ' + item.rowIndex + ' 列</td>';
+      html += '<td><strong>' + escapeHtml(item.column11Value) + '</strong></td>';
+      html += '<td>' + escapeHtml(item.column4Value) + '</td>';
+      html += '</tr>';
+    });
+
+    html += '</tbody></table>';
+    tableContainer.innerHTML = html;
+  }
+
+  // 動態欄位：第 1 筆唯讀（span），其餘可編輯（input）
+  function renderDynamicFields() {
+    const container = document.getElementById('dynamicFieldsContainer');
+
+    if (jsonOutput.length === 0) {
+      container.innerHTML = '<div class="empty-state" style="padding:30px;">※ 無可用欄位 ※</div>';
+      return;
+    }
+
+    let html = '';
+    jsonOutput.forEach((fieldTitle, index) => {
+      const fieldId = 'dynamic_field_' + index;
+
+      if (index === 0) {
+        html +=
+          '<div class="dynamic-field">' +
+            '<label>' + escapeHtml(fieldTitle) + '：</label>' +
+            '<span id="' + fieldId + '" class="dynamic-text"></span>' +
+          '</div>';
+      } else {
+        html +=
+          '<div class="dynamic-field">' +
+            '<label for="' + fieldId + '">' + escapeHtml(fieldTitle) + '：</label>' +
+            '<input type="text" id="' + fieldId + '" class="dynamic-input" ' +
+            'placeholder="請輸入' + escapeHtml(fieldTitle) + '的內容" />' +
+          '</div>';
+      }
+    });
+
+    container.innerHTML = html;
+  }
+
+  // ===== JSON 操作 =====
+  btnViewJson.addEventListener('click', () => {
+    if (jsonOutput.length === 0) {
+      alert('請先上傳 Excel 檔案');
+      return;
+    }
+
+    const formatted = JSON.stringify(jsonOutput, null, 2);
+    jsonPreview.textContent = formatted;
+    jsonPreview.style.display = 'block';
+    jsonPreview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  btnCopyJson.addEventListener('click', async () => {
+    if (jsonOutput.length === 0) {
+      alert('請先上傳 Excel 檔案');
+      return;
+    }
+
+    const formatted = JSON.stringify(jsonOutput, null, 2);
+
+    try {
+      await navigator.clipboard.writeText(formatted);
+      showStatus(uploadStatusExcel, 'JSON 已複製到剪貼簿', 'success');
+    } catch (err) {
+      const textarea = document.createElement('textarea');
+      textarea.value = formatted;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      showStatus(uploadStatusExcel, 'JSON 已複製到剪貼簿', 'success');
+    }
+  });
+
+  btnDownloadJson.addEventListener('click', () => {
+    if (jsonOutput.length === 0) {
+      alert('請先上傳 Excel 檔案');
+      return;
+    }
+
+    const formatted = JSON.stringify(jsonOutput, null, 2);
+    const blob = new Blob([formatted], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ch8_extracted_data.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showStatus(uploadStatusExcel, 'JSON 檔案已下載', 'success');
+  });
+
+  // ===== DOCX 處理部分 =====
+  btnLoadDocx.addEventListener('click', () => docxInput.click());
+
+  docxInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.name.toLowerCase().endsWith('.docx')) {
+      showStatus(uploadStatusDocx, '請選擇 DOCX 檔案', 'error');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('fieldTitles', JSON.stringify(jsonOutput));
+
+    fetch('/word6/parseDocxFields', { method: 'POST', body: formData })
+      .then(res => res.json())
+      .then(data => {
+        if (data.descriptionText !== undefined) {
+          descriptionTextArea.value = data.descriptionText;
+        }
+
+        if (data.dynamicFields) {
+          Object.keys(data.dynamicFields).forEach(fieldTitle => {
+            const index = jsonOutput.indexOf(fieldTitle);
+            if (index !== -1) {
+              const fieldId = 'dynamic_field_' + index;
+              const element = document.getElementById(fieldId);
+              if (element) {
+                if (index === 0) {
+                  element.textContent = data.dynamicFields[fieldTitle] || '';
+                } else {
+                  element.value = data.dynamicFields[fieldTitle] || '';
+                }
+              }
+            }
+          });
+        }
+
+        uploadedFile = file;
+        showStatus(uploadStatusDocx, 'DOCX 內容已成功載入，說明與表頭資料欄位已更新', 'success');
+      })
+      .catch(err => {
+        console.error(err);
+        showStatus(uploadStatusDocx, 'DOCX 解析失敗：' + err.message, 'error');
+      });
+  });
+
+  // ===== XML/XSD 處理 =====
+  const btnLoadXSD = document.getElementById('btnLoadXSD');
+  const xsdInput = document.getElementById('xsdFileInput');
+  const xmlArea = document.getElementById('xmlArea');
+  const btnApplyXML = document.getElementById('btnApplyXML');
+
+  btnLoadXSD.addEventListener('click', () => xsdInput.click());
+
+  xsdInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const ext = file.name.toLowerCase();
+    if (!ext.endsWith('.xsd') && !ext.endsWith('.xml')) {
+      showStatus(xmlStatus, '請選擇 XSD 或 XML 檔案', 'error');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      xmlContent = evt.target.result;
+      xmlArea.value = xmlContent;
+      showStatus(xmlStatus, (ext.endsWith('.xsd') ? 'XSD' : 'XML') + ' 檔案已成功載入', 'success');
+    };
+    reader.readAsText(file, 'UTF-8');
+  });
+
+  btnApplyXML.addEventListener('click', function() {
+    const content = xmlArea.value.trim();
+    if (!content) {
+      showStatus(xmlStatus, '請先貼上或載入 XML/XSD 內容', 'error');
+      return;
+    }
+    xmlContent = content;
+    showStatus(xmlStatus, 'XML / XSD 已準備套用至文件', 'success');
+  });
+
+  // ===== 匯出 DOCX =====
+  const btnExport = document.getElementById('btnExport');
+  btnExport.addEventListener('click', function() {
+    if (!uploadedFile) {
+      alert('請先選擇 DOCX 檔案');
+      docxInput.click();
+      return;
+    }
+    if (!xmlContent) {
+      alert('請先貼上或載入 XML/XSD 內容');
+      return;
+    }
+
+    const dynamicFields = {};
+    jsonOutput.forEach((fieldTitle, index) => {
+      if (index === 0) {
+        return;
+      }
+      const fieldId = 'dynamic_field_' + index;
+      const element = document.getElementById(fieldId);
+      if (element) {
+        dynamicFields[fieldTitle] = element.value || '';
+      }
+    });
+
+    const fields = {
+      descriptionText: descriptionTextArea.value,
+      dynamicFields: dynamicFields,
+      fieldOrder: jsonOutput
+    };
+
+    btnExport.disabled = true;
+    btnExport.textContent = '處理中...';
+
+    const formData = new FormData();
+    formData.append('file', uploadedFile);
+    formData.append('fields', JSON.stringify(fields));
+    formData.append('xmlContent', xmlContent);
+
+    fetch('/word6/replaceSecondPageXML', { method: 'POST', body: formData })
+      .then(res => {
+        if (!res.ok) throw new Error('伺服器回應錯誤');
+        return res.blob();
+      })
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const originalName = uploadedFile.name.replace(/\.docx$/i, '');
+        a.download = originalName + '_modified.docx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        alert('DOCX 檔案已成功下載！');
+      })
+      .catch(err => {
+        alert('匯出失敗：' + err.message);
+      })
+      .finally(() => {
+        btnExport.disabled = false;
+        btnExport.textContent = '⬇️ 下載修改後 DOCX';
+      });
+  });
+
+})();
+</script>
+
+</body>
+</html>

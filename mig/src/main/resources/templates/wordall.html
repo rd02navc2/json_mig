@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Word 模板產生器（純原生 JS / 不解析 DOCX）</title>
+<style nonce="bkZ0dkFwMjAyNA==">
+  <style>
+    :root{--bg:#f8fafc;--card:#fff;--accent:#4f46e5}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans TC','PingFang TC',sans-serif;background:var(--bg);margin:0;padding:20px}
+    .container{max-width:1100px;margin:0 auto}
+    .card{background:var(--card);border-radius:10px;padding:16px;box-shadow:0 4px 18px rgba(31,41,55,0.06);}
+    header.card{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    header h1{font-size:18px;margin:0}
+    .layout{display:flex;gap:16px}
+    .sidebar{width:280px}
+    .sidebar-list{max-height:64vh;overflow:auto;padding:8px}
+    .item{padding:10px;border-radius:8px;margin-bottom:8px;background:#f3f4f6;cursor:grab;display:flex;justify-content:space-between;align-items:center}
+    .item.dragging{opacity:0.5}
+    .item.active{background:linear-gradient(90deg,#eef2ff,#eefcff);border:1px solid rgba(79,70,229,0.12)}
+    .controls{display:flex;gap:8px}
+    .content-area{flex:1}
+    input[type=text]{width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px}
+    textarea{width:100%;height:300px;padding:10px;border-radius:8px;border:1px solid #e5e7eb;resize:vertical}
+    .muted{font-size:12px;color:#6b7280}
+    .btn{padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:white;cursor:pointer}
+    .btn.secondary{background:#6b7280}
+    .flex{display:flex;gap:8px;align-items:center}
+    .file-info{font-size:13px;color:#374151}
+    .small{font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="card">
+      <div>
+        <h1>Word 模板產生器（純前端收集資料 / 不解析 DOCX）</h1>
+        <div class="muted">關港貿 XML 訊息建置指引 — 完整 8 章支援</div>
+      </div>
+      <div class="flex">
+        <button id="btnDownload" class="btn">輸入各章節後下載 Word (.docx)</button>
+        <button id="btnExport" class="btn">直接產生 Word (.docx)</button>
+      </div>
+    </header>
+
+```
+<div class="layout">
+  <aside class="sidebar card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <strong>章節列表</strong>
+      <div class="flex">
+        <button id="btnAdd" class="btn secondary">＋ 新增</button>
+        <button id="btnReset" class="btn secondary">重置</button>
+      </div>
+    </div>
+    <div id="sidebarList" class="sidebar-list" aria-label="章節列表"></div>
+    <div class="muted small" style="margin-top:8px">支援拖曳更換順序</div>
+  </aside>
+
+  <main class="content-area card">
+    <div style="margin-bottom:12px">
+      <input id="titleInput" type="text" placeholder="章節標題"/>
+    </div>
+    <div style="margin-bottom:12px;display:flex;gap:12px;align-items:center">
+      <label class="file-info">上傳檔案：
+        <input id="fileInput" type="file" accept=".doc,.docx,.png,.jpg,.jpeg,.gif"/>
+      </label>
+      <div id="fileName" class="file-info"></div>
+      <div style="margin-left:auto" class="muted">字數：<span id="wordCount">0</span></div>
+    </div>
+
+    <textarea id="contentInput" placeholder="輸入章節內容..."></textarea>
+
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button id="btnSave" class="btn">儲存章節</button>
+      <button id="btnDelete" class="btn secondary">刪除章節</button>
+    </div>
+  </main>
+</div>
+```
+
+  </div>
+
+  <script>
+    class SectionModel {
+      constructor() {
+        this.sections = [
+          { id:1, title:'壹、訊息功能說明', content:'範例內容', file:null },
+          { id:2, title:'貳、訊息類別圖', content:'', file:'message_class_diagram.png' },
+          { id:3, title:'參、訊息架構圖', content:'範例內容', file:'architecture_diagram.png' },
+          { id:4, title:'肆、訊息樹狀圖', content:'', file:null },
+          { id:5, title:'伍、資料項目使用說明', content:'範例內容', file:null },
+          { id:6, title:'陸、XML訊息範例', content:'<Response>...</Response>', file:null },
+          { id:7, title:'柒、代碼表', content:'範例內容', file:null },
+          { id:8, title:'捌、資料項目表', content:'', file:'data_item_table.docx' },
+        ];
+        this.listeners = [];
+      }
+      subscribe(fn){ this.listeners.push(fn); }
+      emit(){ this.listeners.forEach(fn=>fn(this.sections)); }
+      addSection(title='新增章節'){ const id=Date.now(); this.sections.push({id,title,content:'',file:null}); this.emit(); return id; }
+      updateSection(id, patch){ const idx=this.sections.findIndex(s=>s.id===id); if(idx!==-1){ this.sections[idx]={...this.sections[idx],...patch}; this.emit(); } }
+      removeSection(id){ this.sections=this.sections.filter(s=>s.id!==id); this.emit(); }
+      reorderSections(newOrderIds){ const map=new Map(this.sections.map(s=>[s.id.toString(),s])); this.sections=newOrderIds.map(id=>map.get(id.toString())).filter(Boolean); this.emit(); }
+      getSection(id){ return this.sections.find(s=>s.id===id); }
+    }
+
+    class View {
+      constructor(model){
+        this.model=model;
+        this.sidebar=document.getElementById('sidebarList');
+        this.titleInput=document.getElementById('titleInput');
+        this.contentInput=document.getElementById('contentInput');
+        this.fileInput=document.getElementById('fileInput');
+        this.fileName=document.getElementById('fileName');
+        this.wordCount=document.getElementById('wordCount');
+        this.btnAdd=document.getElementById('btnAdd');
+        this.btnSave=document.getElementById('btnSave');
+        this.btnDelete=document.getElementById('btnDelete');
+        this.btnReset=document.getElementById('btnReset');
+        this.btnDownload=document.getElementById('btnDownload');
+        this.btnExport=document.getElementById('btnExport');
+        this.dragSrcEl=null;
+      }
+
+      renderList(sections, activeId){
+        this.sidebar.innerHTML='';
+        sections.forEach(s=>{
+          const div=document.createElement('div');
+          div.className='item'+(s.id===activeId?' active':'');
+          div.draggable=true;
+          div.dataset.id=s.id;
+          div.innerHTML=`<div style="flex:1;min-width:0"><div>${s.title}</div><div class="muted small">${s.file? '📎 '+s.file : (s.content?'✏️ 已有內容':'⭕ 未填寫')}</div></div><div style="margin-left:8px;opacity:0.7">☰</div>`;
+          div.addEventListener('dblclick',()=>Controller.selectSectionById(s.id));
+          div.addEventListener('click',()=>Controller.selectSectionById(s.id));
+          this.sidebar.appendChild(div);
+        });
+      }
+
+      renderEditor(section){
+        if(!section){ this.titleInput.value=''; this.contentInput.value=''; this.fileName.textContent=''; this.wordCount.textContent=0; return; }
+        this.titleInput.value=section.title;
+        this.contentInput.value=section.content||'';
+        this.fileName.textContent=section.file?`已上傳：${section.file}`:'';
+        this.wordCount.textContent=(section.content||'').length;
+      }
+    }
+
+    class ControllerClass {
+      constructor(model, view){
+        this.model=model;
+        this.view=view;
+        this.activeId=model.sections.length? model.sections[0].id : null;
+        this.currentFileName=null;
+
+        view.btnAdd.addEventListener('click',()=>this.addSection());
+        view.btnSave.addEventListener('click',()=>this.saveCurrent());
+        view.btnDelete.addEventListener('click',()=>this.deleteCurrent());
+        view.btnReset.addEventListener('click',()=>this.reset());
+        view.fileInput.addEventListener('change',(e)=>this.handleFile(e));
+        view.contentInput.addEventListener('input',(e)=>this.updateWordCount(e));
+        view.titleInput.addEventListener('input',(e)=>this.tempTitleChange(e));
+        view.btnDownload.addEventListener('click',()=>this.downloadToBackend());
+        view.btnExport.addEventListener('click',()=>this.exportToBackend());
+
+        model.subscribe(sections=>this.onModelChange(sections));
+        this.onModelChange(this.model.sections);
+      }
+
+      onModelChange(sections){
+        if(!sections.find(s=>s.id===this.activeId)&&sections.length) this.activeId=sections[0].id;
+        if(!sections.length) this.activeId=null;
+        this.view.renderList(sections,this.activeId);
+        this.view.renderEditor(this.model.getSection(this.activeId));
+      }
+
+      selectSectionById(id){
+        this.activeId=id;
+        this.view.renderList(this.model.sections,this.activeId);
+        this.view.renderEditor(this.model.getSection(this.activeId));
+      }
+
+      addSection(){ const title='新增章節'; const id=this.model.addSection(title); this.activeId=id; this.view.renderEditor(this.model.getSection(this.activeId)); }
+
+      saveCurrent(){
+        if(!this.activeId) return alert('沒有章節可儲存');
+        const title=this.view.titleInput.value.trim()||'（無標題）';
+        const content=this.view.contentInput.value;
+        const file=this.currentFileName||this.model.getSection(this.activeId).file||null;
+        this.model.updateSection(this.activeId,{title,content,file});
+        this.currentFileName=null;
+        document.getElementById('fileInput').value='';
+        alert('已儲存');
+      }
+
+      deleteCurrent(){ if(!this.activeId) return; this.model.removeSection(this.activeId); this.activeId=this.model.sections.length? this.model.sections[0].id:null; this.view.renderEditor(this.model.getSection(this.activeId)); }
+
+      reset(){ if(!confirm('將還原為範例資料')) return; this.model.emit(); }
+
+      handleFile(e){ const f=e.target.files[0]; if(!f) return; this.currentFileName=f.name; this.view.fileName.textContent=`已選擇：${f.name}`; }
+
+      updateWordCount(e){ this.view.wordCount.textContent=e.target.value.length; }
+
+      tempTitleChange(e){ const activeEl=document.querySelector(`[data-id='${this.activeId}']`); if(activeEl){ const firstLine=e.target.value.split('\n')[0]||'(無標題)'; activeEl.querySelector('div div').textContent=firstLine; } }
+
+      async exportToBackend(){
+        try{
+          const formData=new FormData();
+          formData.append('sections',JSON.stringify(this.model.sections));
+          const res=await fetch('/api/word/export',{method:'POST',body:formData});
+          if(!res.ok) throw new Error('下載失敗');
+          const blob=await res.blob();
+          const a=document.createElement('a');
+          a.href=URL.createObjectURL(blob);
+          a.download='關港貿_XML_訊息建置指引.docx';
+          a.click();
+          URL.revokeObjectURL(a.href);
+        }catch(err){ alert('產生檔案失敗：'+err.message); }
+      }
+
+async downloadToBackend() {
+    try {
+        const formData = new FormData();
+
+        // 送章節 JSON（去掉 file 屬性，只送文字內容）
+        const sectionsForJson = this.model.sections.map(s => ({
+            id: s.id,
+            title: s.title,
+            content: s.content
+        }));
+        formData.append('sections', JSON.stringify(sectionsForJson));
+
+        // 送每個章節的檔案，如果有
+        this.model.sections.forEach((s, idx) => {
+            if (s.fileInput) { // s.fileInput 是 File 物件
+                formData.append('file' + idx, s.fileInput);
+            }
+        });
+
+        const res = await fetch('/api/word/download', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!res.ok) throw new Error('下載失敗');
+
+        const blob = await res.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = '關港貿_XML_訊息建置指引.docx';
+        a.click();
+        URL.revokeObjectURL(a.href);
+
+    } catch (err) {
+        alert('產生檔案失敗：' + err.message);
+    }
+}
+
+    }
+
+    const Model=new SectionModel();
+    const ViewObj=new View(Model);
+    const Controller=new ControllerClass(Model,ViewObj);
+    window.Controller=Controller;
+  </script>
+
+</body>
+</html>

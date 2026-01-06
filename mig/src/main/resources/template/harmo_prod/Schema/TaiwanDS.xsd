@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+	Schema agency	: Taiwan Customs
+	Schema type		: TaiwanDS
+	Schema version	: v1.0
+	Schema date		: 2025/10/30
+	Copyright (C) Taiwan Customs (2025). All Rights Reserved.
+--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!-- Taiwan DS XSD -->
+</xsd:schema>

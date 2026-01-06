@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet href="GenHTML_TW.xslt" type="text/xsl"?><xsd:schema xmlns="urn:wco:datamodel:TW:N5108:R-00-05" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns:ds="urn:wco:datamodel:WCO:DS:1" xmlns:tsw="urn:SingleWindow:TW" xmlns:twds="urn:wco:datamodel:TW:DS:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:wco:datamodel:TW:N5108:R-00-05" version="R-00-05">
+<!--
+	Schema agency	: Taiwan Customs
+	Schema type			: N5108
+	Schema version		: R-00-05
+	Schema date			: 2025/12/23
+
+	Copyright (C) Taiwan Customs (2025). All Rights Reserved.
+-->	
+    <xsd:import namespace="urn:wco:datamodel:WCO:DS:1" schemaLocation="../common/WCODS_1p0.xsd"/>
+    <xsd:import namespace="urn:wco:datamodel:TW:DS:1" schemaLocation="../common/TWDS_1p0.xsd"/>
+    <xsd:element name="Response">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                <ccts:UniqueID>07B</ccts:UniqueID>
+                <ccts:Definition>Details of the response message.</ccts:Definition>
+                <ccts:Cardinality>1</ccts:Cardinality>
+                <ccts:ObjectClassTerm>Response</ccts:ObjectClassTerm>
+                <tsw:Remark/>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="9" minOccurs="0" name="Error">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>53A</ccts:UniqueID>
+                            <ccts:Definition>Details to identify data validation errors.</ccts:Definition>
+                            <ccts:Cardinality>0..9</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Error</ccts:ObjectClassTerm>
+                            <tsw:Remark/>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="ValidationCode">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOID377</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Error. Validation. Code</ccts:DictionaryEntryName>
+                                        <ccts:Definition>Code specifying a data validation error.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Error</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Validation</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>駁回原因代碼</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an3</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:ErrorValidationCodeType">
+                                            <xsd:length value="3"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Status">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>12B</ccts:UniqueID>
+                            <ccts:Definition>Details to identify the status.</ccts:Definition>
+                            <ccts:Cardinality>0..1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Status</ccts:ObjectClassTerm>
+                            <tsw:Remark/>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="NameCode">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>WCOID379</ccts:UniqueID>
+                                        <ccts:DictionaryEntryName>Status. Name. Code</ccts:DictionaryEntryName>
+                                        <ccts:Definition>Code specifying the processing status of a document.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Status</ccts:ObjectClassTerm>
+                                        <ccts:PropertyTerm>Name</ccts:PropertyTerm>
+                                        <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                        <tsw:ChineseName>回應別</tsw:ChineseName>
+                                        <tsw:Remark/>
+                                        <tsw:Format>an2</tsw:Format>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:restriction base="ds:StatusNameCodeType">
+                                            <xsd:length value="2"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="Declaration">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="en">
+                            <ccts:UniqueID>42A</ccts:UniqueID>
+                            <ccts:Definition>Any statement or action, in any form prescribed or accepted by the Governmental Agency, giving information or particulars required by the Governmental Agency.</ccts:Definition>
+                            <ccts:Cardinality>1</ccts:Cardinality>
+                            <ccts:ObjectClassTerm>Declaration</ccts:ObjectClassTerm>
+                            <tsw:Remark/>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="BorderTransportMeans">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>15A</ccts:UniqueID>
+                                        <ccts:Definition>Details of the means of transport crossing the border of the Customs territory.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Border Transport Means</ccts:ObjectClassTerm>
+                                        <tsw:Remark/>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element minOccurs="0" name="ArrivalDateTime" type="ds:BorderTransportMeansArrivalDateTimeType">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOID172</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Border Transport Means. Arrival. Date Time</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Date and time / scheduled date and time of arrival of means of transport at (for air) first airport, (land) arrival at first border post and (sea) arrival at first port, coded.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Border Transport Means</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Arrival</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Date Time</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>航機抵達日期</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an8</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                        </xsd:element>
+                                        <xsd:element minOccurs="0" name="ID">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOIDT006</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Border Transport Means. Identification. Identifier</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Identifier to identify the means of transport used in crossing the border.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Border Transport Means</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>船（機）代碼</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an..25</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="ds:BorderTransportMeansIdentificationIDType">
+                                                        <xsd:minLength value="0"/>
+                                                        <xsd:maxLength value="25"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element minOccurs="0" name="JourneyID">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOID149</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Border Transport Means. Journey. Identifier</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>To identify a journey of a means of transport, for example voyage number, flight number, trip number.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Border Transport Means</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Journey</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>船舶航次（海）/航機班次（空）</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an..12</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="ds:BorderTransportMeansJourneyIDType">
+                                                        <xsd:minLength value="0"/>
+                                                        <xsd:maxLength value="12"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element minOccurs="0" name="tw_Registration">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>TW043</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Border Transport Means. Registration. Text</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Reference number issued by customs while carrier applies for entrance of vessel.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Border Transport Means</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Registration</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>海關通關號碼</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an6</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="twds:BorderTransportMeansRegistrationTextType">
+                                                        <xsd:length value="6"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="TypeCode">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOIDT010</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Border Transport Means. Type. Code</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Means and mode of transport used for crossing the border, coded.</ccts:Definition>
+                                                    <ccts:Cardinality>1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Border Transport Means</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Type</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>海空運別</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an1</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="ds:BorderTransportMeansTypeCodeType">
+                                                        <xsd:length value="1"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element minOccurs="0" name="Consignment">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>28A</ccts:UniqueID>
+                                        <ccts:Definition>Details about the transport between a consignor and a consignee as specified in the transport contract document.</ccts:Definition>
+                                        <ccts:Cardinality>0..1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Consignment</ccts:ObjectClassTerm>
+                                        <tsw:Remark/>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element minOccurs="0" name="BoardedQuantity">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>WCOID314</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Consignment. Boarded. Quantity</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Total number shown on Bill of Lading or on split shipment. It will be the actual number of pieces boarded on the conveyance. (Not necessarily the smallest external packaging unit for the shipment).</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Consignment</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Boarded</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Quantity</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>艙號筆數</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>n..4</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="ds:ConsignmentBoardedQuantityType">
+                                                        <xsd:minInclusive value="0"/>
+                                                        <xsd:maxInclusive value="9999"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element minOccurs="0" name="tw_ManifestSerialNumber">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>TW153</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Consignment. Manifest Serial Number. Text</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Serial number indicating one shipment of goods in manifest.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Consignment</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Manifest Serial Number</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>艙單號碼</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an4</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="twds:ConsignmentManifestSerialNumberTextType">
+                                                        <xsd:length value="4"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element minOccurs="0" name="tw_ShippingOrderNumber">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>TW078</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Consignment. Shipping Order Number. Text</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Serial, sequential number differentiating each separate consignment entry.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Consignment</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Shipping Order Number</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>裝貨單號碼</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an4</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="twds:ConsignmentShippingOrderNumberTextType">
+                                                        <xsd:length value="4"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element minOccurs="0" name="ConsignmentItem">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>29A</ccts:UniqueID>
+                                                    <ccts:Definition>Details of an item in a consignment.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Consignment Item</ccts:ObjectClassTerm>
+                                                    <tsw:Remark/>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element minOccurs="0" name="PreviousDocument">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>99A</ccts:UniqueID>
+                                                                <ccts:Definition>Information relating to the previous document.</ccts:Definition>
+                                                                <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Previous Document</ccts:ObjectClassTerm>
+                                                                <tsw:Remark/>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:sequence>
+                                                                <xsd:element minOccurs="0" name="tw_FunctionalReferenceID">
+                                                                    <xsd:annotation>
+                                                                        <xsd:documentation xml:lang="en">
+                                                                            <ccts:UniqueID>D026*</ccts:UniqueID>
+                                                                            <ccts:DictionaryEntryName>Previous Document. Functional Reference. Identifier</ccts:DictionaryEntryName>
+                                                                            <ccts:Definition>Reference number identifying a specific information exchange.</ccts:Definition>
+                                                                            <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                                            <ccts:ObjectClassTerm>Previous Document</ccts:ObjectClassTerm>
+                                                                            <ccts:PropertyTerm>Functional Reference</ccts:PropertyTerm>
+                                                                            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                                            <tsw:ChineseName>原訊息編號</tsw:ChineseName>
+                                                                            <tsw:Remark/>
+                                                                            <tsw:Format>an..20</tsw:Format>
+                                                                        </xsd:documentation>
+                                                                    </xsd:annotation>
+                                                                    <xsd:complexType>
+                                                                        <xsd:simpleContent>
+                                                                            <xsd:restriction base="twds:PreviousDocumentFunctionalReferenceIDType">
+                                                                                <xsd:minLength value="0"/>
+                                                                                <xsd:maxLength value="20"/>
+                                                                            </xsd:restriction>
+                                                                        </xsd:simpleContent>
+                                                                    </xsd:complexType>
+                                                                </xsd:element>
+                                                                <xsd:element minOccurs="0" name="TypeCode">
+                                                                    <xsd:annotation>
+                                                                        <xsd:documentation xml:lang="en">
+                                                                            <ccts:UniqueID>WCOIDD019</ccts:UniqueID>
+                                                                            <ccts:DictionaryEntryName>Previous Document. Type. Code</ccts:DictionaryEntryName>
+                                                                            <ccts:Definition>Type of document used for declaration previously presented, coded.</ccts:Definition>
+                                                                            <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                                            <ccts:ObjectClassTerm>Previous Document</ccts:ObjectClassTerm>
+                                                                            <ccts:PropertyTerm>Type</ccts:PropertyTerm>
+                                                                            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                                            <tsw:ChineseName>原訊息類別</tsw:ChineseName>
+                                                                            <tsw:Remark/>
+                                                                            <tsw:Format>an..8</tsw:Format>
+                                                                        </xsd:documentation>
+                                                                    </xsd:annotation>
+                                                                    <xsd:complexType>
+                                                                        <xsd:simpleContent>
+                                                                            <xsd:restriction base="ds:PreviousDocumentTypeCodeType">
+                                                                                <xsd:minLength value="0"/>
+                                                                                <xsd:maxLength value="8"/>
+                                                                            </xsd:restriction>
+                                                                        </xsd:simpleContent>
+                                                                    </xsd:complexType>
+                                                                </xsd:element>
+                                                                <xsd:element minOccurs="0" name="Submitter">
+                                                                    <xsd:annotation>
+                                                                        <xsd:documentation xml:lang="en">
+                                                                            <ccts:UniqueID>17B</ccts:UniqueID>
+                                                                            <ccts:Definition>Details related to the submitter of written or electronic documentation.</ccts:Definition>
+                                                                            <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                                            <ccts:ObjectClassTerm>Submitter</ccts:ObjectClassTerm>
+                                                                            <tsw:Remark/>
+                                                                        </xsd:documentation>
+                                                                    </xsd:annotation>
+                                                                    <xsd:complexType>
+                                                                        <xsd:sequence>
+                                                                            <xsd:element name="ID">
+                                                                                <xsd:annotation>
+                                                                                    <xsd:documentation xml:lang="en">
+                                                                                        <ccts:UniqueID>WCOIDR059</ccts:UniqueID>
+                                                                                        <ccts:DictionaryEntryName>Submitter. Identification. Identifier</ccts:DictionaryEntryName>
+                                                                                        <ccts:Definition>The identifier of the party who presents a document or data for the approval, consideration, or decision of another.</ccts:Definition>
+                                                                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                                                                        <ccts:ObjectClassTerm>Submitter</ccts:ObjectClassTerm>
+                                                                                        <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                                                                        <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                                                        <tsw:ChineseName>原訊息傳送者代碼</tsw:ChineseName>
+                                                                                        <tsw:Remark/>
+                                                                                        <tsw:Format>an..14</tsw:Format>
+                                                                                    </xsd:documentation>
+                                                                                </xsd:annotation>
+                                                                                <xsd:complexType>
+                                                                                    <xsd:simpleContent>
+                                                                                        <xsd:restriction base="ds:SubmitterIdentificationIDType">
+                                                                                            <xsd:minLength value="0"/>
+                                                                                            <xsd:maxLength value="14"/>
+                                                                                        </xsd:restriction>
+                                                                                    </xsd:simpleContent>
+                                                                                </xsd:complexType>
+                                                                            </xsd:element>
+                                                                        </xsd:sequence>
+                                                                    </xsd:complexType>
+                                                                </xsd:element>
+                                                            </xsd:sequence>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element maxOccurs="4" minOccurs="0" name="TransportContractDocument">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>30B</ccts:UniqueID>
+                                                    <ccts:Definition>Information about the consignment which corresponds to one transport contract. (Known as consignment by the Transport group).</ccts:Definition>
+                                                    <ccts:Cardinality>0..4</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Transport Contract Document</ccts:ObjectClassTerm>
+                                                    <tsw:Remark/>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="ID">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>WCOIDD023</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Transport Contract Document. Identification. Identifier</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>Reference number to identify a document evidencing a transport contract.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Transport Contract Document</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>主提單號碼;分提單號碼;託運單主號;託運單分號</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an..35</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="ds:TransportContractDocumentIdentificationIDType">
+                                                                    <xsd:minLength value="0"/>
+                                                                    <xsd:maxLength value="35"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="TypeCode">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>WCOIDD024</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Transport Contract Document. Type. Code</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>Code to identify the type of a document evidencing a transport contract.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Transport Contract Document</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Type</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>*運輸合約文件類別代碼</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an3</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="ds:TransportContractDocumentTypeCodeType">
+                                                                    <xsd:length value="3"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element maxOccurs="9999" minOccurs="0" name="TransportEquipment">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>31B</ccts:UniqueID>
+                                                    <ccts:Definition>Details of Transport equipment used for the consignment.</ccts:Definition>
+                                                    <ccts:Cardinality>0..9999</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Transport Equipment</ccts:ObjectClassTerm>
+                                                    <tsw:Remark/>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="ID">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <ccts:UniqueID>WCOID159</ccts:UniqueID>
+                                                                <ccts:DictionaryEntryName>Transport Equipment. Identification. Identifier</ccts:DictionaryEntryName>
+                                                                <ccts:Definition>Marks (letters and/or numbers) which identify equipment e.g. unit load device.</ccts:Definition>
+                                                                <ccts:Cardinality>1</ccts:Cardinality>
+                                                                <ccts:ObjectClassTerm>Transport Equipment</ccts:ObjectClassTerm>
+                                                                <ccts:PropertyTerm>Identification</ccts:PropertyTerm>
+                                                                <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                                                                <tsw:ChineseName>實櫃號碼</tsw:ChineseName>
+                                                                <tsw:Remark/>
+                                                                <tsw:Format>an..17</tsw:Format>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:restriction base="ds:TransportEquipmentIdentificationIDType">
+                                                                    <xsd:minLength value="0"/>
+                                                                    <xsd:maxLength value="17"/>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="GovernmentProcedure">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>70A</ccts:UniqueID>
+                                        <ccts:Definition>Details about the current and previous government procedure.</ccts:Definition>
+                                        <ccts:Cardinality>1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Government Procedure</ccts:ObjectClassTerm>
+                                        <tsw:Remark/>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="tw_TransportTypeCode">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>TW051</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Government Procedure. Transport Type. Code</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Import or export of declaration.</ccts:Definition>
+                                                    <ccts:Cardinality>1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Government Procedure</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Transport Type</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>進出口別代碼</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>an1</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="twds:GovernmentProcedureTransportTypeCodeType">
+                                                        <xsd:length value="1"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element minOccurs="0" name="TransportEquipment">
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang="en">
+                                        <ccts:UniqueID>31B+</ccts:UniqueID>
+                                        <ccts:Definition>Details of Transport equipment used for the consignment.</ccts:Definition>
+                                        <ccts:Cardinality>0..1</ccts:Cardinality>
+                                        <ccts:ObjectClassTerm>Transport Equipment</ccts:ObjectClassTerm>
+                                        <tsw:Remark/>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element minOccurs="0" name="tw_EmptyContainerQuantity">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>TW105</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Transport Equipment. Empty Container. Quantity</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Total number of empty containers.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Transport Equipment</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Empty Container</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Quantity</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>空櫃總數</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>n..4</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="twds:TransportEquipmentEmptyContainerQuantityType">
+                                                        <xsd:minInclusive value="0"/>
+                                                        <xsd:maxInclusive value="9999"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element minOccurs="0" name="tw_FullContainerQuantity">
+                                            <xsd:annotation>
+                                                <xsd:documentation xml:lang="en">
+                                                    <ccts:UniqueID>TW047</ccts:UniqueID>
+                                                    <ccts:DictionaryEntryName>Transport Equipment. Full Container. Quantity</ccts:DictionaryEntryName>
+                                                    <ccts:Definition>Total number of full containers.</ccts:Definition>
+                                                    <ccts:Cardinality>0..1</ccts:Cardinality>
+                                                    <ccts:ObjectClassTerm>Transport Equipment</ccts:ObjectClassTerm>
+                                                    <ccts:PropertyTerm>Full Container</ccts:PropertyTerm>
+                                                    <ccts:RepresentationTerm>Quantity</ccts:RepresentationTerm>
+                                                    <tsw:ChineseName>實櫃總數</tsw:ChineseName>
+                                                    <tsw:Remark/>
+                                                    <tsw:Format>n..4</tsw:Format>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:restriction base="twds:TransportEquipmentFullContainerQuantityType">
+                                                        <xsd:minInclusive value="0"/>
+                                                        <xsd:maxInclusive value="9999"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+

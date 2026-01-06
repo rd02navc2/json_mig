@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    version="2.1">
+
+    <!-- 1️⃣ WCODS_1p0.xsd -->
+    <jaxb:bindings schemaLocation="../common/WCODS_1p0.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="tw.gov.customs.schema.n5107.wcods"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <!-- 2️⃣ QualifiedDataType_5p0.xsd -->
+    <jaxb:bindings schemaLocation="../common/QualifiedDataType_5p0.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="tw.gov.customs.schema.n5107.qdt"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+</jaxb:bindings>

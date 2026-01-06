@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MIG資料調和系統</title>
+    <link th:href="@{/lib/bootstrap.min.css}" rel="stylesheet" nonce="bkZ0dkFwMjAyNA==">
+    <script th:src="@{/lib/jquery/jquery-3.6.0.min.js}" nonce="bkZ0dkFwMjAyNA=="></script>
+    <style nonce="bkZ0dkFwMjAyNA==">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, input, textarea, select, button {
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #fafafa;
+            color: #1a1a1a;
+            overflow-y: auto;
+            z-index: 1000;
+            border-right: 1px solid #e0e0e0;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+        }
+
+        .sidebar-header {
+            padding: 20px 18px;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sidebar-header h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0;
+            line-height: 1.4;
+            color: #1a1a1a;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 4px 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin: 0;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 18px;
+            color: #4a4a4a;
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.15s ease;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .sidebar-menu a:hover {
+            background: #f0f0f0;
+            color: #1a1a1a;
+            border-left-color: #bdbdbd;
+        }
+
+        .sidebar-menu a.active,
+        .sidebar-menu a[aria-current="page"],
+        .sidebar-menu .active > a {
+            background: #ffffff;
+            color: #1a1a1a;
+            border-left-color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            padding: 24px;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: none;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            border-bottom: 1px solid #e5e5e5;
+            padding: 16px 20px;
+            font-weight: 600;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table th {
+            background: #fafafa;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #e5e5e5;
+            padding: 12px;
+        }
+
+        .table td {
+            padding: 12px;
+            vertical-align: middle;
+        }
+
+        td[contenteditable="true"] {
+            background-color: #fffbf0;
+            cursor: text;
+            border: 1px solid transparent;
+        }
+
+        td[contenteditable="true"]:focus {
+            outline: none;
+            border: 1px solid #999;
+            background-color: #fff;
+        }
+
+        .btn {
+            border-radius: 4px;
+            font-weight: 500;
+            padding: 8px 16px;
+            transition: all 0.2s;
+        }
+
+        .btn-success {
+            background: #333;
+            border-color: #333;
+        }
+
+        .btn-success:hover {
+            background: #555;
+            border-color: #555;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+            border-color: #c82333;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            border: 1px solid #d4d4d4;
+            border-radius: 4px;
+            padding: 8px 12px;
+        }
+
+        .form-control:focus {
+            border-color: #999;
+            box-shadow: 0 0 0 2px rgba(153,153,153,0.1);
+        }
+
+        .alert {
+            border-radius: 4px;
+            padding: 12px 16px;
+        }
+
+        .alert-success {
+            background: #f0f9f4;
+            border: 1px solid #34d399;
+            color: #065f46;
+        }
+
+        .alert-danger {
+            background: #fef2f2;
+            border: 1px solid #f87171;
+            color: #991b1b;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <div class="container-fluid">
+            <h2>MIG資料調和系統 - Twdens 管理列表</h2>
+
+            <div class="card">
+                <div class="card-header">新增 Twdens 資料</div>
+                <div class="card-body">
+                    <form id="addTwdensForm">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">DEN</label>
+                                <input type="text" class="form-control" name="den" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">SRC</label>
+                                <input type="text" class="form-control" name="src">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Object Class</label>
+                                <input type="text" class="form-control" name="objectClass">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Property Term</label>
+                                <input type="text" class="form-control" name="propertyTerm">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Rep Term</label>
+                                <input type="text" class="form-control" name="repTerm">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Named Complex Type</label>
+                                <input type="text" class="form-control" name="namedComplexType">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">XML Tag Name</label>
+                                <input type="text" class="form-control" name="xmlTagName">
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <button type="submit" class="btn btn-success w-100">新增</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="formMessage" class="mt-2"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">目前資料</div>
+                <div class="card-body p-0">
+                    <div style="overflow-x: auto;">
+                        <table class="table table-striped table-hover mb-0" id="twdensTable">
+                            <thead>
+                                <tr>
+                                    <th>DEN</th>
+                                    <th>SRC</th>
+                                    <th>Object Class</th>
+                                    <th>Property Term</th>
+                                    <th>Rep Term</th>
+                                    <th>Named Complex Type</th>
+                                    <th>XML Tag Name</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="twdens : ${twdensList}" th:id="'row-' + ${twdens.den}">
+                                    <td contenteditable="true" class="editable" data-field="den" th:text="${twdens.den}"></td>
+                                    <td contenteditable="true" class="editable" data-field="src" th:text="${twdens.src}"></td>
+                                    <td contenteditable="true" class="editable" data-field="objectClass" th:text="${twdens.objectClass}"></td>
+                                    <td contenteditable="true" class="editable" data-field="propertyTerm" th:text="${twdens.propertyTerm}"></td>
+                                    <td contenteditable="true" class="editable" data-field="repTerm" th:text="${twdens.repTerm}"></td>
+                                    <td contenteditable="true" class="editable" data-field="namedComplexType" th:text="${twdens.namedComplexType}"></td>
+                                    <td contenteditable="true" class="editable" data-field="xmlTagName" th:text="${twdens.xmlTagName}"></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger delete-btn" th:data-den="${twdens.den}">刪除</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script th:src="@{/lib/bootstrap/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+$(document).ready(function () {
+    $("#addTwdensForm").submit(function (e) {
+        e.preventDefault();
+        let formData = $(this).serialize();
+        $.post("/twdens/ajax/add", formData, function (res) {
+            if (res.status === "success") {
+                let t = res.data;
+                let newRow = `
+                    <tr id="row-${t.den}">
+                        <td contenteditable="true" class="editable" data-field="den">${t.den}</td>
+                        <td contenteditable="true" class="editable" data-field="src">${t.src}</td>
+                        <td contenteditable="true" class="editable" data-field="objectClass">${t.objectClass}</td>
+                        <td contenteditable="true" class="editable" data-field="propertyTerm">${t.propertyTerm}</td>
+                        <td contenteditable="true" class="editable" data-field="repTerm">${t.repTerm}</td>
+                        <td contenteditable="true" class="editable" data-field="namedComplexType">${t.namedComplexType}</td>
+                        <td contenteditable="true" class="editable" data-field="xmlTagName">${t.xmlTagName}</td>
+                        <td><button class="btn btn-sm btn-danger delete-btn" data-den="${t.den}">刪除</button></td>
+                    </tr>
+                `;
+                $("#twdensTable tbody").append(newRow);
+                $("#formMessage").html(`<div class="alert alert-success">${res.message}</div>`);
+                $("#addTwdensForm")[0].reset();
+            } else {
+                $("#formMessage").html(`<div class="alert alert-danger">${res.message}</div>`);
+            }
+        }, "json").fail(function () {
+            $("#formMessage").html(`<div class="alert alert-danger">新增 AJAX 發生錯誤</div>`);
+        });
+    });
+
+    $("#twdensTable").on("click", ".delete-btn", function () {
+        if (!confirm("確定要刪除嗎？")) return;
+
+        let den = $(this).data("den");
+        let row = $(this).closest("tr");
+
+        $.ajax({
+            url: "/twdens/ajax/" + den,
+            type: "DELETE",
+            success: function (res) {
+                if (res.status === "success") {
+                    row.remove();
+                    alert(res.message);
+                } else {
+                    alert("刪除失敗：" + res.message);
+                }
+            },
+            error: function () {
+                alert("刪除 AJAX 發生錯誤！");
+            }
+        });
+    });
+
+    $("#twdensTable").on("blur", ".editable", function () {
+        let td = $(this);
+        let newValue = td.text().trim();
+        let field = td.data("field");
+        let den = td.closest("tr").attr("id").replace("row-", "");
+        let data = {};
+        data[field] = newValue;
+
+        $.ajax({
+            url: "/twdens/ajax/update/" + den,
+            type: "PATCH",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (res) {
+                if (res.status === "success") {
+                    td.css("background-color", "#d4ffd4");
+                    setTimeout(() => td.css("background-color", "#fffbf0"), 500);
+                } else {
+                    td.css("background-color", "#ffd4d4");
+                    alert("更新失敗：" + res.message);
+                }
+            },
+            error: function () {
+                td.css("background-color", "#ffd4d4");
+                alert("更新 AJAX 發生錯誤！");
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

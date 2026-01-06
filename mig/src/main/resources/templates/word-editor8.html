@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MIG資料調和系統</title>
+
+<!-- SheetJS -->
+<script th:src="@{/lib/xlsx.full.min.js}" nonce="bkZ0dkFwMjAyNA=="></script>
+
+<style nonce="bkZ0dkFwMjAyNA==">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, input, textarea, select, button {
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    font-size: 16px;
+    background: #f5f5f5;
+    color: #000000;
+}
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+/* 標題區 */
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* 選單 */
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* hover */
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+/* 選取狀態 */
+.sidebar-menu a.active,
+.sidebar-menu a[aria-current="page"],
+.sidebar-menu .active > a {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+.main-content {
+    margin-left: 240px;
+    padding: 20px;
+}
+
+.page-header {
+    background: #ffffff;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #000000;
+}
+
+.page-header h1 {
+    font-size: 20px;
+    font-weight: normal;
+    color: #000000;
+}
+
+.content-card {
+    background: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+    color: #000000;
+}
+
+.content-card h3 {
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.upload {
+    border: 2px dashed #000000;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    background: #fafafa;
+    transition: all 0.3s;
+    color: #000000;
+}
+
+.upload:hover {
+    background: #f0f0f0;
+    border-color: #000000;
+}
+
+.upload.drag {
+    background: #e8f4f8;
+    border-color: #000000;
+    border-style: solid;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    background: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    background: #f8f9fa;
+    border-color: #000000;
+    color: #000000;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #dddddd;
+    border-color: #bbbbbb;
+    color: #000000;
+}
+
+.btn-primary {
+    background: #e0e0e0;
+    color: #000000;
+    border-color: #000000;
+}
+
+.btn-primary:hover {
+    background: #d0d0d0;
+    border-color: #000000;
+    color: #000000;
+}
+
+.btn-danger {
+    background: #f0c0c0;
+    color: #000000;
+    border-color: #000000;
+}
+
+.btn-danger:hover {
+    background: #e0a0a0;
+    border-color: #000000;
+    color: #000000;
+}
+
+.btn-secondary {
+    background: #e0e0e0;
+    color: #000000;
+    border-color: #000000;
+}
+
+.btn-secondary:hover {
+    background: #d0d0d0;
+    border-color: #000000;
+    color: #000000;
+}
+
+.excel-container {
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    overflow: auto;
+    max-height: 600px;
+    min-height: 400px;
+    color: #000000;
+}
+
+.excel-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.excel-table th, .excel-table td {
+    border: 1px solid #dddddd;
+    padding: 8px 12px;
+    text-align: left;
+    min-width: 100px;
+    position: relative;
+    color: #000000;
+}
+
+.excel-table th {
+    background: #000000;
+    color: #ffffff;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.excel-table td {
+    background: #ffffff;
+}
+
+.excel-table td:focus {
+    outline: 2px solid #000000;
+    background: #f0f8ff;
+}
+
+.excel-table td[contenteditable="true"] {
+    cursor: text;
+}
+
+.excel-table tr:hover td {
+    background: #f5f5f5;
+}
+
+.row-header {
+    background: #ecf0f1 !important;
+    color: #000000;
+    font-weight: 600;
+    text-align: center;
+    min-width: 50px !important;
+    position: sticky;
+    left: 0;
+    z-index: 5;
+}
+
+.excel-table th.row-header {
+    z-index: 15;
+}
+
+.action-column {
+    min-width: 160px !important;
+    max-width: 160px !important;
+    width: 160px !important;
+    text-align: center;
+    position: sticky;
+    right: 0;
+    background: #ffffff !important;
+    z-index: 5;
+    padding: 8px 4px !important;
+    white-space: nowrap;
+}
+
+.excel-table th.action-column {
+    z-index: 15;
+    background: #000000 !important;
+    color: #ffffff;
+}
+
+.excel-table tr:hover td.action-column {
+    background: #f5f5f5 !important;
+}
+
+.action-btn {
+    padding: 5px 10px;
+    font-size: 13px;
+    border: 1px solid #dddddd;
+    cursor: pointer;
+    margin: 2px;
+    border-radius: 3px;
+    transition: all 0.2s;
+    display: inline-block;
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    background: #ffffff;
+    color: #000000;
+}
+
+.action-btn:hover {
+    background: #f8f9fa;
+    border-color: #000000;
+    color: #000000;
+}
+
+.action-btn-add:hover {
+    background: #e0e0e0;
+    color: #000000;
+    border-color: #000000;
+}
+
+.action-btn-delete:hover {
+    background: #f0c0c0;
+    color: #000000;
+    border-color: #000000;
+}
+
+.sea-air-column {
+    background: #fff9e6 !important;
+    color: #000000;
+}
+
+.excel-table th.sea-air-column {
+    background: #000000 !important;
+    color: #ffffff;
+}
+
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid #000000;
+    color: #000000;
+}
+
+.alert-success {
+    background: #d4edda;
+    border-color: #000000;
+}
+
+.alert-error {
+    background: #f8d7da;
+    border-color: #000000;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    border-color: #000000;
+}
+
+.hidden {
+    display: none;
+}
+
+.note {
+    font-size: 14px;
+    color: #000000;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+.file-name {
+    margin-top: 12px;
+    color: #000000;
+    font-weight: 600;
+}
+
+.stats {
+    background: #f8f9fa;
+    padding: 12px 16px;
+    border-left: 4px solid #000000;
+    margin-bottom: 15px;
+    color: #000000;
+}
+
+select.cell-select {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 14px;
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    cursor: pointer;
+    border-radius: 3px;
+    color: #000000;
+}
+
+select.cell-select:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.controls {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #dddddd;
+    color: #000000;
+}
+</style>
+
+</head>
+<body>
+
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<!-- 主要內容 -->
+<div class="main-content">
+    <div class="page-header">
+        <h1>MIG資料調和系統-CH8</h1>
+    </div>
+
+    <!-- 提示訊息 -->
+    <div id="alertBox" class="alert hidden"></div>
+
+    <!-- 上傳區 -->
+    <div class="content-card">
+        <div class="upload" id="uploadArea">
+            <div style="font-size:36px; margin-bottom:10px"></div>
+            <div style="font-size:18px; font-weight:600; margin-bottom:8px">上傳或拖放 DOCX 檔案</div>
+            <div class="note">支援格式：.docx</div>
+            <div id="fileName" class="file-name"></div>
+            <input id="fileInput" type="file" accept=".docx" style="display:none"/>
+        </div>
+    </div>
+
+    <!-- 統計資訊 -->
+    <div id="statsBox" class="stats hidden">
+        <strong>📊表格資訊：</strong>
+        <span id="statsText"></span>
+    </div>
+
+    <!-- Excel 表格區 -->
+    <div class="content-card">
+        <h3>資料項目表 (Excel 編輯)</h3>
+        <div class="note" style="margin-bottom: 15px;">
+            提示：點擊儲存格即可直接編輯，按 Tab 移到下一格，Enter 移到下一行<br>
+            每列右側可新增或刪除該列資料（系統會自動處理合併儲存格）
+        </div>
+        <div id="excelContainer" class="excel-container">
+            <div class="note" style="text-align:center; padding:100px 20px; color:#999;">
+                上傳檔案後將顯示 Excel 風格表格
+            </div>
+        </div>
+
+        <!-- 控制列 -->
+        <div class="controls">
+            <button id="loadOriginalBtn" class="btn" disabled>重新載入原始資料</button>
+            <button id="exportExcelBtn" class="btn btn-secondary" disabled>匯出為 Excel</button>
+        </div>
+    </div>
+
+    <!-- 下載按鈕 -->
+    <div class="content-card" style="text-align:center;">
+        <button id="downloadBtn" class="btn btn-primary" style="font-size:18px; padding:12px 40px;" disabled>
+            下載修改後 DOCX
+        </button>
+    </div>
+</div>
+
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+document.addEventListener('DOMContentLoaded', () => {
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const fileNameEl = document.getElementById('fileName');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const loadOriginalBtn = document.getElementById('loadOriginalBtn');
+    const exportExcelBtn = document.getElementById('exportExcelBtn');
+    const alertBox = document.getElementById('alertBox');
+    const statsBox = document.getElementById('statsBox');
+    const statsText = document.getElementById('statsText');
+    const excelContainer = document.getElementById('excelContainer');
+
+    let uploadedFile = null;
+    let originalTableData = [];
+    let tableColumns = [];
+    let currentData = [];
+    let seaAirColumnIndices = [];
+
+    const specialColumns = [9,10,12]; 
+    const specialOptions = ['-','M','C'];
+
+    function showAlert(msg, type) {
+        if(!alertBox) return;
+        alertBox.className = 'alert alert-' + type;
+        alertBox.textContent = msg;
+        alertBox.classList.remove('hidden');
+        setTimeout(() => alertBox.classList.add('hidden'), 5000);
+    }
+
+    function createNewRowTemplate() {
+        if (!currentData || currentData.length < 5) {
+            console.warn('資料列數不足5列，使用空模板');
+            const emptyRow = {};
+            tableColumns.forEach((col, idx) => {
+                const field = 'col_' + idx;
+                emptyRow[field] = '';
+                emptyRow[field + '_gridSpan'] = '1';
+                emptyRow[field + '_vMerge'] = '';
+            });
+            return emptyRow;
+        }
+
+        const templateRow = currentData[4];
+        const newRow = {};
+        
+        tableColumns.forEach((col, idx) => {
+            const field = 'col_' + idx;
+            const gridSpanKey = field + '_gridSpan';
+            const vMergeKey = field + '_vMerge';
+            
+            newRow[field] = '';
+            newRow[gridSpanKey] = templateRow[gridSpanKey] || '1';
+            newRow[vMergeKey] = '';
+            
+            if (templateRow[field + '_options']) {
+                newRow[field + '_options'] = templateRow[field + '_options'];
+            }
+        });
+        
+        console.log('基於第5列格式建立新模板:', newRow);
+        return newRow;
+    }
+
+    if(uploadArea && fileInput) {
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', e => { 
+            e.preventDefault(); 
+            uploadArea.classList.add('drag'); 
+        });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag'));
+        uploadArea.addEventListener('drop', e => { 
+            e.preventDefault(); 
+            uploadArea.classList.remove('drag'); 
+            if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); 
+        });
+        fileInput.addEventListener('change', e => { 
+            if(e.target.files.length) handleFile(e.target.files[0]); 
+        });
+    }
+
+    async function handleFile(file) {
+        if(!file.name.toLowerCase().endsWith('.docx')) { 
+            showAlert('僅支援 .docx 檔案格式', 'error'); 
+            return; 
+        }
+        uploadedFile = file;
+        if(fileNameEl) fileNameEl.textContent = '已選擇：' + file.name;
+        
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            const response = await fetch('/word8/parse', { method: 'POST', body: formData });
+            const result = await response.json();
+            
+            if(result.success) {
+                originalTableData = result.revisionTableData || [];
+                tableColumns = result.columns || [];
+                
+                seaAirColumnIndices = [];
+                tableColumns.forEach((col, idx) => {
+                    if (isSeaAirField(col.title)) {
+                        seaAirColumnIndices.push(idx);
+                        col.isSeaAir = true;
+                    }
+                });
+                
+                currentData = JSON.parse(JSON.stringify(originalTableData));
+                normalizeSeaAirData();
+                
+                if(statsBox && statsText) {
+                    statsBox.classList.remove('hidden');
+                    const seaAirCount = seaAirColumnIndices.length;
+                    statsText.textContent = `共 ${tableColumns.length} 個欄位，${currentData.length} 列資料`;
+                    if (seaAirCount > 0) statsText.textContent += ` (包含 ${seaAirCount} 個海/空欄位)`;
+                }
+                
+                renderExcelTable();
+                
+                if(downloadBtn) downloadBtn.disabled = false;
+                if(loadOriginalBtn) loadOriginalBtn.disabled = false;
+                if(exportExcelBtn) exportExcelBtn.disabled = false;
+                
+                showAlert('檔案解析成功！已識別 ' + seaAirColumnIndices.length + ' 個海/空欄位', 'success');
+            } else showAlert('解析失敗：' + result.error, 'error');
+        } catch(err) {
+            console.error(err);
+            showAlert('❌ 上傳失敗：' + err.message, 'error');
+        }
+    }
+
+    function isSeaAirField(title) {
+        return /(海|空)/.test(title);
+    }
+
+    function normalizeSeaAirData() {
+        if(!currentData.length) return;
+        seaAirColumnIndices.forEach(idx => {
+            currentData.forEach(row => {
+                const key = tableColumns[idx].field;
+                if(!['-','M','C'].includes(row[key])) row[key] = '-';
+            });
+        });
+    }
+
+    function escapeHtml(text) {
+        if(!text) return '';
+        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+                   .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    function bindEditEvents() {
+        document.querySelectorAll('.excel-table td[contenteditable="true"]').forEach(td => {
+            td.oninput = e => {
+                const row = parseInt(td.dataset.row);
+                const col = parseInt(td.dataset.col);
+                const key = tableColumns[col].field;
+                currentData[row][key] = td.innerText.trim();
+            };
+        });
+        document.querySelectorAll('select.cell-select').forEach(sel => {
+            sel.onchange = e => {
+                const row = parseInt(sel.dataset.row);
+                const col = parseInt(sel.dataset.col);
+                const key = tableColumns[col].field;
+                currentData[row][key] = sel.value;
+            };
+        });
+    }
+
+    function bindActionButtons() {
+        document.querySelectorAll('.action-btn-add').forEach(btn => {
+            btn.onclick = () => {
+                const row = parseInt(btn.dataset.row);
+                const newRow = createNewRowTemplate();
+                currentData.splice(row + 1, 0, newRow);
+                renderExcelTable();
+                showAlert('已在第 ' + (row + 2) + ' 列插入新資料', 'success');
+                console.log('➕ 新增列在索引 ' + (row + 1) + '，資料：', newRow);
+            };
+        });
+        
+        document.querySelectorAll('.action-btn-delete').forEach(btn => {
+            btn.onclick = () => {
+                const row = parseInt(btn.dataset.row);
+                if (confirm('確定要刪除第 ' + (row + 1) + ' 列嗎？')) {
+                    currentData.splice(row, 1);
+                    renderExcelTable();
+                    showAlert('已刪除第 ' + (row + 1) + ' 列', 'success');
+                }
+            };
+        });
+    }
+
+    function renderExcelTable() {
+        if(!currentData || !Array.isArray(currentData) || currentData.length === 0) {
+            if(excelContainer) excelContainer.innerHTML = '<div class="note" style="text-align:center; padding:50px;">無資料</div>';
+            return;
+        }
+
+        let html = '<table class="excel-table"><thead><tr><th class="row-header">#</th>';
+        tableColumns.forEach((col, idx) => {
+            const isSeaAir = col.isSeaAir || false;
+            const headerClass = isSeaAir ? 'sea-air-column' : '';
+            html += `<th class="${headerClass}">${escapeHtml(col.title)}</th>`;
+        });
+        html += '<th class="action-column">操作</th></tr></thead><tbody>';
+
+        currentData.forEach((row, rowIdx) => {
+            html += '<tr><td class="row-header">' + (rowIdx+1) + '</td>';
+            tableColumns.forEach((col, colIdx) => {
+                const field = col.field;
+                let value = row[field] || '';
+                const isSeaAir = col.isSeaAir || false;
+                let cellClass = isSeaAir ? 'sea-air-column' : '';
+
+                if (rowIdx >= 4 && specialColumns.includes(colIdx)) {
+                    html += `<td class="${cellClass}" data-row="${rowIdx}" data-col="${colIdx}">`;
+                    html += `<select class="cell-select" data-row="${rowIdx}" data-col="${colIdx}">`;
+                    specialOptions.forEach(opt => {
+                        const cellVal = value.trim().charAt(0);
+                        html += `<option value="${opt}"${opt===cellVal?' selected':''}>${opt}</option>`;
+                    });
+                    html += `</select></td>`;
+                } else if (rowIdx >= 4 && isSeaAir) {
+                    html += `<td class="${cellClass}" data-row="${rowIdx}" data-col="${colIdx}">`;
+                    html += `<select class="cell-select" data-row="${rowIdx}" data-col="${colIdx}">`;
+                    ['-','M','C'].forEach(opt => {
+                        html += `<option value="${opt}"${opt===value?' selected':''}>${opt}</option>`;
+                    });
+                    html += `</select></td>`;
+                } else {
+                    html += `<td class="${cellClass}" contenteditable="true" data-row="${rowIdx}" data-col="${colIdx}">${escapeHtml(value)}</td>`;
+                }
+            });
+
+            html += `<td class="action-column">`;
+            if(rowIdx >= 4) {
+                html += `<button class="action-btn action-btn-add" data-row="${rowIdx}" title="在此列下方新增">新增</button>`;
+                html += `<button class="action-btn action-btn-delete" data-row="${rowIdx}" title="刪除此列">刪除</button>`;
+            }        
+            html += `</td></tr>`;
+        });
+
+        html += '</tbody></table>';
+        if(excelContainer) excelContainer.innerHTML = html;
+
+        bindEditEvents();
+        bindActionButtons();
+    }
+
+    if(downloadBtn) {
+        downloadBtn.addEventListener('click', async () => {
+            if(!uploadedFile) { showAlert('請先上傳檔案', 'error'); return; }
+            try {
+                downloadBtn.disabled = true; downloadBtn.textContent = '處理中...';
+                const formData = new FormData();
+                formData.append('file', uploadedFile);
+                formData.append('revisionTable', JSON.stringify(currentData));
+                formData.append('columns', JSON.stringify(tableColumns));
+                const response = await fetch('/word8/replace', { method: 'POST', body: formData });
+                if(!response.ok) throw new Error('下載失敗');
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = uploadedFile.name.replace(/\.docx$/i, '') + '_modified.docx';
+                document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+                showAlert('下載成功！', 'success');
+            } catch(err) { showAlert('下載失敗：' + err.message, 'error'); }
+            finally { downloadBtn.disabled = false; downloadBtn.textContent = '⬇️ 下載修改後 DOCX'; }
+        });
+    }
+
+    if(loadOriginalBtn) {
+        loadOriginalBtn.addEventListener('click', () => {
+            currentData = JSON.parse(JSON.stringify(originalTableData));
+            normalizeSeaAirData();
+            renderExcelTable();
+            showAlert('已重新載入原始資料', 'info');
+        });
+    }
+
+    if(exportExcelBtn) {
+        exportExcelBtn.addEventListener('click', () => {
+            const wb = XLSX.utils.book_new();
+            const wsData = [tableColumns.map(c=>c.title), ...currentData.map(row => 
+                tableColumns.map(col => row[col.field] || '')
+            )];
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            XLSX.writeFile(wb, 'Ch8_export.xlsx');
+            showAlert('Excel 檔案已匯出', 'success');
+        });
+    }
+});
+</script>
+
+</body>
+</html>

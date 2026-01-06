@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSD Schema JSON 修改器</title>
+    <style nonce="bkZ0dkFwMjAyNA==">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .layout {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .sidebar {
+            width: 240px;
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-header h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .sidebar-menu a:hover {
+            background: #f5f5f5;
+        }
+        
+        .container {
+            flex: 1;
+            max-width: 800px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            background: #fafafa;
+        }
+        
+        .upload-area:hover {
+            border-color: #999;
+            background: #f5f5f5;
+        }
+        
+        .upload-area.dragover {
+            border-color: #666;
+            background: #f0f0f0;
+        }
+        
+        .upload-text {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-hint {
+            color: #999;
+            font-size: 0.875rem;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        .btn {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+        
+        .btn:hover:not(:disabled) {
+            background: #555;
+        }
+        
+        .btn:disabled {
+            background: #ddd;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e53e3e;
+            background: #fff5f5;
+            color: #c53030;
+        }
+        
+        .info-box {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .info-box h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .info-box pre {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            border: 1px solid #e5e5e5;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        .file-info {
+            background: #fafafa;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .file-info.show {
+            display: block;
+        }
+        
+        .file-name {
+            color: #333;
+            font-weight: 500;
+            word-break: break-all;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #333;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="container">
+        <h1>XSD Schema JSON 修改器</h1>
+        <p class="subtitle">上傳 JSON 文件，自動添加 TW_LimitDateTime2 元素到 AdditionalInformation 中</p>
+        
+        <div th:if="${error}" class="alert">
+            <span th:text="${error}">錯誤訊息</span>
+        </div>
+        
+        <form action="/json/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+            <label for="fileInput" class="upload-area" id="uploadArea">
+                <div class="upload-text">點選選擇 JSON 文件</div>
+                <div class="upload-hint">或拖曳文件至此處</div>
+            </label>
+            
+            <input type="file" 
+                   id="fileInput" 
+                   name="file" 
+                   accept=".json,application/json"
+                   required>
+            
+            <div class="file-info" id="fileInfo">
+                <div>已選擇文件：<span class="file-name" id="fileName"></span></div>
+            </div>
+            
+            <button type="submit" class="btn" id="submitBtn" disabled>
+                上傳並添加 TW_LimitDateTime2
+            </button>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 1rem; color: #666;">處理中，請稍候</p>
+            </div>
+        </form>
+        
+        <div class="info-box">
+            <h3>預覽</h3>
+            <pre>{
+  "@name": "TW_LimitDateTime2",
+  "@type": "ds:AdditionalInformation2Limit2DateTimeType",
+  "xsd:annotation": {
+    "xsd:documentation": {
+      "@xml:lang": "en",
+      "ccts:UniqueID": "TW",
+      "ccts:DictionaryEntryName": "Additional Information2. Limit2. Date Time",
+      "ccts:Definition": "Date and time by when the event has to be completed2.",
+      "ccts:Cardinality": "1",
+      "ccts:ObjectClassTerm": "Additional Information2",
+      "ccts:PropertyTerm": "Limit2",
+      "ccts:RepresentationTerm": "Date Time",
+      "tsw:ChineseName": "補辦期限2",
+      "tsw:Remark": {},
+      "tsw:Format": "an8"
+    }
+  }
+}</pre>
+        </div>
+    </div>
+</div>
+    
+<script nonce="bkZ0dkFwMjAyNA==">
+const fileInput = document.getElementById('fileInput');
+const uploadArea = document.getElementById('uploadArea');
+const fileInfo = document.getElementById('fileInfo');
+const fileName = document.getElementById('fileName');
+const submitBtn = document.getElementById('submitBtn');
+const uploadForm = document.getElementById('uploadForm');
+const loading = document.getElementById('loading');
+
+fileInput.addEventListener('change', function(e) {
+    handleFileSelect(this.files);
+});
+
+function handleFileSelect(files) {
+    if (files.length > 0) {
+        const file = files[0];
+        
+        if (!file.name.endsWith('.json') && file.type !== 'application/json') {
+            alert('請選擇 JSON 文件');
+            return;
+        }
+        
+        fileName.textContent = file.name;
+        fileInfo.classList.add('show');
+        submitBtn.disabled = false;
+    }
+}
+
+uploadForm.addEventListener('submit', function(e) {
+    submitBtn.disabled = true;
+    loading.classList.add('show');
+});
+
+uploadArea.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.add('dragover');
+});
+
+uploadArea.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.remove('dragover');
+});
+
+uploadArea.addEventListener('drop', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.remove('dragover');
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        const file = files[0];
+        
+        if (file.name.endsWith('.json') || file.type === 'application/json') {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+            
+            handleFileSelect(files);
+        } else {
+            alert('請選擇 JSON 文件');
+        }
+    }
+});
+
+window.addEventListener('dragover', function(e) {
+    e.preventDefault();
+});
+
+window.addEventListener('drop', function(e) {
+    e.preventDefault();
+});
+</script>
+</body>
+</html>

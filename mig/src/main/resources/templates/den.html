@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIG資料調和系統</title>
+
+<!-- InspireTree CSS -->
+<link rel="stylesheet" href="/lib/inspire-tree-light.css">
+
+<style>
+/* ===== 全站字型 ===== */
+body, input, textarea, select, button {
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    font-size: 16px;
+    background: #f0f0f0;
+    color: #000;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+.sidebar-menu a.active {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    margin-left: 240px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 240px);
+}
+
+#page-title {
+    position: fixed;
+    top: 0;
+    left: 240px;
+    right: 0;
+    background: #fff;
+    color: black;
+    text-align: center;
+    padding: 12px 0;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+    border-bottom: 4px solid #002a63;
+    z-index: 999;
+}
+
+#mainContainer {
+    display: flex;
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+}
+
+#tree {
+    width: 350px;
+    min-width: 300px;
+    background: #ffffff;
+    padding: 12px;
+    overflow-y: auto;
+    border-right: 1px solid #d0d0d0;
+    flex-shrink: 0;
+}
+
+#formContainer {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    min-width: 400px;
+}
+
+/* Tab 功能 */
+.tab-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #003c75;
+}
+
+.tab-button {
+    background: #e0e0e0;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.2s;
+}
+
+.tab-button:hover {
+    background: #d0d0d0;
+}
+
+.tab-button.active {
+    background: #003c75;
+    color: #fff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.gov-card {
+    background: #fff;
+    border: 1px solid #c0c0c0;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.gov-card h5 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border-bottom: 2px solid #003c75;
+    padding-bottom: 5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 5px 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+button.btn-gov {
+    background-color: #003c75;
+    color: #fff;
+    border: none;
+    padding: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button.btn-gov:hover {
+    background-color: #002a63;
+}
+
+button.btn-gov:disabled {
+    background-color: #9e9e9e;
+    cursor: not-allowed;
+}
+
+.context-menu {
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #9e9e9e;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 5px;
+    display: none;
+    z-index: 2000;
+}
+
+.context-menu div {
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.context-menu div:hover {
+    background: #e3e3e3;
+}
+
+pre {
+    background: #f1f1f1;
+    padding: 10px;
+    overflow-x: auto;
+    margin: 0;
+}
+
+.success-message {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.error-message {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+    #page-title {
+        left: 200px;
+    }
+    #mainContainer {
+        flex-direction: column;
+    }
+    #tree {
+        width: 100%;
+        height: 300px;
+        border-right: none;
+        border-bottom: 1px solid #d0d0d0;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<div class="layout">
+    <!-- 側邊欄 -->
+   <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <!-- 右側主內容 -->
+    <div class="main-content">
+        <div id="page-title">MIG資料調和系統 — Java 程式樹狀編輯系統</div>
+
+        <div id="mainContainer">
+            <div id="tree">
+                <!-- 樹狀結構將在此處動態載入 -->
+            </div>
+
+            <div id="formContainer">
+                <!-- Tab 按鈕 -->
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="switchTab('field')">新增Den</button>
+                    <button class="tab-button" onclick="switchTab('class')">新增class</button>
+                </div>
+
+                <!-- 新增欄位 Tab -->
+                <div id="fieldTab" class="tab-content active">
+                    <div class="gov-card">
+                        <form id="modifyForm">
+                            <h5>基礎參數填寫</h5>
+                            <label>den 字串</label>
+                            <input type="text" name="den" placeholder="例如:Additional Information2. Limit2. Date Time">
+                            <label>cls</label>
+                            <input type="text" name="cls" placeholder="例如:AdditionalInformation">
+
+                            <h5>訊息參數設定</h5>
+                            <label>msgName</label>
+                            <input type="text" name="msgName" placeholder="N5107">
+                            <label>msgCar</label>
+                            <input type="text" name="msgCar" placeholder="1">
+                            <label>msgBoro</label>
+                            <input type="text" name="msgBoro">
+                            <label>msgChn</label>
+                            <input type="text" name="msgChn" placeholder="補辦期限2">
+
+                            <h5>類別與目標欄位設定</h5>
+                            <label>SuperClass(父類別)</label>
+                            <input type="text" name="SuperClass" placeholder="AdditionalInformation">
+                            <label>FieldName(屬性名)</label>
+                            <input type="text" name="FieldName" placeholder="TW_LimitDateTime2">
+                            <label>className(類別名)</label>
+                            <input type="text" name="className" placeholder="LimitDateTime2">
+                            <label>target 目標欄位</label>
+                            <input type="text" name="target" placeholder="public String LimitDateTime2;">
+
+                            <label>插入位置</label>
+                            <select name="insertAfter">
+                                <option value="false">插入在目標欄位之後</option>
+                            </select>
+
+                            <button type="button" class="btn-gov" onclick="sendFieldData()">執行欄位插入作業</button>
+                        </form>
+                    </div>
+
+                    <div class="gov-card" id="resultCard" style="display:none;">
+                        <h5>執行結果</h5>
+                        <pre id="resultBox"></pre>
+                    </div>
+
+                    <div class="gov-card" id="finalCard" style="display:none;">
+                        <h5>前端生成 Java 註解格式</h5>
+                        <pre id="finalBox"></pre>
+                    </div>
+
+                    <div class="gov-card" id="backendCard" style="display:none;">
+                        <h5>後端回傳 Java 註解</h5>
+                        <pre id="backendBox"></pre>
+                    </div>
+                </div>
+
+                <!-- 新增類別 Tab -->
+                <div id="classTab" class="tab-content">
+                    <div class="gov-card">
+                        <form id="addClassForm">
+                            <h5>基礎參數填寫</h5>
+                            <label>父類別名稱 (parentClassName)</label>
+                            <input type="text" name="parentClassName" placeholder="例如:MyMapping
+" required>
+                            
+                            <label>新類別名稱 (newClassName)</label>
+                            <input type="text" name="newClassName" placeholder="例如:tw_SpecialPermit2
+" required>
+                            
+                            <label>den 字串</label>
+                            <input type="text" name="den" placeholder="例如:Special Permit2. Identification. Identifier
+" required>
+                            
+                            <label>cls</label>
+                            <input type="text" name="cls" placeholder="例如:Special Permit2
+" required>
+
+                            <h5>訊息參數設定</h5>
+                            <label>msgName</label>
+                            <input type="text" name="msgName" placeholder="N5107" required>
+                            
+                            <label>msgCar</label>
+                            <input type="text" name="msgCar" placeholder="1" required>
+                            
+                            <label>msgBoro</label>
+                            <input type="text" name="msgBoro" placeholder="選填">
+                            
+                            <label>msgChn</label>
+                            <input type="text" name="msgChn" placeholder="補辦期限" required>
+
+                            <h5>欄位與插入位置設定</h5>
+                            <label>欄位名稱 (fieldName)</label>
+                            <input type="text" name="fieldName" placeholder="例如:tw_ID
+" required>
+                            
+                            <label>target 目標類別實例</label>
+                            <input type="text" name="target" placeholder="例如:public tw_SpecialPermit tw_SpecialPermit = new tw_SpecialPermit();" required>
+
+                            <label>插入位置</label>
+                            <select name="insertBeforeClass" required>
+                                <option value="true">插入在目標類別實例之前</option>
+                            </select>
+
+                            <button type="button" class="btn-gov" onclick="sendClassData()">執行新增類別作業</button>
+                        </form>
+                    </div>
+
+                    <div class="gov-card" id="classResultCard" style="display:none;">
+                        <h5>執行結果</h5>
+                        <div id="classResultMessage"></div>
+                        <pre id="classResultBox"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="contextMenu" class="context-menu">
+    <div data-action="external">在另一頁編輯此程式碼</div>
+</div>
+
+<script src="/lib/lodash.min.js"></script>
+<script src="/lib/inspire-tree.js"></script>
+<script src="/lib/inspire-tree-dom.js"></script>
+
+<script>
+let treeInstance = null;
+let selectedNode = null;
+const menu = document.getElementById('contextMenu');
+
+// Tab 切換功能
+function switchTab(tabName) {
+    // 隱藏所有 tab 內容
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // 移除所有按鈕的 active 狀態
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // 顯示選中的 tab
+    if (tabName === 'field') {
+        document.getElementById('fieldTab').classList.add('active');
+        document.querySelectorAll('.tab-button')[0].classList.add('active');
+    } else if (tabName === 'class') {
+        document.getElementById('classTab').classList.add('active');
+        document.querySelectorAll('.tab-button')[1].classList.add('active');
+    }
+}
+
+function initTree() {
+    function renderTree(data) {
+        const treeContainer = document.getElementById('tree');
+        treeContainer.innerHTML = '';
+
+        treeInstance = new InspireTree({ data, dragAndDrop: true });
+        new InspireTreeDOM(treeInstance, { target:'#tree', selectable:true });
+
+        treeInstance.on('node.select', function(node) {
+            selectedNode = node;
+        });
+
+        treeContainer.addEventListener('contextmenu', function(e){
+            e.preventDefault();
+            const uidElement = e.target.closest('[data-uid]');
+            if(!uidElement) return;
+
+            const nodeId = uidElement.getAttribute('data-uid');
+            selectedNode = findNodeById(treeInstance.nodes(), nodeId);
+            showContextMenu(e.pageX, e.pageY);
+        });
+    }
+
+    function showContextMenu(x,y){
+        menu.style.display='block';
+        menu.style.left = x+'px';
+        menu.style.top = y+'px';
+    }
+
+    menu.onclick = function(e){
+        const action = e.target.getAttribute('data-action');
+        if(action === 'external' && selectedNode){
+            const url = "/modify/node?file=MyMapping.java&start=" 
+                + (selectedNode.lineNumber || 1)
+                + "&end=" + (selectedNode.lineNumber || 1);
+            window.open(url, "_blank");
+        }
+        menu.style.display='none';
+    };
+
+    document.body.addEventListener('click', ()=> menu.style.display='none');
+
+    function findNodeById(nodes, uid) {
+        for(let node of nodes) {
+            if(String(node.id) === String(uid)) return node;
+            if(node.children) {
+                let found = findNodeById(node.children, uid);
+                if(found) return found;
+            }
+        }
+        return null;
+    }
+
+    // 自動載入後端檔案
+    fetch('/mig/parseJava?fileName=MyMapping.java', { method:'POST' })
+        .then(r => r.json())
+        .then(data => renderTree(data.tree))
+        .catch(err => console.error(err));
+}
+
+initTree();
+
+// 新增欄位Den功能
+function sendFieldData() {
+    const form = document.getElementById("modifyForm");
+    const data = {};
+    [...form.elements].forEach(el => { if(el.name) data[el.name] = el.value; });
+
+    const uid = Math.floor(Math.random()*9000)+1000;
+
+    const payload = {
+        dsref: { den: data.den || "", uid: uid.toString(), cls: data.cls || "" },
+        aaa: { msg: [{ name: data.msgName||"", car:data.msgCar||"", boro:data.msgBoro||"", chn:data.msgChn||"" }] },
+        fieldName: data.FieldName || "",
+        target: data.target || "",
+        insertAfter: data.insertAfter === "true"
+    };
+
+    const javaFormat = generateJavaAnnotation(payload);
+
+    fetch("/modify/run", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+    })
+    .then(r=>r.json())
+    .then(res=>{
+        document.getElementById("resultCard").style.display="block";
+        document.getElementById("resultBox").innerText = 
+            "=== JSON ===\n" + JSON.stringify(res,null,4) + 
+            "\n\n=== Java 註解格式(前端生成) ===\n" + javaFormat;
+
+        const finalStr = `@DSREF(den = "${payload.dsref.den}", uid = "${payload.dsref.uid}", cls = "${payload.dsref.cls}")
+@AAA(msg = {
+    "name=${payload.aaa.msg[0].name},car=${payload.aaa.msg[0].car},boro=${payload.aaa.msg[0].boro},chn=${payload.aaa.msg[0].chn}"
+})
+${payload.fieldName ? "public String " + payload.fieldName + ";" : ""}`;
+
+        const finalCard = document.getElementById("finalCard");
+        finalCard.style.display="block";
+        document.getElementById("finalBox").innerText = finalStr;
+
+        if(res.javaAnnotation){
+            document.getElementById("backendCard").style.display="block";
+            document.getElementById("backendBox").innerText = res.javaAnnotation;
+        }
+        
+        // 重新載入樹狀結構
+        reloadTree();
+    })
+    .catch(err=>{
+        alert("執行失敗,本次作業未完成。");
+        console.log(err);
+    });
+}
+
+// 新增類別功能
+function sendClassData() {
+    const form = document.getElementById("addClassForm");
+    const formData = new FormData(form);
+    
+    // 驗證必填欄位
+    const required = ['parentClassName', 'newClassName', 'den', 'cls', 'msgName', 'msgCar', 'msgChn', 'fieldName', 'target', 'insertBeforeClass'];
+    for (let field of required) {
+        if (!formData.get(field)) {
+            alert(`請填寫必填欄位:${field}`);
+            return;
+        }
+    }
+    
+    // 發送請求
+    fetch('/mig/addClass', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(res => {
+        const resultCard = document.getElementById('classResultCard');
+        const resultMessage = document.getElementById('classResultMessage');
+        const resultBox = document.getElementById('classResultBox');
+        
+        resultCard.style.display = 'block';
+        
+        if (res.success) {
+            resultMessage.innerHTML = `<div class="success-message">✓ ${res.message}</div>`;
+            resultBox.innerText = JSON.stringify(res, null, 4);
+            
+            // 清空表單
+            form.reset();
+            
+            // 重新載入樹狀結構
+            reloadTree();
+        } else {
+            resultMessage.innerHTML = `<div class="error-message">✗ ${res.message}</div>`;
+            resultBox.innerText = JSON.stringify(res, null, 4);
+        }
+    })
+    .catch(err => {
+        const resultCard = document.getElementById('classResultCard');
+        const resultMessage = document.getElementById('classResultMessage');
+        const resultBox = document.getElementById('classResultBox');
+        
+        resultCard.style.display = 'block';
+        resultMessage.innerHTML = `<div class="error-message">✗ 執行失敗:${err.message}</div>`;
+        resultBox.innerText = err.toString();
+        console.error(err);
+    });
+}
+
+// 重新載入樹狀結構
+function reloadTree() {
+    fetch('/mig/parseJava?fileName=MyMapping.java', { method:'POST' })
+        .then(r => r.json())
+        .then(data => {
+            const treeContainer = document.getElementById('tree');
+            treeContainer.innerHTML = '';
+            treeInstance = new InspireTree({ data: data.tree, dragAndDrop: true });
+            new InspireTreeDOM(treeInstance, { target:'#tree', selectable:true });
+        })
+        .catch(err => console.error('重新載入樹狀結構失敗:', err));
+}
+
+function generateJavaAnnotation(payload) {
+    const dsref = payload.dsref;
+    const aaa = payload.aaa;
+    const fieldName = payload.fieldName || "";
+    const msgArr = aaa.msg.map(m => `"name=${m.name},car=${m.car},boro=${m.boro},chn=${m.chn}"`).join(",\n        ");
+    return `@DSREF(den = "${dsref.den}", uid = "${dsref.uid}", cls = "${dsref.cls}")
+@AAA(msg = {
+${msgArr}
+})
+${fieldName ? "public String " + fieldName + ";" : ""}`;
+}
+</script>
+
+</body>
+</html>

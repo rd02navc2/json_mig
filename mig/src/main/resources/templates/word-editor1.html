@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MIG資料調和系統</title>
+
+<!-- Tabulator -->
+<link th:href="@{/lib/tabulator/tabulator.min.css}" rel="stylesheet" nonce="bkZ0dkFwMjAyNA==" />
+<script th:src="@{/lib/tabulator/tabulator.min.js}" nonce="bkZ0dkFwMjAyNA=="></script>
+
+<!-- SortableJS -->
+<script th:src="@{/lib/Sortable.min.js}" nonce="bkZ0dkFwMjAyNA=="></script>
+
+<style nonce="bkZ0dkFwMjAyNA==">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 全站字型 */
+body, input, textarea, select, button {
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    font-size: 16px;
+    background: #f0f0f0;
+    color: #000000;              
+    line-height: 1.8;
+    letter-spacing: 1px;
+}
+
+/* 超連結 */
+a {
+    color: #000000;              
+    text-decoration: none;
+}
+
+/* 整體左右欄版型 */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+/* 標題區 */
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* 選單 */
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* hover */
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+/* 選取狀態 */
+.sidebar-menu a.active,
+.sidebar-menu a[aria-current="page"],
+.sidebar-menu .active > a {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+/* 右側主內容 */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* 文件外框 */
+.document-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 頁首：改為素面色塊 */
+.gov-header {
+    background: #ffffff;
+    border: 1px solid #000000;   
+    padding: 18px 16px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.gov-header-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #000000;              
+    letter-spacing: 3px;
+}
+
+/* 卡片區塊 */
+.gov-card {
+    background: #ffffff;
+    border: 1px solid #b0b0b0;
+    padding: 18px;
+    margin-bottom: 10px;
+    color: #000000;              
+}
+
+/* 區塊標題 */
+.gov-section-title {
+    font-size: 17px;
+    font-weight: bold;
+    color: #000000;             
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #000000; 
+    letter-spacing: 1px;
+}
+
+/* 上傳區 */
+.upload-zone {
+    border: 1px dashed #5a5a5a;
+    background: #fafafa;
+    padding: 26px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.upload-zone:hover {
+    background: #f0f4f8;
+    border-color: #000000;       
+}
+
+.upload-zone.drag {
+    background: #e3eef9;
+    border-color: #000000;       
+}
+
+.upload-icon {
+    font-size: 30px;
+    margin-bottom: 6px;
+}
+
+.upload-text {
+    font-size: 15px;
+    font-weight: bold;
+    color: #000000;              
+    margin-bottom: 4px;
+}
+
+.upload-hint {
+    font-size: 13px;
+    color: #000000;              
+}
+
+#fileName {
+    margin-top: 8px;
+    color: #000000;              
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* 輸入元件 */
+.gov-input, .gov-textarea, .gov-select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 1px solid #b0b0b0;
+    background: #ffffff;
+    color: #000000;             
+    letter-spacing: 1px;
+    line-height: 1.6;
+}
+
+.gov-input:focus, .gov-textarea:focus, .gov-select:focus {
+    outline: none;
+    border-color: #000000;       
+    background: #f8fbff;
+}
+
+.gov-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* 按鈕 */
+.gov-btn {
+    padding: 8px 18px;
+    font-size: 15px;
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 1px solid #5a5a5a;
+    background: #f5f5f5;
+    color: #000000;              /
+    cursor: pointer;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.gov-btn:hover {
+    background: #e8e8e8;
+    border-color: #000000;       
+    color: #000000;             
+}
+
+.gov-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.gov-btn-primary {
+    background: #e0e0e0;         
+    color: #000000;             
+    border-color: #888888;
+}
+
+.gov-btn-primary:hover:not(:disabled) {
+    background: #cfcfcf;
+}
+
+.gov-btn-danger {
+    background: #ffcccc;        
+    color: #000000;              
+    border-color: #cc9999;
+}
+
+.gov-btn-danger:hover:not(:disabled) {
+    background: #ffbbbb;
+}
+
+/* 欄位網格 */
+.fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+}
+
+.field-item {
+    background: #fafafa;
+    border: 1px solid #b0b0b0;
+    padding: 10px;
+}
+
+.field-item label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;             
+    margin-bottom: 4px;
+}
+
+/* 主要功能列表 */
+#mainFeatures {
+    list-style: none;
+    counter-reset: item;
+    padding: 0;
+}
+
+#mainFeatures li {
+    counter-increment: item;
+    margin-bottom: 8px;
+    padding: 10px 12px;
+    background: #ffffff;
+    border: 1px solid #b0b0b0;
+    cursor: move;
+    position: relative;
+    padding-left: 42px;
+    line-height: 1.8;
+    color: #000000;             
+}
+
+#mainFeatures li:before {
+    content: counter(item, decimal) "、";
+    position: absolute;
+    left: 12px;
+    font-weight: bold;
+    color: #000000;              
+}
+
+/* 右側表格 / 說明 */
+.gov-table-wrapper {
+    border: 1px solid #5a5a5a;
+    background: #ffffff;
+    padding: 6px;
+}
+
+/* 預覽框 */
+.preview-box {
+    background: #fefefe;
+    border: 1px solid #5a5a5a;
+    padding: 14px;
+    font-family: "Microsoft JhengHei","微軟正黑體",sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    height: 360px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    color: #000000;              
+}
+
+/* 提示文字 */
+.note {
+    font-size: 13px;
+    color: #000000;              
+    padding: 8px;
+    background: #f9f9f9;
+    border-left: 3px solid #999;
+    margin-top: 8px;
+}
+
+/* alert */
+.alert {
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background: #e8f5e9;
+    border-color: #2e7d32;
+    color: #000000;              
+}
+
+.alert-error {
+    background: #ffebee;
+    border-color: #c62828;
+    color: #000000;              
+}
+
+.alert-info {
+    background: #e3f2fd;
+    border-color: #1976d2;
+    color: #000000;              
+}
+
+.hidden {
+    display: none;
+}
+
+/* 左右兩欄主區塊 */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.button-group {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #d0d0d0;
+}
+
+/* Tabulator 樣式微調 (中性) */
+.tabulator {
+    font-family: "Microsoft JhengHei","微軟正黑體",sans-serif;
+    font-size: 14px;
+    border: 1px solid #5a5a5a;
+    color: #000000;              /* ★ 表格內容黑字 */
+}
+
+.tabulator-header {
+    background: #e0e7f2 !important;
+    color: #000000 !important;   /* ★ 原本藍改黑 */
+    font-weight: bold !important;
+}
+
+.tabulator-row {
+    color: #000000 !important;   /* ★ 列文字黑 */
+}
+
+.tabulator-row:hover {
+    background: #f0f4f8 !important;
+}
+
+/* RWD */
+@media (max-width: 1024px) {
+    .layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+    }
+    .main-content {
+        padding: 10px;
+    }
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+    .gov-header-title {
+        font-size: 18px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+  <!-- 右側主內容 -->
+  <div class="main-content">
+    <div class="document-wrapper">
+      <div class="gov-header">
+          <div class="gov-header-title">MIG資料調和系統-CH1</div>
+      </div>
+
+      <div id="alertBox" class="alert hidden"></div>
+
+      <div class="gov-card">
+          <div class="gov-section-title">壹、文件上傳作業</div>
+          <div class="upload-zone" id="uploadArea">
+              <div class="upload-icon"></div>
+              <div class="upload-text">點選或拖曳上傳 Word 文件</div>
+              <div class="upload-hint">支援格式：.docx（Microsoft Word 2007以上版本）</div>
+              <div id="fileName"></div>
+              <input id="fileInput" type="file" accept=".docx" style="display:none"/>
+          </div>
+      </div>
+
+      <div class="main-grid">
+          <div id="leftPanel">
+              <div class="gov-card">
+                  <div class="gov-section-title">貳、文件頁首內容編輯</div>
+                  <textarea id="headerText" class="gov-textarea" style="height:130px;" placeholder="請輸入文件第一頁頁首內容..."></textarea>
+                  <div class="note">此區域內容將顯示於文件第一頁頂端</div>
+              </div>
+
+              <div class="gov-card">
+                  <div class="gov-section-title">參、固定欄位資料維護</div>
+                  <div class="fields-grid" id="fieldsGrid">
+                      <div class="note">請先上傳Word文件，系統將自動載入可編輯欄位</div>
+                  </div>
+                  <div class="note">修改完成後請點選「下載修改後文件」按鈕</div>
+              </div>
+
+              <div class="gov-card">
+                  <div class="gov-section-title">肆、訊息主要功能項目</div>
+                  <ol id="mainFeatures" contenteditable="true">
+                      <div class="note">請先上傳Word文件，系統將自動解析功能列表</div>
+                  </ol>
+                  <div class="button-group">
+                      <button id="addItemBtn" class="gov-btn" disabled>➕ 新增功能項目</button>
+                      <button id="removeItemBtn" class="gov-btn gov-btn-danger" disabled>➖ 刪除最後項目</button>
+                  </div>
+                  <div class="note">可直接點選項目編輯內容，或拖曳調整順序</div>
+              </div>
+
+              <div class="gov-card">
+                  <div class="gov-section-title">伍、文件修訂紀錄表</div>
+                  <div id="revisionTable" class="gov-table-wrapper"></div>
+                  <div class="button-group">
+                      <button id="loadRevisionBtn" class="gov-btn" disabled>載入原始修訂表</button>
+                      <button id="addRevisionRowBtn" class="gov-btn" disabled>新增修訂紀錄</button>
+                      <button id="removeRevisionRowBtn" class="gov-btn gov-btn-danger" disabled>刪除最後紀錄</button>
+                      <button id="testRevisionBtn" class="gov-btn" disabled>檢視資料內容</button>
+                  </div>
+                  <div class="note">修訂表記錄文件歷次修改情形，請確實填寫</div>
+              </div>
+
+              <div class="gov-card">
+                  <button id="downloadBtn" class="gov-btn gov-btn-primary" style="width:100%;font-size:17px;padding:12px;" disabled>
+                      下載修改後 Word 文件
+                  </button>
+              </div>
+          </div>
+
+          <div id="rightPanel">
+              <div class="gov-card">
+                  <div class="gov-section-title">陸、文件內容預覽</div>
+                  <div id="previewContent" class="preview-box">尚未上傳文件，請先上傳.docx檔案以開始編輯...</div>
+                  <div class="note">此為文件文字內容預覽，實際格式以下載檔案為準</div>
+              </div>
+
+              <div class="gov-card">
+                  <div class="gov-section-title">柒、系統操作說明</div>
+                  <ol style="padding-left:24px;font-size:14px;line-height:1.9;">
+                      <li>上傳.docx 範本，系統將自動解析頁首、欄位與修訂表。</li>
+                      <li>於左側區塊依序編輯頁首、固定欄位與主要功能列表。</li>
+                      <li>如需維護修訂紀錄表，可載入原始內容後新增/刪除列。</li>
+                      <li>完成後按下「下載修改後 Word 文件」，取得更新後檔案。</li>
+                  </ol>
+                  <div class="note" style="margin-top:12px;">
+                      注意：下載前請再次確認所有欄位與修訂紀錄是否正確。
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript" nonce="bkZ0dkFwMjAyNA==">
+document.addEventListener('DOMContentLoaded', ()=>{
+
+const uploadArea = document.getElementById('uploadArea');
+const fileInput = document.getElementById('fileInput');
+const fileNameEl = document.getElementById('fileName');
+const previewContent = document.getElementById('previewContent');
+const fieldsGrid = document.getElementById('fieldsGrid');
+const downloadBtn = document.getElementById('downloadBtn');
+const mainFeaturesOl = document.getElementById('mainFeatures');
+const addItemBtn = document.getElementById('addItemBtn');
+const removeItemBtn = document.getElementById('removeItemBtn');
+const loadRevisionBtn = document.getElementById('loadRevisionBtn');
+const addRevisionRowBtn = document.getElementById('addRevisionRowBtn');
+const removeRevisionRowBtn = document.getElementById('removeRevisionRowBtn');
+const testRevisionBtn = document.getElementById('testRevisionBtn');
+const alertBox = document.getElementById('alertBox');
+const headerTextEl = document.getElementById('headerText');
+
+let uploadedFile = null;
+let editableFields = {};
+let revisionTable = null;
+let sortableMainFeatures = null;
+
+const fieldLabels = {
+  title: '關港貿XML訊息建置指引(通關)',
+  sender: '訊息發送方',
+  receiver: '訊息接收方',
+  category: '訊息類別',
+  version: '版 本',
+  subVersion: '副 版 本',
+  revisionDate: '修訂日期',
+  organization: '制定機構'
+};
+
+function initRevisionTable(data){
+  const tableData = Array.isArray(data) && data.length > 0 ? data : [];
+  if(!revisionTable){
+    revisionTable = new Tabulator("#revisionTable", {
+      data: tableData,
+      layout: "fitColumns",
+      height: "260px",
+      placeholder: "尚未載入修訂表資料，請按「載入原始修訂表」按鈕",
+      columns: [
+        { title: "版本", field: "version", editor: "input", width: 80 },
+        { title: "日期", field: "date", editor: "input", width: 100 },
+        { title: "修改摘要", field: "summary", editor: "input" },
+        { title: "修訂人", field: "owner", editor: "input", width: 100 },
+        { title: "備註", field: "note", editor: "input", width: 100 }
+      ]
+    });
+  } else {
+    revisionTable.replaceData(tableData);
+  }
+  addRevisionRowBtn.disabled = false;
+  removeRevisionRowBtn.disabled = false;
+  testRevisionBtn.disabled = false;
+}
+
+function initSortable(){
+  if(sortableMainFeatures) sortableMainFeatures.destroy();
+  sortableMainFeatures = Sortable.create(mainFeaturesOl, { animation:150, handle:'li' });
+}
+
+function showAlert(msg,type){
+  alertBox.className='alert alert-'+type;
+  alertBox.textContent=msg;
+  alertBox.classList.remove('hidden');
+  setTimeout(()=>alertBox.classList.add('hidden'),6000);
+}
+
+uploadArea.addEventListener('click', ()=>fileInput.click());
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag'); });
+uploadArea.addEventListener('dragleave', ()=> uploadArea.classList.remove('drag'));
+uploadArea.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadArea.classList.remove('drag');
+  if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', e => { if(e.target.files.length) handleFile(e.target.files[0]); });
+
+async function handleFile(file){
+  if(!file.name.toLowerCase().endsWith('.docx')){
+    showAlert('檔案格式錯誤：僅支援 .docx 格式文件', 'error');
+    return;
+  }
+  uploadedFile = file;
+  fileNameEl.textContent = '已選擇：' + file.name;
+
+  try{
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await fetch('/word1/parse', { method: 'POST', body: formData });
+    const result = await response.json();
+
+    if(result.success){
+      headerTextEl.value = result.headerText || "";
+      editableFields = result.fields || {};
+      renderFieldsUI();
+      renderMainFeatures(result.mainFeatures || []);
+      previewContent.textContent = result.fullText || '(文件內容為空)';
+      initRevisionTable([]);
+
+      downloadBtn.disabled = false;
+      addItemBtn.disabled = false;
+      removeItemBtn.disabled = false;
+      loadRevisionBtn.disabled = false;
+
+      initSortable();
+      showAlert('文件解析成功！已載入可編輯內容', 'success');
+    } else {
+      showAlert('文件解析失敗：' + result.error, 'error');
+    }
+  }catch(err){
+    console.error(err);
+    showAlert('文件上傳失敗：' + err.message, 'error');
+  }
+}
+
+function renderFieldsUI(){
+  fieldsGrid.innerHTML = '';
+  for(const [key,label] of Object.entries(fieldLabels)){
+    const div = document.createElement('div');
+    div.className = 'field-item';
+    let value = editableFields[key] || '';
+    div.innerHTML = `<label>${label}</label><input type="text" class="gov-input" data-key="${key}" value="${value}">`;
+    fieldsGrid.appendChild(div);
+    div.querySelector('input').addEventListener('input', e=>{
+      editableFields[e.target.dataset.key] = e.target.value;
+    });
+  }
+}
+
+function renderMainFeatures(features){
+  mainFeaturesOl.innerHTML = '';
+  if(features && features.length > 0){
+    features.forEach(text => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      li.contentEditable = 'true';
+      mainFeaturesOl.appendChild(li);
+    });
+  } else {
+    const div = document.createElement('div');
+    div.className = 'note';
+    div.textContent = '未能從文件中解析到功能列表項目，請手動新增';
+    mainFeaturesOl.appendChild(div);
+  }
+  initSortable();
+}
+
+function getMainFeaturesArray(){
+  return Array.from(mainFeaturesOl.querySelectorAll('li'))
+    .map(li=>li.textContent.trim())
+    .filter(Boolean);
+}
+
+addItemBtn.addEventListener('click', ()=>{
+  const li = document.createElement('li');
+  li.textContent = '新項目（請編輯此內容）';
+  li.contentEditable = 'true';
+  mainFeaturesOl.appendChild(li);
+});
+
+removeItemBtn.addEventListener('click', ()=>{
+  const items = mainFeaturesOl.querySelectorAll('li');
+  if(items.length > 0) mainFeaturesOl.removeChild(items[items.length - 1]);
+});
+
+addRevisionRowBtn.addEventListener('click', () => {
+  if(revisionTable){
+    const newRow = { version: "", date: "", summary: "", owner: "", note: "" };
+    revisionTable.addRow(newRow, false);
+  }
+});
+
+removeRevisionRowBtn.addEventListener('click', () => {
+  if(revisionTable){
+    const rows = revisionTable.getRows();
+    if(rows.length > 0) rows[rows.length-1].delete();
+  }
+});
+
+testRevisionBtn.addEventListener('click', () => {
+  if(revisionTable){
+    const data = revisionTable.getData();
+    alert('修訂表共有 ' + data.length + ' 列，詳見 console');
+    console.log("修訂表目前資料:", data);
+  }
+});
+
+loadRevisionBtn.addEventListener('click', async ()=>{
+  if(!uploadedFile){ showAlert("請先上傳檔案","error"); return; }
+  try {
+    loadRevisionBtn.disabled = true;
+    loadRevisionBtn.textContent = '載入中...';
+    const formData = new FormData();
+    formData.append('file', uploadedFile);
+    const response = await fetch('/word1/loadRowsByDocx', { method: 'POST', body: formData });
+    const result = await response.json();
+    if(result.success && result.rows && revisionTable){
+      await revisionTable.replaceData(result.rows);
+      showAlert(`已載入修訂表原始內容（${result.rows.length} 列）`,"success");
+    } else showAlert("載入失敗：" + (result.error || "未知錯誤"),"error");
+  } catch(err) {
+    showAlert("載入失敗："+err.message,"error");
+  } finally {
+    loadRevisionBtn.disabled = false;
+    loadRevisionBtn.textContent = '載入原始修訂表';
+  }
+});
+
+downloadBtn.addEventListener('click', async ()=>{
+  if(!uploadedFile){ showAlert('請先上傳檔案','error'); return; }
+
+  document.querySelectorAll('[data-key]').forEach(inp=>editableFields[inp.dataset.key]=inp.value);
+  const mainFeatures = getMainFeaturesArray();
+  const revisionTableData = revisionTable ? revisionTable.getData() : [];
+
+  try{
+    downloadBtn.disabled = true;
+    downloadBtn.textContent = '處理中...';
+
+    const formData = new FormData();
+    formData.append('file', uploadedFile);
+    formData.append('headerText', headerTextEl.value);
+    formData.append('fields', JSON.stringify(editableFields));
+    formData.append('mainFeatures', JSON.stringify(mainFeatures));
+    if(revisionTableData.length>0) formData.append('revisionTable', JSON.stringify(revisionTableData));
+
+    const response = await fetch('/word1/replace', { method: 'POST', body: formData });
+    if(!response.ok) throw new Error('下載失敗');
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = uploadedFile.name.replace(/\.docx$/i,'') + '_modified.docx';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    showAlert('下載成功！','success');
+  }catch(err){
+    showAlert('下載失敗：'+err.message,'error');
+  } finally{
+    downloadBtn.disabled = false;
+    downloadBtn.textContent = '⬇️ 下載修改後 Word 文件';
+  }
+});
+
+});
+</script>
+
+</body>
+</html>
