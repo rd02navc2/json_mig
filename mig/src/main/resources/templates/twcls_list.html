@@ -5,7 +5,7 @@
     <title>MIG資料調和系統</title>
     <link th:href="@{/lib/bootstrap.min.css}" rel="stylesheet">
     <script th:src="@{/lib/jquery/jquery-3.6.0.min.js}"></script>
-    <style>
+    <style nonce="bkZ0dkFwMjAyNA==">
         body, input, textarea, select, button {
             font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
             font-size: 16px;
@@ -117,7 +117,7 @@
 </div>
 
 <script th:src="@{/lib/bootstrap/bootstrap.bundle.min.js}"></script>
-<script>
+<script nonce="bkZ0dkFwMjAyNA==">
 $(function(){
 
     // ClassId 即時檢查
@@ -253,6 +253,39 @@ $(function(){
         });
     });
 
+});
+
+// 修改前端的編輯部分
+$("#twclsTable").on("blur",".editable",function(){
+    let td = $(this);
+    let field = td.data("field");
+    let newValue = td.text().trim();
+    let row = td.closest("tr");
+    
+    // 取得 objectClass 而不是 classId
+    let objectClass = row.find("td:eq(6)").text().trim(); // objectClass 在第7欄
+    let data = {};
+    data[field] = newValue;
+
+    $.ajax({
+        url:"/twcls/ajax/update/"+objectClass,  // 改用 objectClass
+        type:"PATCH",
+        contentType:"application/json",
+        data:JSON.stringify(data),
+        success:function(res){
+            if(res.status==="success"){
+                td.css("background-color","#d4ffd4");
+                setTimeout(()=>td.css("background-color","#fff7e6"),500);
+            }else{
+                td.css("background-color","#ffd4d4");
+                alert("更新失敗："+res.message);
+            }
+        },
+        error:function(){
+            td.css("background-color","#ffd4d4");
+            alert("更新 AJAX 發生錯誤！");
+        }
+    });
 });
 </script>
 </body>

@@ -72,7 +72,7 @@ public class HarmoService {
 //              // =====================================================================
         //
                
-        		// H.mappingXsd();                    
+        		H.mappingXsd();                    
                 H.checkTree();            
                 H.makeTDLDENs(); 
                 

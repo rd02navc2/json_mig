@@ -13,17 +13,17 @@ public interface AAARepository extends JpaRepository<AAA, String> {
     
     List<AAA> findByNameContaining(String name);
     
-    List<AAA> findByCar(Integer car);
+    List<AAA> findByCar(String car);
     
-    List<AAA> findByBoro(Integer boro);
+    List<AAA> findByBoro(String boro);
 
     List<AAA> findByChn(String chn);
     
     List<AAA> findByChnContaining(String chn);
     
-    List<AAA> findByCarGreaterThan(Integer car);
+    List<AAA> findByCarGreaterThan(String car);
     
-    List<AAA> findByBoroLessThan(Integer boro);
+    List<AAA> findByBoroLessThan(String boro);
 
-    List<AAA> findByNameAndCar(String name, Integer car);
+    List<AAA> findByNameAndCar(String name, String car);
 }

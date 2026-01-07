@@ -10,6 +10,6 @@ public class AAAViewController {
 
     @GetMapping("/aaa_list")
     public String aaaListPage() {
-        return "aaa/aaa_list";
+        return "aaa_list";
     }
 }

@@ -49,7 +49,7 @@ public class AAAService {
         return aaaRepository.findByChnContaining(chn);
     }
 
-    public List<AAA> findByCar(Integer car) {
+    public List<AAA> findByCar(String car) {
         return aaaRepository.findByCar(car);
     }
 

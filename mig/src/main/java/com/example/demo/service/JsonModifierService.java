@@ -75,14 +75,14 @@ public class JsonModifierService {
     private ObjectNode createTW_LimitDateTime2Element() {
         ObjectNode element = objectMapper.createObjectNode();
         element.put("@name", "TW_LimitDateTime2");
-        element.put("@type", "ds:AdditionalInformation2LimitDateTime2Type");
+        element.put("@type", "ds:AdditionalInformation2Limit2DateTimeType");
         
         // 創建 annotation
         ObjectNode annotation = objectMapper.createObjectNode();
         ObjectNode documentation = objectMapper.createObjectNode();
         
         documentation.put("@xml:lang", "en");
-        documentation.put("ccts:UniqueID", "TW");
+        documentation.put("ccts:UniqueID", "WCO");
         documentation.put("ccts:DictionaryEntryName", 
                          "Additional Information2. Limit2. Date Time");
         documentation.put("ccts:Definition", 

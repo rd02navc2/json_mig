@@ -60,6 +60,58 @@ public class TwclsController {
         return res;
     }
 
+    // Ajax 更新
+	@PatchMapping("/ajax/update/{objectClass}")
+	@ResponseBody
+	@Transactional
+	public Map<String, Object> updateFieldAjax(@PathVariable String objectClass, 
+	                                           @RequestBody Map<String, String> updates) {
+	    Map<String, Object> res = new HashMap<>();
+	    try {
+	        Optional<Twcls> opt = repo.findById(objectClass);
+	        if (!opt.isPresent()) {
+	            res.put("status", "error");
+	            res.put("message", "ObjectClass 不存在：" + objectClass);
+	            return res;
+	        }
+	        
+	        Twcls twcls = opt.get();
+	        
+	        // 動態更新欄位
+	        updates.forEach((field, value) -> {
+	            switch (field) {
+	                case "className":
+	                    twcls.setClassName(value);
+	                    break;
+	                case "chName":
+	                    twcls.setChName(value);
+	                    break;
+	                case "enName":
+	                    twcls.setEnName(value);
+	                    break;
+	                case "chDef":
+	                    twcls.setChDef(value);
+	                    break;
+	                case "enDef":
+	                    twcls.setEnDef(value);
+	                    break;
+	                case "objectClass":
+	                    // 如果要更新 objectClass，需要特別處理（因為是主鍵）
+	                    break;
+	            }
+	        });
+	        
+	        repo.save(twcls);
+	        
+	        res.put("status", "success");
+	        res.put("message", "更新成功");
+	    } catch (Exception e) {
+	        res.put("status", "error");
+	        res.put("message", "更新失敗：" + e.getMessage());
+	    }
+	    return res;
+	}
+    
     // Ajax 刪除
     @DeleteMapping("/ajax/{objectClass}")
     @ResponseBody

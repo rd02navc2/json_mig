@@ -129,10 +129,10 @@ public class AAAController {
                         aaa.setName(value != null ? value.toString() : null);
                         break;
                     case "car":
-                        aaa.setCar(value != null ? Integer.parseInt(value.toString()) : null);
+                        aaa.setCar(value != null ? value.toString() : null);
                         break;
                     case "boro":
-                        aaa.setBoro(value != null ? Integer.parseInt(value.toString()) : null);
+                        aaa.setBoro(value != null ? value.toString() : null);
                         break;
                     case "chn":
                         aaa.setChn(value != null ? value.toString() : null);

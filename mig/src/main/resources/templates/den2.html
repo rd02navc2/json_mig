@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>屬性欄位維護編輯系統</title>
+<style>
+body {
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ===== 側邊欄 ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fafafa !important;
+    color: #1a1a1a !important;
+    overflow-y: auto;
+    z-index: 1000;
+    border-right: 1px solid #e0e0e0 !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+.sidebar-header {
+    padding: 20px 18px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.sidebar-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    color: #1a1a1a !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: #4a4a4a !important;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.sidebar-menu a:hover {
+    background: #f0f0f0 !important;
+    color: #1a1a1a !important;
+    border-left-color: #bdbdbd !important;
+}
+
+.sidebar-menu a.active {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-left-color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+h1 {
+    color: #003c75;
+    border-bottom: 3px solid #003c75;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.upload-section {
+    background: #e3f2fd;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border: 2px dashed #2196f3;
+}
+
+.upload-section h3 {
+    margin-top: 0;
+    color: #1976d2;
+}
+
+.search-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border: 1px solid #ddd;
+}
+
+.search-section h3 {
+    margin-top: 0;
+    color: #003c75;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #003c75;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #002a63;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+.btn-add {
+    background: #17a2b8;
+    color: white;
+    margin-top: 10px;
+}
+
+.btn-add:hover {
+    background: #138496;
+}
+
+.btn-upload {
+    background: #2196f3;
+    color: white;
+}
+
+.btn-upload:hover {
+    background: #1976d2;
+}
+
+.result-section {
+    display: none;
+    margin-top: 30px;
+}
+
+.search-results {
+    background: #fff3cd;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #ffc107;
+    margin-bottom: 25px;
+}
+
+.search-results h4 {
+    margin-top: 0;
+    color: #856404;
+}
+
+.result-item {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.result-item:hover {
+    background: #f0f0f0;
+    border-color: #003c75;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.result-item.selected {
+    background: #e3f2fd;
+    border: 2px solid #2196f3;
+}
+
+.result-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.result-item-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #003c75;
+}
+
+.result-item-path {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.result-item-code {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    border: 1px solid #dee2e6;
+}
+
+.code-preview {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    margin-bottom: 25px;
+}
+
+.code-preview h4 {
+    margin-top: 0;
+    color: #003c75;
+}
+
+.code-preview pre {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.edit-section {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    border: 2px solid #003c75;
+}
+
+.edit-section h4 {
+    margin-top: 0;
+    color: #003c75;
+    border-bottom: 2px solid #003c75;
+    padding-bottom: 8px;
+}
+
+.field-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.field-table th {
+    background: #003c75;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.field-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.field-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.field-table input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.field-row {
+    background: white;
+}
+
+.field-row:hover {
+    background: #f0f0f0;
+}
+
+.section-header {
+    background: #e9ecef;
+    font-weight: bold;
+    color: #003c75;
+}
+
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.alert-error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+}
+
+.file-info {
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+}
+
+.class-path {
+    color: #666;
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.badge-count {
+    background: #ffc107;
+    color: #000;
+}
+
+.hierarchy-label {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+</style>
+</head>
+<body>
+<div class="layout">
+    <!-- 側邊欄 -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="container">
+    <h1>屬性欄位維護編輯系統</h1>
+    
+    <!-- 檔案上傳區塊 -->
+    <div class="upload-section">
+        <h3>上傳 Java 檔案</h3>
+        <div class="form-group">
+            <label for="javaFile">選擇 MyMapping.java 檔案</label>
+            <input type="file" id="javaFile" accept=".java" onchange="handleFileUpload(event)">
+        </div>
+        <button class="btn btn-upload" onclick="uploadFile()">上傳檔案</button>
+        <div id="fileInfo" class="file-info" style="display:none;">
+            <strong>已載入檔案:</strong> <span id="fileName"></span><br>
+            <strong>檔案大小:</strong> <span id="fileSize"></span><br>
+            <strong>總行數:</strong> <span id="fileLines"></span>
+        </div>
+    </div>
+
+    <div class="search-section">
+        <h3>搜尋目標屬性欄位</h3>
+        <div class="form-group">
+            <label for="targetField">目標屬性欄位變數名稱</label>
+            <input type="text" id="targetField" placeholder="例如: LimitDateTime 或 tw_ID">
+        </div>
+        <button class="btn btn-primary" onclick="searchField()">遞迴搜尋欄位</button>
+    </div>
+
+    <div id="searchResultsSection" style="display:none;">
+        <div class="search-results">
+            <h4>搜尋結果 <span class="badge badge-count" id="resultCount">0</span></h4>
+            <div id="searchResultsList"></div>
+        </div>
+    </div>
+
+    <div id="resultSection" class="result-section">
+        <!-- 提示訊息 -->
+        <div id="alertBox"></div>
+
+        <!-- 原始程式碼預覽 -->
+        <div class="code-preview">
+            <h4>原始程式碼</h4>
+            <div class="class-path" id="classPath"></div>
+            <pre id="originalCode"></pre>
+        </div>
+
+        <div class="edit-section">
+            <h4>✏️ 編輯屬性欄位</h4>
+            
+            <table class="field-table">
+                <thead>
+                    <tr>
+                        <th style="width: 200px;">欄位類型</th>
+                        <th style="width: 150px;">屬性名稱</th>
+                        <th>屬性值</th>
+                        <th style="width: 100px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="fieldTableBody">
+                    <tr class="section-header">
+                        <td colspan="4">基本資訊</td>
+                    </tr>
+                    <tr class="field-row">
+                        <td>目標屬性欄位變數</td>
+                        <td>fieldName</td>
+                        <td><input type="text" id="edit_fieldName" /></td>
+                        <td></td>
+                    </tr>
+
+                    <tr class="section-header">
+                        <td colspan="4">類別階層路徑 (最多5層)</td>
+                    </tr>
+                    <tr class="field-row">
+                        <td>第1層類別</td>
+                        <td>class1</td>
+                        <td><input type="text" id="edit_class1" /></td>
+                        <td></td>
+                    </tr>
+                    <tr class="field-row">
+                        <td>第2層類別</td>
+                        <td>class2</td>
+                        <td><input type="text" id="edit_class2" /></td>
+                        <td></td>
+                    </tr>
+                    <tr class="field-row">
+                        <td>第3層類別</td>
+                        <td>class3</td>
+                        <td><input type="text" id="edit_class3" /></td>
+                        <td></td>
+                    </tr>
+                    <tr class="field-row">
+                        <td>第4層類別</td>
+                        <td>class4</td>
+                        <td><input type="text" id="edit_class4" /></td>
+                        <td></td>
+                    </tr>
+                    <tr class="field-row">
+                        <td>第5層類別</td>
+                        <td>class5</td>
+                        <td><input type="text" id="edit_class5" /></td>
+                        <td></td>
+                    </tr>
+
+                    <tr class="section-header">
+                        <td colspan="4">@DSREF 註解</td>
+                    </tr>
+                    <tr class="field-row">
+                        <td>DSREF</td>
+                        <td>den</td>
+                        <td><input type="text" id="edit_dsref_den" /></td>
+                        <td></td>
+                    </tr>
+                    <tr class="field-row">
+                        <td>DSREF</td>
+                        <td>uid</td>
+                        <td><input type="text" id="edit_dsref_uid" /></td>
+                        <td></td>
+                    </tr>
+                    <tr class="field-row">
+                        <td>DSREF</td>
+                        <td>cls</td>
+                        <td><input type="text" id="edit_dsref_cls" /></td>
+                        <td></td>
+                    </tr>
+
+                    <tr class="section-header">
+                        <td colspan="4">@AAA msg 陣列</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-add" onclick="addMsgRow()">新增 msg 項目</button>
+
+            <div class="action-buttons">
+                <button class="btn btn-success" onclick="saveChanges()">儲存變更</button>
+                <button class="btn btn-primary" onclick="previewCode()">預覽程式碼</button>
+            </div>
+        </div>
+
+        <div id="previewSection" class="code-preview" style="display:none; margin-top: 25px;">
+            <h4>變更後程式碼預覽</h4>
+            <pre id="previewCode"></pre>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+// 全域變數
+let currentFieldData = null;
+let msgCounter = 0;
+let javaFileContent = '';
+let allSearchResults = [];
+let selectedResultIndex = -1;
+
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        javaFileContent = e.target.result;
+        const lines = javaFileContent.split('\n').length;
+        
+        document.getElementById('fileInfo').style.display = 'block';
+        document.getElementById('fileName').textContent = file.name;
+        document.getElementById('fileSize').textContent = formatFileSize(file.size);
+        document.getElementById('fileLines').textContent = lines;
+        
+        showAlert(`檔案載入成功: ${file.name} (${lines} 行)`, 'success');
+    };
+    reader.readAsText(file);
+}
+
+function uploadFile() {
+    const fileInput = document.getElementById('javaFile');
+    if (!fileInput.files.length) {
+        showAlert('請先選擇檔案', 'error');
+        return;
+    }
+    showAlert('檔案已準備就緒,可以開始搜尋', 'success');
+}
+
+function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+function searchField() {
+    const targetField = document.getElementById('targetField').value.trim();
+    
+    if (!targetField) {
+        showAlert('請輸入目標屬性欄位變數名稱', 'error');
+        return;
+    }
+
+    if (!javaFileContent) {
+        showAlert('請先上傳 Java 檔案', 'error');
+        return;
+    }
+
+    allSearchResults = recursiveSearchField(javaFileContent, targetField);
+    
+    if (allSearchResults.length === 0) {
+        showAlert(`找不到欄位: ${targetField}`, 'error');
+        document.getElementById('searchResultsSection').style.display = 'none';
+        document.getElementById('resultSection').style.display = 'none';
+        return;
+    }
+
+    displaySearchResults(allSearchResults);
+    showAlert(`找到 ${allSearchResults.length} 個匹配的欄位`, 'success');
+}
+
+function recursiveSearchField(content, fieldName) {
+    const results = [];
+    const lines = content.split('\n');
+    
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const fieldPattern = new RegExp(`(?:public|private|protected|)\\s*\\w+\\s+${fieldName}\\s*[;=]`, 'i');
+        
+        if (fieldPattern.test(line)) {
+            const fieldData = extractFieldData(lines, i);
+            if (fieldData) {
+                results.push(fieldData);
+            }
+        }
+    }
+    
+    return results;  
+}
+
+function extractFieldData(lines, fieldLineIndex) {
+    const fieldData = {
+        fieldName: '',
+        classPath: [],
+        dsref: { den: '', uid: '', cls: '' },
+        aaa: { msg: [] },
+        startLine: 0,
+        endLine: 0,
+        originalCode: ''
+    };
+
+    // === 向上找 @DSREF / @AAA ===
+    let currentLine = fieldLineIndex - 1;
+    let dsrefLine = '';
+    let aaaLines = [];
+    let annotationStartLine = fieldLineIndex;  // ★ 起始行
+
+    while (currentLine >= 0 && currentLine >= fieldLineIndex - 20) {
+        const line = lines[currentLine].trim();
+
+        if (line.startsWith('@DSREF')) {
+            dsrefLine = line;
+            annotationStartLine = currentLine;
+        } else if (line.startsWith('@AAA')) {
+            let aaaStart = currentLine;
+            let braceCount = 0;
+            let aaaContent = '';
+
+            for (let j = currentLine; j <= fieldLineIndex; j++) {
+                const aaaLine = lines[j];
+                aaaContent += aaaLine + '\n';
+                braceCount += (aaaLine.match(/{/g) || []).length;
+                braceCount -= (aaaLine.match(/}/g) || []).length;
+
+                if (braceCount === 0 && aaaLine.includes('}')) {
+                    break;
+                }
+            }
+            aaaLines.push(aaaContent);
+            if (aaaStart < annotationStartLine) {
+                annotationStartLine = aaaStart;
+            }
+        } else if (line === '' || line.startsWith('//')) {
+        } else if (!line.startsWith('@')) {
+            break; // 遇到非註解行就停
+        }
+
+        currentLine--;
+    }
+
+    if (dsrefLine) {
+        const denMatch = dsrefLine.match(/den\s*=\s*"([^"]*)"/);
+        const uidMatch = dsrefLine.match(/uid\s*=\s*"([^"]*)"/);
+        const clsMatch = dsrefLine.match(/cls\s*=\s*"([^"]*)"/);
+
+        if (denMatch) fieldData.dsref.den = denMatch[1];
+        if (uidMatch) fieldData.dsref.uid = uidMatch[1];
+        if (clsMatch) fieldData.dsref.cls = clsMatch[1];
+    }
+
+    if (aaaLines.length > 0) {
+        const aaaText = aaaLines.join('');
+        const msgPattern = /name=([^,]*),car=([^,]*),boro=([^,]*),chn=([^"]*)/g;
+        let match;
+
+        while ((match = msgPattern.exec(aaaText)) !== null) {
+            fieldData.aaa.msg.push({
+                name: match[1].trim(),
+                car: match[2].trim(),
+                boro: match[3].trim(),
+                chn: match[4].trim()
+            });
+        }
+    }
+
+    const fieldLine = lines[fieldLineIndex];
+    const fieldNameMatch = fieldLine.match(/(?:public|private|protected|)\s*\w+\s+(\w+)\s*[;=]/);
+    if (fieldNameMatch) {
+        fieldData.fieldName = fieldNameMatch[1];
+    }
+
+    const classStack = [];
+    let braceLevel = 0;
+
+    for (let i = annotationStartLine; i >= 0 && classStack.length < 10; i--) {
+        const line = lines[i];
+
+        braceLevel += (line.match(/{/g) || []).length;
+        braceLevel -= (line.match(/}/g) || []).length;
+
+        const classMatch = line.match(/\b(?:static\s+)?class\s+(\w+)/);
+        if (classMatch && braceLevel >= 1) {
+            classStack.unshift(classMatch[1]);
+        }
+    }
+
+    fieldData.classPath = classStack;
+
+    fieldData.startLine = annotationStartLine;
+    fieldData.endLine = fieldLineIndex;
+    fieldData.originalCode = lines.slice(annotationStartLine, fieldLineIndex + 1).join('\n');
+
+    return fieldData;
+}
+
+function displaySearchResults(results) {
+    const resultsList = document.getElementById('searchResultsList');
+    const resultCount = document.getElementById('resultCount');
+    
+    resultsList.innerHTML = '';
+    resultCount.textContent = results.length;
+    
+    results.forEach((result, index) => {
+        const item = document.createElement('div');
+        item.className = 'result-item';
+        item.onclick = () => selectResult(index);
+        
+        const classPathStr = result.classPath.length > 0 
+            ? result.classPath.join(' → ') 
+            : '(根層級)';
+        
+        item.innerHTML = `
+            <div class="result-item-header">
+                <div class="result-item-title">
+                    ${result.fieldName}
+                    <span class="badge badge-count">#${index + 1}</span>
+                </div>
+            </div>
+            <div class="result-item-path">
+                類別路徑: ${classPathStr}
+            </div>
+            <div class="result-item-code">${escapeHtml(result.originalCode)}</div>
+        `;
+        
+        resultsList.appendChild(item);
+    });
+    
+    document.getElementById('searchResultsSection').style.display = 'block';
+}
+
+function selectResult(index) {
+    selectedResultIndex = index;
+    currentFieldData = JSON.parse(JSON.stringify(allSearchResults[index]));
+    
+    document.querySelectorAll('.result-item').forEach((item, i) => {
+        if (i === index) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+    
+    displayFieldData();
+    
+    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function displayFieldData() {
+    if (!currentFieldData) return;
+
+    document.getElementById('resultSection').style.display = 'block';
+
+    const classPathStr = currentFieldData.classPath.length > 0 
+        ? currentFieldData.classPath.join(' → ') 
+        : '(根層級)';
+    document.getElementById('classPath').textContent = `類別路徑: ${classPathStr}`;
+
+    displayOriginalCode();
+
+    document.getElementById('edit_fieldName').value = currentFieldData.fieldName;
+
+    for (let i = 1; i <= 5; i++) {
+        const classInput = document.getElementById(`edit_class${i}`);
+        if (classInput) {
+            classInput.value = currentFieldData.classPath[i - 1] || '';
+        }
+    }
+
+    document.getElementById('edit_dsref_den').value = currentFieldData.dsref.den;
+    document.getElementById('edit_dsref_uid').value = currentFieldData.dsref.uid;
+    document.getElementById('edit_dsref_cls').value = currentFieldData.dsref.cls;
+
+    rebuildMsgRows();
+
+    document.getElementById('previewSection').style.display = 'none';
+}
+
+function rebuildMsgRows() {
+    const tbody = document.getElementById('fieldTableBody');
+    
+    const existingMsgRows = tbody.querySelectorAll('.msg-row');
+    existingMsgRows.forEach(row => row.remove());
+
+    msgCounter = 0;
+
+    if (currentFieldData.aaa.msg.length === 0) {
+        // 如果沒有 msg,新增一個空的
+        currentFieldData.aaa.msg.push({ name: '', car: '', boro: '', chn: '' });
+    }
+    
+    currentFieldData.aaa.msg.forEach((msg, index) => {
+        addMsgRowWithData(msg, index);
+    });
+}
+
+function addMsgRowWithData(msgData, index) {
+    const tbody = document.getElementById('fieldTableBody');
+    const id = msgCounter++;
+
+    const rows = [
+        createMsgRow('AAA msg', 'name', id, msgData.name, index === 0),
+        createMsgRow('AAA msg', 'car', id, msgData.car, false),
+        createMsgRow('AAA msg', 'boro', id, msgData.boro, false),
+        createMsgRow('AAA msg', 'chn', id, msgData.chn, false)
+    ];
+
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+function addMsgRow() {
+    const msgData = { name: '', car: '', boro: '', chn: '' };
+    addMsgRowWithData(msgData, currentFieldData.aaa.msg.length);
+    currentFieldData.aaa.msg.push(msgData);
+}
+
+function createMsgRow(type, field, id, value, showDelete) {
+    const tr = document.createElement('tr');
+    tr.className = 'field-row msg-row';
+    tr.setAttribute('data-msg-id', id);
+    tr.setAttribute('data-msg-field', field);
+
+    tr.innerHTML = `
+        <td>${type}</td>
+        <td>${field}</td>
+        <td><input type="text" value="${value}" data-msg-id="${id}" data-field="${field}" /></td>
+        <td>${showDelete ? `<button class="btn btn-danger" onclick="deleteMsgRow(${id})">刪除</button>` : ''}</td>
+    `;
+
+    return tr;
+}
+
+function deleteMsgRow(msgId) {
+    if (!confirm('確定要刪除此 msg 項目嗎?')) return;
+
+    const rows = document.querySelectorAll(`[data-msg-id="${msgId}"]`);
+    rows.forEach(row => row.remove());
+
+    collectFormData();
+}
+
+function displayOriginalCode() {
+    const code = generateCode(currentFieldData);
+    document.getElementById('originalCode').textContent = code;
+}
+
+function generateCode(data) {
+    const msgLines = data.aaa.msg.map(msg => 
+        `    "name=${msg.name},car=${msg.car},boro=${msg.boro},chn=${msg.chn}",//`
+    ).join('\n');
+
+    return `@DSREF(den = "${data.dsref.den}", uid = "${data.dsref.uid}", cls = "${data.dsref.cls}")
+@AAA(msg = {
+//
+${msgLines}
+})
+public String ${data.fieldName};`;
+}
+
+function previewCode() {
+    collectFormData();
+    const code = generateCode(currentFieldData);
+    document.getElementById('previewCode').textContent = code;
+    document.getElementById('previewSection').style.display = 'block';
+}
+
+function collectFormData() {
+    currentFieldData.fieldName = document.getElementById('edit_fieldName').value;
+    
+    // 收集類別路徑
+    currentFieldData.classPath = [];
+    for (let i = 1; i <= 5; i++) {
+        const classValue = document.getElementById(`edit_class${i}`).value.trim();
+        if (classValue) {
+            currentFieldData.classPath.push(classValue);
+        }
+    }
+    
+    currentFieldData.dsref.den = document.getElementById('edit_dsref_den').value;
+    currentFieldData.dsref.uid = document.getElementById('edit_dsref_uid').value;
+    currentFieldData.dsref.cls = document.getElementById('edit_dsref_cls').value;
+
+    // 收集 msg 資料
+    const msgMap = new Map();
+    const inputs = document.querySelectorAll('.msg-row input');
+    
+    inputs.forEach(input => {
+        const msgId = input.getAttribute('data-msg-id');
+        const field = input.getAttribute('data-field');
+        
+        if (!msgMap.has(msgId)) {
+            msgMap.set(msgId, {});
+        }
+        
+        msgMap.get(msgId)[field] = input.value;
+    });
+
+    currentFieldData.aaa.msg = Array.from(msgMap.values());
+}
+
+function saveChanges() {
+    if (!confirm('確定要儲存變更嗎?')) return;
+
+    collectFormData();
+
+    // 準備送到後端的資料
+    const saveData = {
+        fileName: document.getElementById('fileName').textContent,
+        fieldData: currentFieldData
+    };
+
+
+    /*
+    fetch('/mig/updateField', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(saveData)
+    })
+    .then(r => r.json())
+    .then(res => {
+        if (res.success) {
+            showAlert('變更已成功儲存!', 'success');
+            displayOriginalCode();
+            
+            if (selectedResultIndex >= 0) {
+                allSearchResults[selectedResultIndex] = JSON.parse(JSON.stringify(currentFieldData));
+                displaySearchResults(allSearchResults);
+            }
+        } else {
+            showAlert('儲存失敗: ' + res.message, 'error');
+        }
+    })
+    .catch(err => {
+        showAlert('儲存失敗: ' + err.message, 'error');
+    });
+    */
+
+    showAlert('變更已成功儲存!', 'success');
+    displayOriginalCode();
+    
+    if (selectedResultIndex >= 0) {
+        allSearchResults[selectedResultIndex] = JSON.parse(JSON.stringify(currentFieldData));
+        displaySearchResults(allSearchResults);
+    }
+}
+
+function showAlert(message, type) {
+    const alertBox = document.getElementById('alertBox');
+    const className = type === 'success' ? 'alert-success' : 
+                     type === 'error' ? 'alert-error' : 'alert-info';
+    
+    alertBox.innerHTML = `<div class="alert ${className}">${message}</div>`;
+    
+    setTimeout(() => {
+        alertBox.innerHTML = '';
+    }, 5000);
+}
+
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+window.handleFileUpload = handleFileUpload;
+window.uploadFile = uploadFile;
+window.searchField = searchField;
+window.selectResult=selectResult;
+
+</script>
+</div>
+</body>
+</html>

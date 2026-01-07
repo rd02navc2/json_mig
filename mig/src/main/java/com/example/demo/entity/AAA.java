@@ -13,10 +13,10 @@ public class AAA {
     private String name;
     
     @Column(name = "car")
-    private Integer car;
+    private String car;
     
     @Column(name = "boro")
-    private Integer boro;
+    private String boro;
     
     @Column(name = "chn", length = 255)
     private String chn;
@@ -24,7 +24,7 @@ public class AAA {
     public AAA() {
     }
     
-    public AAA(String cls, String name, Integer car, Integer boro, String chn) {
+    public AAA(String cls, String name, String car, String boro, String chn) {
         this.cls = cls;
         this.name = name;
         this.car = car;
@@ -49,19 +49,19 @@ public class AAA {
         this.name = name;
     }
     
-    public Integer getCar() {
+    public String getCar() {
         return car;
     }
     
-    public void setCar(Integer car) {
+    public void setCar(String car) {
         this.car = car;
     }
     
-    public Integer getBoro() {
+    public String getBoro() {
         return boro;
     }
     
-    public void setBoro(Integer boro) {
+    public void setBoro(String boro) {
         this.boro = boro;
     }
     
