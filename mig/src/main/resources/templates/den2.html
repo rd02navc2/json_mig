@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>屬性欄位維護編輯系統</title>
+<title>屬性欄位維護編輯系統 (資料庫整合版)</title>
 <style>
 body {
     font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
@@ -140,6 +140,17 @@ h1 {
     box-sizing: border-box;
 }
 
+.form-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.checkbox-label {
+    font-weight: normal;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
 .btn {
     padding: 12px 30px;
     border: none;
@@ -196,6 +207,26 @@ h1 {
 
 .btn-upload:hover {
     background: #1976d2;
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+    padding: 8px 20px;
+    font-size: 14px;
+}
+
+.btn-info:hover {
+    background: #138496;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
 }
 
 .result-section {
@@ -264,6 +295,19 @@ h1 {
     font-size: 13px;
     white-space: pre-wrap;
     border: 1px solid #dee2e6;
+}
+
+.db-enrichment {
+    background: #e8f5e9;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    border: 1px solid #4caf50;
+}
+
+.db-enrichment strong {
+    color: #2e7d32;
 }
 
 .code-preview {
@@ -353,6 +397,7 @@ h1 {
     margin-top: 20px;
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .alert {
@@ -377,6 +422,12 @@ h1 {
     background: #d1ecf1;
     border: 1px solid #bee5eb;
     color: #0c5460;
+}
+
+.alert-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
 }
 
 .file-info {
@@ -408,10 +459,183 @@ h1 {
     color: #000;
 }
 
+.badge-success {
+    background: #28a745;
+    color: white;
+}
+
+.badge-info {
+    background: #17a2b8;
+    color: white;
+}
+
 .hierarchy-label {
     color: #666;
     font-size: 13px;
     margin-bottom: 3px;
+}
+
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0,0,0,.1);
+    border-radius: 50%;
+    border-top-color: #003c75;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.db-info-panel {
+    background: #f0f8ff;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    border: 1px solid #b3d9ff;
+}
+
+.db-info-panel h5 {
+    margin-top: 0;
+    color: #003c75;
+    font-size: 14px;
+}
+
+.db-info-item {
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.db-info-item strong {
+    color: #003c75;
+}
+
+.batch-actions {
+    background: #fff9e6;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border: 1px solid #ffd966;
+}
+
+.batch-actions h3 {
+    margin-top: 0;
+    color: #856404;
+    font-size: 16px;
+}
+
+/* ===== 進度條樣式 ===== */
+.progress-container {
+    display: none;
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+}
+
+.progress-bar-wrapper {
+    width: 100%;
+    height: 30px;
+    background: #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    margin: 15px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    width: 0%;
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.progress-status {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-badge.total {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.status-badge.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.failed {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-badge.processing {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.progress-details {
+    max-height: 200px;
+    overflow-y: auto;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-size: 13px;
+    font-family: 'Courier New', monospace;
+}
+
+.progress-details div {
+    padding: 3px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.progress-details div:last-child {
+    border-bottom: none;
+}
+
+.progress-details .success-item {
+    color: #28a745;
+}
+
+.progress-details .error-item {
+    color: #dc3545;
+}
+
+.progress-details .processing-item {
+    color: #856404;
 }
 </style>
 </head>
@@ -421,7 +645,7 @@ h1 {
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="container">
-    <h1>屬性欄位維護編輯系統</h1>
+    <h1>屬性欄位維護編輯系統 <span class="badge badge-info">資料庫整合版</span></h1>
     
     <!-- 檔案上傳區塊 -->
     <div class="upload-section">
@@ -438,13 +662,62 @@ h1 {
         </div>
     </div>
 
+    <!-- 批次操作區塊 -->
+    <div class="batch-actions">
+        <h3>批次操作</h3>
+        <button class="btn btn-secondary" onclick="batchImportToDb()">批次匯入所有欄位到資料庫</button>
+        <p style="font-size: 13px; color: #666; margin-top: 10px;">
+            ⚠️ 此操作會將檔案中所有帶有 @DSREF 註解的欄位同步到資料庫
+        </p>
+        
+        <!-- 進度條 -->
+        <div id="progressContainer" class="progress-container">
+            <h4 style="margin-top: 0; color: #003c75;">匯入進度</h4>
+            <div class="progress-bar-wrapper">
+                <div id="progressBar" class="progress-bar">0%</div>
+            </div>
+            <div class="progress-info">
+                <span id="progressText">準備中...</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-status">
+                <div class="status-item">
+                    <span>總數:</span>
+                    <span class="status-badge total" id="totalCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span>成功:</span>
+                    <span class="status-badge success" id="successCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span>失敗:</span>
+                    <span class="status-badge failed" id="failedCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span>處理中:</span>
+                    <span class="status-badge processing" id="processingField">-</span>
+                </div>
+            </div>
+            <div id="progressDetails" class="progress-details"></div>
+        </div>
+    </div>
+
     <div class="search-section">
         <h3>搜尋目標屬性欄位</h3>
         <div class="form-group">
             <label for="targetField">目標屬性欄位變數名稱</label>
             <input type="text" id="targetField" placeholder="例如: LimitDateTime 或 tw_ID">
         </div>
-        <button class="btn btn-primary" onclick="searchField()">遞迴搜尋欄位</button>
+        <div class="form-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="enrichFromDb" checked>
+                從資料庫自動擴充欄位資訊 (TWDENS, TWDS, TWCLS, TWIDS)
+            </label>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-primary" onclick="searchField()">遞迴搜尋欄位</button>
+            <button class="btn btn-info" onclick="suggestFromDb()">從資料庫取得建議</button>
+        </div>
     </div>
 
     <div id="searchResultsSection" style="display:none;">
@@ -465,6 +738,12 @@ h1 {
             <pre id="originalCode"></pre>
         </div>
 
+        <!-- 資料庫擴充資訊 -->
+        <div id="dbEnrichmentPanel" class="db-info-panel" style="display:none;">
+            <h5>📊 資料庫擴充資訊</h5>
+            <div id="dbEnrichmentContent"></div>
+        </div>
+
         <div class="edit-section">
             <h4>✏️ 編輯屬性欄位</h4>
             
@@ -483,17 +762,17 @@ h1 {
                     </tr>
                     <tr class="field-row">
                         <td>目標屬性欄位變數</td>
-                        <td>fieldName</td>
+                        <td>fieldName (xmlTagName)</td>
                         <td><input type="text" id="edit_fieldName" /></td>
                         <td></td>
                     </tr>
 
                     <tr class="section-header">
-                        <td colspan="4">類別階層路徑 (最多5層)</td>
+                        <td colspan="4">類別階層路徑 (Object Class, 最多5層)</td>
                     </tr>
                     <tr class="field-row">
                         <td>第1層類別</td>
-                        <td>class1</td>
+                        <td>class1 (objectClass)</td>
                         <td><input type="text" id="edit_class1" /></td>
                         <td></td>
                     </tr>
@@ -527,19 +806,19 @@ h1 {
                     </tr>
                     <tr class="field-row">
                         <td>DSREF</td>
-                        <td>den</td>
+                        <td>den (TWDENS.den)</td>
                         <td><input type="text" id="edit_dsref_den" /></td>
                         <td></td>
                     </tr>
                     <tr class="field-row">
                         <td>DSREF</td>
-                        <td>uid</td>
+                        <td>uid (TWIDS.twid)</td>
                         <td><input type="text" id="edit_dsref_uid" /></td>
                         <td></td>
                     </tr>
                     <tr class="field-row">
                         <td>DSREF</td>
-                        <td>cls</td>
+                        <td>cls (TWCLS.className)</td>
                         <td><input type="text" id="edit_dsref_cls" /></td>
                         <td></td>
                     </tr>
@@ -555,6 +834,10 @@ h1 {
             <div class="action-buttons">
                 <button class="btn btn-success" onclick="saveChanges()">儲存變更</button>
                 <button class="btn btn-primary" onclick="previewCode()">預覽程式碼</button>
+                <label class="checkbox-label" style="margin-left: 10px;">
+                    <input type="checkbox" id="syncToDb" checked>
+                    同步到資料庫 (TWDENS)
+                </label>
             </div>
         </div>
 
@@ -608,8 +891,10 @@ function formatFileSize(bytes) {
     return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
 }
 
+// ===== 主要搜尋功能 (整合資料庫) =====
 function searchField() {
     const targetField = document.getElementById('targetField').value.trim();
+    const enrichFromDb = document.getElementById('enrichFromDb').checked;
     
     if (!targetField) {
         showAlert('請輸入目標屬性欄位變數名稱', 'error');
@@ -621,36 +906,158 @@ function searchField() {
         return;
     }
 
-    allSearchResults = recursiveSearchField(javaFileContent, targetField);
+    showAlert('搜尋中... <span class="loading"></span>', 'info');
+
+    // 準備表單數據
+    const formData = new FormData();
+    formData.append('fieldName', targetField);
+    formData.append('fileName', document.getElementById('fileName').textContent || '');
+    formData.append('enrichFromDb', enrichFromDb);
+
+    fetch('/mig/searchFieldEnhanced', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            allSearchResults = data.results || [];
+            
+            if (allSearchResults.length === 0) {
+                showAlert(`找不到欄位: ${targetField}`, 'error');
+                document.getElementById('searchResultsSection').style.display = 'none';
+                document.getElementById('resultSection').style.display = 'none';
+                return;
+            }
+
+            displaySearchResults(allSearchResults);
+            showAlert(`找到 ${allSearchResults.length} 個匹配的欄位` + 
+                     (enrichFromDb ? ' (已從資料庫擴充)' : ''), 'success');
+        } else {
+            showAlert('搜尋失敗: ' + data.message, 'error');
+        }
+    })
+    .catch(err => {
+        showAlert('搜尋失敗: ' + err.message, 'error');
+        console.error(err);
+    });
+}
+
+// ===== 從資料庫取得建議 =====
+function suggestFromDb() {
+    const targetField = document.getElementById('targetField').value.trim();
     
-    if (allSearchResults.length === 0) {
-        showAlert(`找不到欄位: ${targetField}`, 'error');
-        document.getElementById('searchResultsSection').style.display = 'none';
-        document.getElementById('resultSection').style.display = 'none';
+    if (!targetField) {
+        showAlert('請輸入欄位名稱', 'error');
         return;
     }
 
-    displaySearchResults(allSearchResults);
-    showAlert(`找到 ${allSearchResults.length} 個匹配的欄位`, 'success');
+    showAlert('查詢資料庫中... <span class="loading"></span>', 'info');
+
+    const formData = new FormData();
+    formData.append('fieldName', targetField);
+
+    fetch('/mig/suggestFromDb', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success && data.suggestion) {
+            const suggestion = data.suggestion;
+            
+            // 顯示建議資訊
+            let msg = `從資料庫找到建議:\n`;
+            if (suggestion.dsref.den) msg += `DEN: ${suggestion.dsref.den}\n`;
+            if (suggestion.dsref.cls) msg += `CLS: ${suggestion.dsref.cls}\n`;
+            
+            showAlert(msg.replace(/\n/g, '<br>'), 'success');
+            
+            // 填充到當前編輯區 (如果有開啟)
+            if (currentFieldData) {
+                if (suggestion.dsref.den) {
+                    document.getElementById('edit_dsref_den').value = suggestion.dsref.den;
+                }
+                if (suggestion.dsref.cls) {
+                    document.getElementById('edit_dsref_cls').value = suggestion.dsref.cls;
+                }
+            }
+        } else {
+            showAlert('資料庫中找不到相關資訊', 'warning');
+        }
+    })
+    .catch(err => {
+        showAlert('查詢失敗: ' + err.message, 'error');
+        console.error(err);
+    });
 }
 
-function recursiveSearchField(content, fieldName) {
+// ===== 批次匯入到資料庫 (帶進度顯示) =====
+function batchImportToDb() {
+    if (!javaFileContent) {
+        showAlert('請先上傳 Java 檔案', 'error');
+        return;
+    }
+
+    if (!confirm('確定要將檔案中所有欄位批次匯入到資料庫嗎?\n此操作可能需要一些時間。')) {
+        return;
+    }
+
+    // 顯示進度容器
+    const progressContainer = document.getElementById('progressContainer');
+    progressContainer.style.display = 'block';
+    
+    // 清空詳細資訊
+    document.getElementById('progressDetails').innerHTML = '';
+    
+    // 初始化進度
+    updateProgress(0, 0, 0, 0, '正在解析檔案...');
+    
+    // 先在前端解析所有欄位
+    const allFields = findAllFieldsInContent(javaFileContent);
+    
+    if (allFields.length === 0) {
+        showAlert('檔案中沒有找到帶有 @DSREF 註解的欄位', 'warning');
+        progressContainer.style.display = 'none';
+        return;
+    }
+
+    addProgressDetail(`📋 找到 ${allFields.length} 個欄位,開始匯入...`, 'processing');
+    updateProgress(0, allFields.length, 0, 0, '準備匯入...');
+    
+    // 批次處理 (每次處理一個,顯示進度)
+    batchProcessFields(allFields, 0, 0, 0);
+}
+
+function findAllFieldsInContent(content) {
     const results = [];
     const lines = content.split('\n');
     
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        const fieldPattern = new RegExp(`(?:public|private|protected|)\\s*\\w+\\s+${fieldName}\\s*[;=]`, 'i');
+        // 檢查是否為 public 欄位宣告
+        const fieldPattern = /(?:public|private|protected)\s+\w+\s+(\w+)\s*[;=]/;
         
         if (fieldPattern.test(line)) {
-            const fieldData = extractFieldData(lines, i);
-            if (fieldData) {
-                results.push(fieldData);
+            // 檢查前面是否有 @DSREF 註解
+            let hasDsref = false;
+            for (let j = Math.max(0, i - 10); j < i; j++) {
+                if (lines[j].trim().startsWith('@DSREF')) {
+                    hasDsref = true;
+                    break;
+                }
+            }
+            
+            if (hasDsref) {
+                const fieldData = extractFieldData(lines, i);
+                if (fieldData && fieldData.fieldName) {
+                    results.push(fieldData);
+                }
             }
         }
     }
     
-    return results;  
+    return results;
 }
 
 function extractFieldData(lines, fieldLineIndex) {
@@ -668,7 +1075,7 @@ function extractFieldData(lines, fieldLineIndex) {
     let currentLine = fieldLineIndex - 1;
     let dsrefLine = '';
     let aaaLines = [];
-    let annotationStartLine = fieldLineIndex;  // ★ 起始行
+    let annotationStartLine = fieldLineIndex;
 
     while (currentLine >= 0 && currentLine >= fieldLineIndex - 20) {
         const line = lines[currentLine].trim();
@@ -696,6 +1103,7 @@ function extractFieldData(lines, fieldLineIndex) {
                 annotationStartLine = aaaStart;
             }
         } else if (line === '' || line.startsWith('//')) {
+            // 空行或註解,繼續
         } else if (!line.startsWith('@')) {
             break; // 遇到非註解行就停
         }
@@ -703,6 +1111,7 @@ function extractFieldData(lines, fieldLineIndex) {
         currentLine--;
     }
 
+    // 解析 DSREF
     if (dsrefLine) {
         const denMatch = dsrefLine.match(/den\s*=\s*"([^"]*)"/);
         const uidMatch = dsrefLine.match(/uid\s*=\s*"([^"]*)"/);
@@ -713,6 +1122,7 @@ function extractFieldData(lines, fieldLineIndex) {
         if (clsMatch) fieldData.dsref.cls = clsMatch[1];
     }
 
+    // 解析 AAA
     if (aaaLines.length > 0) {
         const aaaText = aaaLines.join('');
         const msgPattern = /name=([^,]*),car=([^,]*),boro=([^,]*),chn=([^"]*)/g;
@@ -728,16 +1138,18 @@ function extractFieldData(lines, fieldLineIndex) {
         }
     }
 
+    // 解析欄位名稱
     const fieldLine = lines[fieldLineIndex];
     const fieldNameMatch = fieldLine.match(/(?:public|private|protected|)\s*\w+\s+(\w+)\s*[;=]/);
     if (fieldNameMatch) {
         fieldData.fieldName = fieldNameMatch[1];
     }
 
+    // 向上搜尋類別階層 (最多5層)
     const classStack = [];
     let braceLevel = 0;
 
-    for (let i = annotationStartLine; i >= 0 && classStack.length < 10; i--) {
+    for (let i = annotationStartLine; i >= 0 && classStack.length < 5; i--) {
         const line = lines[i];
 
         braceLevel += (line.match(/{/g) || []).length;
@@ -750,12 +1162,139 @@ function extractFieldData(lines, fieldLineIndex) {
     }
 
     fieldData.classPath = classStack;
-
     fieldData.startLine = annotationStartLine;
     fieldData.endLine = fieldLineIndex;
     fieldData.originalCode = lines.slice(annotationStartLine, fieldLineIndex + 1).join('\n');
 
     return fieldData;
+}
+
+function batchProcessFields(fields, index, successCount, failedCount) {
+    if (index >= fields.length) {
+        // 完成
+        const percent = 100;
+        const progressBar = document.getElementById('progressBar');
+        progressBar.style.width = percent + '%';
+        progressBar.textContent = percent + '%';
+        
+        updateProgress(fields.length, fields.length, successCount, failedCount, '✅ 批次匯入完成!');
+        document.getElementById('processingField').textContent = '已完成';
+        
+        addProgressDetail(`\n========== 匯入完成 ==========`, 'processing');
+        addProgressDetail(`總計: ${fields.length} 個欄位`, 'processing');
+        addProgressDetail(`成功: ${successCount} 個`, 'success');
+        addProgressDetail(`失敗: ${failedCount} 個`, failedCount > 0 ? 'error' : 'processing');
+        
+        let msg = `批次匯入完成!<br>`;
+        msg += `總欄位數: ${fields.length}<br>`;
+        msg += `✅ 成功: ${successCount}<br>`;
+        msg += `❌ 失敗: ${failedCount}`;
+        
+        showAlert(msg, failedCount > 0 ? 'warning' : 'success');
+        return;
+    }
+    
+    const field = fields[index];
+    const currentField = field.fieldName || `欄位 #${index + 1}`;
+    const classPathStr = field.classPath && field.classPath.length > 0 
+        ? ' [' + field.classPath.join('.') + ']' 
+        : '';
+    
+    // 更新進度
+    const percent = Math.round(((index + 1) / fields.length) * 100);
+    updateProgress(index + 1, fields.length, successCount, failedCount, 
+                   `處理中 (${index + 1}/${fields.length}): ${currentField}`);
+    document.getElementById('processingField').textContent = currentField;
+    
+    addProgressDetail(`[${index + 1}/${fields.length}] 處理: ${currentField}${classPathStr}`, 'processing');
+    
+    // 準備資料
+    const saveData = {
+        fileName: document.getElementById('fileName').textContent || 'MyMapping.java',
+        syncToDb: true,
+        fieldData: field
+    };
+    
+    // 發送請求
+    fetch('/mig/updateFieldEnhanced', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(saveData)
+    })
+    .then(r => r.json())
+    .then(res => {
+        if (res.success && res.dbSynced) {
+            // 成功
+            addProgressDetail(`  ✓ 成功: ${currentField}`, 'success');
+            
+            // 延遲處理下一個 (避免過快,讓使用者看到進度)
+            setTimeout(() => {
+                batchProcessFields(fields, index + 1, successCount + 1, failedCount);
+            }, 100);
+        } else {
+            // 失敗
+            const errorMsg = res.message || res.dbSyncError || '未知錯誤';
+            addProgressDetail(`  ✗ 失敗: ${currentField} - ${errorMsg}`, 'error');
+            
+            setTimeout(() => {
+                batchProcessFields(fields, index + 1, successCount, failedCount + 1);
+            }, 100);
+        }
+    })
+    .catch(err => {
+        // 錯誤
+        addProgressDetail(`  ✗ 錯誤: ${currentField} - ${err.message}`, 'error');
+        
+        setTimeout(() => {
+            batchProcessFields(fields, index + 1, successCount, failedCount + 1);
+        }, 100);
+    });
+}
+
+function updateProgress(current, total, success, failed, message) {
+    const percent = total > 0 ? Math.round((current / total) * 100) : 0;
+    
+    // 更新進度條
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.width = percent + '%';
+    progressBar.textContent = percent + '%';
+    
+    // 根據進度改變顏色
+    if (percent === 100) {
+        progressBar.style.background = 'linear-gradient(90deg, #28a745, #20c997)';
+    } else {
+        progressBar.style.background = 'linear-gradient(90deg, #2196f3, #64b5f6)';
+    }
+    
+    // 更新文字
+    document.getElementById('progressText').textContent = message;
+    document.getElementById('progressPercent').textContent = `${current} / ${total}`;
+    
+    // 更新統計
+    document.getElementById('totalCount').textContent = total;
+    document.getElementById('successCount').textContent = success;
+    document.getElementById('failedCount').textContent = failed;
+}
+
+function addProgressDetail(message, type) {
+    const details = document.getElementById('progressDetails');
+    const div = document.createElement('div');
+    div.className = type === 'success' ? 'success-item' : 
+                    type === 'error' ? 'error-item' : 'processing-item';
+    
+    // 獲取當前時間
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('zh-TW', { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit' 
+    });
+    
+    div.textContent = `[${timeStr}] ${message}`;
+    details.appendChild(div);
+    
+    // 自動滾動到底部
+    details.scrollTop = details.scrollHeight;
 }
 
 function displaySearchResults(results) {
@@ -770,21 +1309,38 @@ function displaySearchResults(results) {
         item.className = 'result-item';
         item.onclick = () => selectResult(index);
         
-        const classPathStr = result.classPath.length > 0 
+        const classPathStr = result.classPath && result.classPath.length > 0 
             ? result.classPath.join(' → ') 
             : '(根層級)';
+        
+        // 顯示資料庫擴充資訊
+        let dbInfo = '';
+        if (result.dbEnrichment) {
+            const db = result.dbEnrichment;
+            if (db.xmlTagName || db.objectClass || db.classHierarchy) {
+                dbInfo = `<div class="db-enrichment">
+                    <strong>資料庫資訊:</strong> 
+                    ${db.xmlTagName ? `XML Tag: ${db.xmlTagName}` : ''}
+                    ${db.objectClass ? ` | Object Class: ${db.objectClass}` : ''}
+                    ${db.classHierarchy && db.classHierarchy.length > 0 ? 
+                        ` | 類別數: ${db.classHierarchy.length}` : ''}
+                </div>`;
+            }
+        }
         
         item.innerHTML = `
             <div class="result-item-header">
                 <div class="result-item-title">
                     ${result.fieldName}
                     <span class="badge badge-count">#${index + 1}</span>
+                    ${result.dbEnrichment ? '<span class="badge badge-success">已擴充</span>' : ''}
                 </div>
             </div>
             <div class="result-item-path">
                 類別路徑: ${classPathStr}
             </div>
             <div class="result-item-code">${escapeHtml(result.originalCode)}</div>
+            ${dbInfo}
         `;
         
         resultsList.appendChild(item);
@@ -815,29 +1371,96 @@ function displayFieldData() {
 
     document.getElementById('resultSection').style.display = 'block';
 
-    const classPathStr = currentFieldData.classPath.length > 0 
+    const classPathStr = currentFieldData.classPath && currentFieldData.classPath.length > 0 
         ? currentFieldData.classPath.join(' → ') 
         : '(根層級)';
     document.getElementById('classPath').textContent = `類別路徑: ${classPathStr}`;
 
     displayOriginalCode();
+    
+    // 顯示資料庫擴充資訊
+    if (currentFieldData.dbEnrichment) {
+        displayDbEnrichment(currentFieldData.dbEnrichment);
+    } else {
+        document.getElementById('dbEnrichmentPanel').style.display = 'none';
+    }
 
-    document.getElementById('edit_fieldName').value = currentFieldData.fieldName;
+    document.getElementById('edit_fieldName').value = currentFieldData.fieldName || '';
 
     for (let i = 1; i <= 5; i++) {
         const classInput = document.getElementById(`edit_class${i}`);
         if (classInput) {
-            classInput.value = currentFieldData.classPath[i - 1] || '';
+            classInput.value = (currentFieldData.classPath && currentFieldData.classPath[i - 1]) || '';
         }
     }
 
-    document.getElementById('edit_dsref_den').value = currentFieldData.dsref.den;
-    document.getElementById('edit_dsref_uid').value = currentFieldData.dsref.uid;
-    document.getElementById('edit_dsref_cls').value = currentFieldData.dsref.cls;
+    document.getElementById('edit_dsref_den').value = currentFieldData.dsref?.den || '';
+    document.getElementById('edit_dsref_uid').value = currentFieldData.dsref?.uid || '';
+    document.getElementById('edit_dsref_cls').value = currentFieldData.dsref?.cls || '';
 
     rebuildMsgRows();
 
     document.getElementById('previewSection').style.display = 'none';
+}
+
+function displayDbEnrichment(dbEnrichment) {
+    const panel = document.getElementById('dbEnrichmentPanel');
+    const content = document.getElementById('dbEnrichmentContent');
+    
+    let html = '';
+    
+    // TWDENS 資訊
+    if (dbEnrichment.xmlTagName || dbEnrichment.objectClass) {
+        html += `<div class="db-info-item"><strong>TWDENS:</strong></div>`;
+        if (dbEnrichment.xmlTagName) {
+            html += `<div class="db-info-item">&nbsp;&nbsp;XML Tag Name: ${dbEnrichment.xmlTagName}</div>`;
+        }
+        if (dbEnrichment.objectClass) {
+            html += `<div class="db-info-item">&nbsp;&nbsp;Object Class: ${dbEnrichment.objectClass}</div>`;
+        }
+        if (dbEnrichment.propertyTerm) {
+            html += `<div class="db-info-item">&nbsp;&nbsp;Property Term: ${dbEnrichment.propertyTerm}</div>`;
+        }
+    }
+    
+    // TWCLS 類別階層
+    if (dbEnrichment.classHierarchy && dbEnrichment.classHierarchy.length > 0) {
+        html += `<div class="db-info-item" style="margin-top:10px;"><strong>TWCLS 類別階層 (${dbEnrichment.classHierarchy.length}):</strong></div>`;
+        dbEnrichment.classHierarchy.forEach((cls, idx) => {
+            html += `<div class="db-info-item">&nbsp;&nbsp;${idx + 1}. ${cls.className || cls.objectClass}`;
+            if (cls.chName) html += ` (${cls.chName})`;
+            html += `</div>`;
+        });
+    }
+    
+    // TWIDS 資訊
+    if (dbEnrichment.twidEnName || dbEnrichment.twidEnDef) {
+        html += `<div class="db-info-item" style="margin-top:10px;"><strong>TWIDS:</strong></div>`;
+        if (dbEnrichment.twidEnName) {
+            html += `<div class="db-info-item">&nbsp;&nbsp;EN Name: ${dbEnrichment.twidEnName}</div>`;
+        }
+        if (dbEnrichment.twidEnDef) {
+            html += `<div class="db-info-item">&nbsp;&nbsp;EN Def: ${dbEnrichment.twidEnDef}</div>`;
+        }
+    }
+    
+    // TWDS 資訊
+    if (dbEnrichment.chNameDef || dbEnrichment.enName) {
+        html += `<div class="db-info-item" style="margin-top:10px;"><strong>TWDS:</strong></div>`;
+        if (dbEnrichment.enName) {
+            html += `<div class="db-info-item">&nbsp;&nbsp;EN Name: ${dbEnrichment.enName}</div>`;
+        }
+        if (dbEnrichment.format) {
+            html += `<div class="db-info-item">&nbsp;&nbsp;Format: ${dbEnrichment.format}</div>`;
+        }
+    }
+    
+    if (html) {
+        content.innerHTML = html;
+        panel.style.display = 'block';
+    } else {
+        panel.style.display = 'none';
+    }
 }
 
 function rebuildMsgRows() {
@@ -848,8 +1471,8 @@ function rebuildMsgRows() {
 
     msgCounter = 0;
 
-    if (currentFieldData.aaa.msg.length === 0) {
-        // 如果沒有 msg,新增一個空的
+    if (!currentFieldData.aaa || !currentFieldData.aaa.msg || currentFieldData.aaa.msg.length === 0) {
+        if (!currentFieldData.aaa) currentFieldData.aaa = { msg: [] };
         currentFieldData.aaa.msg.push({ name: '', car: '', boro: '', chn: '' });
     }
     
@@ -866,7 +1489,7 @@ function addMsgRowWithData(msgData, index) {
         createMsgRow('AAA msg', 'name', id, msgData.name, index === 0),
         createMsgRow('AAA msg', 'car', id, msgData.car, false),
         createMsgRow('AAA msg', 'boro', id, msgData.boro, false),
-        createMsgRow('AAA msg', 'chn', id, msgData.chn, false)
+        createMsgRow('AAA msg', 'chn (TWDS.chName)', id, msgData.chn, false)
     ];
 
     rows.forEach(row => tbody.appendChild(row));
@@ -887,7 +1510,7 @@ function createMsgRow(type, field, id, value, showDelete) {
     tr.innerHTML = `
         <td>${type}</td>
         <td>${field}</td>
-        <td><input type="text" value="${value}" data-msg-id="${id}" data-field="${field}" /></td>
+        <td><input type="text" value="${escapeHtml(value || '')}" data-msg-id="${id}" data-field="${field}" /></td>
         <td>${showDelete ? `<button class="btn btn-danger" onclick="deleteMsgRow(${id})">刪除</button>` : ''}</td>
     `;
 
@@ -909,16 +1532,16 @@ function displayOriginalCode() {
 }
 
 function generateCode(data) {
-    const msgLines = data.aaa.msg.map(msg => 
-        `    "name=${msg.name},car=${msg.car},boro=${msg.boro},chn=${msg.chn}",//`
-    ).join('\n');
+    const msgLines = data.aaa && data.aaa.msg ? data.aaa.msg.map(msg => 
+        `    "name=${msg.name || ''},car=${msg.car || ''},boro=${msg.boro || ''},chn=${msg.chn || ''}",//`
+    ).join('\n') : '';
 
-    return `@DSREF(den = "${data.dsref.den}", uid = "${data.dsref.uid}", cls = "${data.dsref.cls}")
+    return `@DSREF(den = "${data.dsref?.den || ''}", uid = "${data.dsref?.uid || ''}", cls = "${data.dsref?.cls || ''}")
 @AAA(msg = {
 //
 ${msgLines}
 })
-public String ${data.fieldName};`;
+public String ${data.fieldName || ''};`;
 }
 
 function previewCode() {
@@ -940,6 +1563,7 @@ function collectFormData() {
         }
     }
     
+    if (!currentFieldData.dsref) currentFieldData.dsref = {};
     currentFieldData.dsref.den = document.getElementById('edit_dsref_den').value;
     currentFieldData.dsref.uid = document.getElementById('edit_dsref_uid').value;
     currentFieldData.dsref.cls = document.getElementById('edit_dsref_cls').value;
@@ -959,6 +1583,7 @@ function collectFormData() {
         msgMap.get(msgId)[field] = input.value;
     });
 
+    if (!currentFieldData.aaa) currentFieldData.aaa = {};
     currentFieldData.aaa.msg = Array.from(msgMap.values());
 }
 
@@ -967,15 +1592,18 @@ function saveChanges() {
 
     collectFormData();
 
+    const syncToDb = document.getElementById('syncToDb').checked;
+
     // 準備送到後端的資料
     const saveData = {
-        fileName: document.getElementById('fileName').textContent,
+        fileName: document.getElementById('fileName').textContent || 'MyMapping.java',
+        syncToDb: syncToDb,
         fieldData: currentFieldData
     };
 
+    showAlert('儲存中... <span class="loading"></span>', 'info');
 
-    /*
-    fetch('/mig/updateField', {
+    fetch('/mig/updateFieldEnhanced', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(saveData)
@@ -983,7 +1611,17 @@ function saveChanges() {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            showAlert('變更已成功儲存!', 'success');
+            let msg = '變更已成功儲存!';
+            if (res.backupPath) {
+                msg += `<br>備份檔案: ${res.backupPath}`;
+            }
+            if (res.dbSynced) {
+                msg += '<br>✅ 資料已同步至資料庫';
+            } else if (syncToDb && res.dbSyncError) {
+                msg += `<br>⚠️ 資料庫同步警告: ${res.dbSyncError}`;
+            }
+            
+            showAlert(msg, 'success');
             displayOriginalCode();
             
             if (selectedResultIndex >= 0) {
@@ -996,28 +1634,24 @@ function saveChanges() {
     })
     .catch(err => {
         showAlert('儲存失敗: ' + err.message, 'error');
+        console.error(err);
     });
-    */
-
-    showAlert('變更已成功儲存!', 'success');
-    displayOriginalCode();
-    
-    if (selectedResultIndex >= 0) {
-        allSearchResults[selectedResultIndex] = JSON.parse(JSON.stringify(currentFieldData));
-        displaySearchResults(allSearchResults);
-    }
 }
 
 function showAlert(message, type) {
     const alertBox = document.getElementById('alertBox');
     const className = type === 'success' ? 'alert-success' : 
-                     type === 'error' ? 'alert-error' : 'alert-info';
+                     type === 'error' ? 'alert-error' : 
+                     type === 'warning' ? 'alert-warning' : 'alert-info';
     
     alertBox.innerHTML = `<div class="alert ${className}">${message}</div>`;
     
-    setTimeout(() => {
-        alertBox.innerHTML = '';
-    }, 5000);
+    // info 類型不自動消失 (因為可能包含 loading)
+    if (type !== 'info') {
+        setTimeout(() => {
+            alertBox.innerHTML = '';
+        }, 5000);
+    }
 }
 
 function escapeHtml(text) {
@@ -1028,13 +1662,20 @@ function escapeHtml(text) {
         '"': '&quot;',
         "'": '&#039;'
     };
-    return text.replace(/[&<>"']/g, m => map[m]);
+    return String(text || '').replace(/[&<>"']/g, m => map[m]);
 }
 
+// 暴露到全域
 window.handleFileUpload = handleFileUpload;
 window.uploadFile = uploadFile;
 window.searchField = searchField;
-window.selectResult=selectResult;
+window.suggestFromDb = suggestFromDb;
+window.batchImportToDb = batchImportToDb;
+window.selectResult = selectResult;
+window.addMsgRow = addMsgRow;
+window.deleteMsgRow = deleteMsgRow;
+window.previewCode = previewCode;
+window.saveChanges = saveChanges;
 
 </script>
 </div>
