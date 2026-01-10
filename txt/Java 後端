@@ -1,0 +1,340 @@
+你好，我是一名 Java 後端工程師，主要使用 Spring Boot 作為後端核心框架。
+過去的實務經驗中，我負責過 系統功能開發、API 設計、資料庫整合與效能調校，對企業系統的開發流程相當熟悉。
+
+在技術面上，我常用的技術包含 Spring Boot、Spring MVC、Spring AOP、Spring DI，
+資料層主要使用 MyBatis / JPA，資料庫則以 Oracle、MySQL、H2、Derby 為主。
+我也熟悉 RESTful API 設計、交易控管、例外處理與 Log 管理（Log4j / SLF4J），
+並且能依需求處理 資安弱點修補與相依套件升級。
+
+在專案經驗方面，我參與過 既有系統維護與新功能開發，
+包含需求分析、程式設計、除錯、與前端或其他系統介接。
+我特別重視 程式碼可讀性、模組化與可維護性，
+在設計時會盡量讓架構清楚，方便後續擴充與交接。
+
+「在專案中，我負責整合多個資料來源，使用 MyBatis 做 ORM 映射，並設計 Repository 層，確保程式與資料庫操作分離，提升系統可維護性。」
+
+
+「在專案中，我透過 SQL 調校和索引優化，將某些查詢效能提升了 3～5 倍，並利用分頁與批次處理降低資料庫負載。」
+
+「在專案中，我會根據查詢頻率與條件設計索引，對常用查詢欄位建立單欄位或複合索引，並使用 EXPLAIN 分析 SQL 執行計畫，確保索引被有效使用。同時，我會平衡索引數量，避免寫入效能下降。」
+
+
+SQL 優化：避免全表掃描（Full Table Scan）、使用 Index、減少 JOIN 次數。
+
+索引設計：分析查詢頻率，合理建立單欄位或複合索引。
+
+查詢分析：利用 EXPLAIN / EXPLAIN PLAN 來檢查 SQL 執行計畫。
+
+資料庫連線與資源管理：調整最大連線數、連線池設定、快取 (Cache) 應用。
+
+批次與分頁：大量資料操作使用批次寫入或分頁查詢，降低單次負載。
+
+應徵職務：資深Java 工程師
+基本資料
+姓名：
+鍾昌興
+年齡：
+50
+性別：
+男
+最高學歷：
+大學
+科系:
+物理系
+專業技能(請說明您的專業技能，如有專業證照也請一併說明)
+技術領域
+細目
+
+OS：
+Windows、Linux
+Programming：
+Java、JavaScript、C++、C#、Python
+Framework：
+Spring Boot、Spring MVC、Struts、Servlet、React
+Software/
+Environment：
+Visual Studio、Eclipse、Git、SVN
+IIS、Tomcat、Apache、IBM Websphere
+Database：
+Oracle、MySQL、MS SQL、、MongoDB
+Certification：
+Linux
+專案經歷
+專案時間
+XXXX/XX-XXXX/XX
+專案名稱
+關稅署MIG資料調和系統建置案 
+專案負責
+SA and PG
+專案人數
+3人
+專案說明
+此專案為關稅署新開發之資料調和的報關電文系統。
+執行內容
+後端程式架構為Spring Boot，資料模組採用MyBatis架構、前端畫面主要使用Thymeleaf並套用bootstrap。
+
+我負責開發主軸為：
+1. 報關電子報文文件業務自動化系統，將海關人員手動處理的報關文件作業流程數位化並自動化。核心功能開發如下:
+a. 制定並產生報關需求表單
+- XSD 電子報文檔案自動生成
+- XSD 電子報文結構樹檔案產生
+- XSD 電子報文 UML 類別圖自動繪製
+- Excel 報表文件樹狀表格產生
+- 自動整合產生最終報關專用 DOCX 文件
+
+b. 技術實作細節:
+1)XSD 電子報文處理
+java// 使用 JAXB 進行 XSD 綁定與驗證
+- JAXBContext: XML 與 Java 物件互轉
+- SchemaFactory: XSD Schema 驗證機制
+- XMLStreamReader: 高效能 XML 解析
+- XJC (JAXB Compiler): 自動生成 Java 類別
+
+2)XSD 解析與驗證: 使用 Xerces Parser 解析 XSD 結構
+Schema 物件模型建構: 透過 XSModel 建立結構樹
+命名空間處理: 處理複雜的 XML Namespace 映射關係
+XSD to Java: 使用 JAXB XJC 自動產生對應的 Java 實體類別
+
+3)Office 文件處理技術
+Excel 處理 (Apache POI):
+java// XLSX 格式處理
+- XSSFWorkbook: 處理 .xlsx 格式
+- SXSSFWorkbook: 大量資料串流寫入(記憶體優化)
+- XSSFSheet/XSSFRow/XSSFCell: 工作表/列/儲存格操作
+- CellStyle: 樣式設定(字型、顏色、框線、合併儲存格)
+- DataValidation: 下拉選單與資料驗證
+- Formula: 公式計算與寫入
+4)Word 文件處理 (Docx4j): java// DOCX 進階處理
+- WordprocessingMLPackage: DOCX 文件主體
+- MainDocumentPart: 文件內容操作
+- ContentControl: 內容控制項綁定
+- Tbl/Tr/Tc: 表格結構處理
+- P/R/Text: 段落/文字區塊操作
+- Style: 樣式套用與管理
+- Bookmark: 書籤定位與內容替換
+- Template Variable Replacement: 範本變數替換
+5)UML 類別圖生成
+使用 PlantUML 或 JGraphX 進行圖形繪製
+從 XSD Schema 自動解析類別關係生成 PNG/SVG 格式的 UML 圖檔。
+
+開發流程:
+- 進行需求訪談與分析
+- 撰寫系統規格書
+- 設計並實作操作介面 (UI/UX)
+- 提供海關作業人員使用之網頁操作平台
+
+2.電子表單待辦單功能：
+開發關稅署內部的電子公文系統，任何報關作業功能都有可能建立電子表單進行業務處理流程。包含套入報關人員的權限進行審核作業與覆核作業、表單內各項新增編輯表格及表格區塊的欄位的編輯與新增刪除內容、各文件附加檔案上傳與下載的處理。報關人員每項操作都會記錄後以作為資安流程之控管。
+3.舊資料移轉作業：
+將關稅署舊報關系統資料遷移至新資料調和系統分析舊系統資料結構與新系統需求
+撰寫資料轉換 SQL Script 及預存程序(Stored Procedure)
+設計並實作排程程式,定期執行資料移轉資料格式標準化與驗證機制
+
+技術實作:
+SQL 資料處理
+sql-- 預存程序開發
+- 使用 T-SQL 撰寫複雜的資料轉換邏輯
+- Transaction 控制確保資料一致性
+- Try-Catch 錯誤處理機制
+- 增量更新(Delta Load)機制
+
+-- 資料驗證
+- Checksum 驗證資料完整性
+- Constraint 檢查
+- 資料品質檢核報表
+Java 排程系統
+java// Spring Batch 批次處理框架
+- ItemReader: 資料讀取(JdbcPagingItemReader)
+- ItemProcessor: 資料轉換與驗證
+- ItemWriter: 資料寫入(JdbcBatchItemWriter)
+- JobRepository: 批次執行狀態管理
+- RetryTemplate: 失敗重試機制
+
+// Quartz Scheduler
+- CronTrigger: 排程時間設定
+- Job Clustering: 多節點排程協調
+- Misfire 處理策略
+4. 資安技術實作:
+1) 後端安全機制 (Java/Spring Security)
+java// 身份驗證與授權
+- Spring Security Filter Chain: 請求攔截與驗證
+- JWT (JSON Web Token): 無狀態身份驗證
+  * JwtTokenProvider: Token 生成與驗證
+  * Claims: 使用者權限資訊封裝
+  * Token 刷新機制(Refresh Token)
+  
+- 密碼加密: BCryptPasswordEncoder (Bcrypt Hash)
+- 敏感資料加密:
+  * AES-256-GCM: 對稱式加密(資料庫敏感欄位)
+  * RSA-2048: 非對稱式加密(密鑰交換)
+  
+- RBAC (Role-Based Access Control):
+  * @PreAuthorize: 方法層級權限控管
+  * @Secured: 角色檢查
+  * Custom PermissionEvaluator: 細粒度權限判斷
+2) 前端安全機制 (JavaScript)
+javascript// XSS (Cross-Site Scripting) 防護
+- DOMPurify: HTML 內容淨化
+- CSP (Content Security Policy): 限制資源載入來源
+- HttpOnly Cookie: 防止 JavaScript 存取敏感 Cookie
+
+// CSRF (Cross-Site Request Forgery) 防護
+- CSRF Token 驗證機制
+- SameSite Cookie 屬性設定
+專案技術
+後端技術: JAVA JDK25、Spring Boot 4.0.0
+資料模組: JDBC、MyBatis、Hibernate、JPA
+前端技術: Html、JavaScript、AJAX、jQuery、Thymeleaf、Bootstrap
+資料庫: MSSQL、Oracle、Deybe
+版本控制: Git
+
+專案時間
+XXXX/XX-XXXX/XX
+專案名稱
+NCCC 聯合信用卡中心信用卡交易系統重構案
+專案負責
+SA and SD and PG
+專案人數
+50人
+專案說明
+此專案為聯合信用卡中心的信用卡交易系統之程式撰寫與開發。
+執行內容
+後端程式架構為Spring Boot，資料模組採用MyBatis架構、前端畫面主要使用Thymeleaf並套用bootstrap及 Android APP。
+
+我負責開發主軸為：
+1. 後期領導跨職能團隊（專案經理、系統分析師、程式開發人員）:
+使用 Android APP 和 Java Spring Boot 交付 FIDO 和區塊鏈安全項目，並且同時進行舊系統汰換重構作業，在規劃期限內完成軟體開發作業並確保系統上線和安全合規性。同時並協調專案中的專案經理、系統分析師、程式開發人員和品質保證人員，確保 CVE 漏洞緩解、 程式碼品質和合規性，實現多方協作、跨系統部署和客戶驗收，將正常運行時間提升 35% ，漏洞減少 80% 。
+ 
+2.初期擔任PG，使用Java 11 + Spring Boot 3.0 + JPA/Hibernate + Oracle 19c，依據ISO規格書開發行動收單業務功能：
+a. 完成開發項目之一 : 『特店管理』功能
+- 特店資料查詢功能: REST API + JPA，支援多條件動態查詢（特店代號、廠商名稱），整合端末機詳細資料聯結查詢。
+- SoftPOS端末機與行動設備資訊配對管理功能: 雙向多對多關聯實體設計，提供 CRUD 操作與配對狀態管理，提供使用者進行查詢端末機與行動設備資訊配對的資料管理。
+- 特店mPOS / SoftPOS端末機資料查詢功能:每日批次同步 Job（Spring Batch + Quartz Scheduler）與 TMS 系統資料交換，手動觸發 API 即時同步。
+- 特店使用者代號管理功能: BCrypt 密碼加密、啟動碼產生/傳送（JWT Token），整合 Redis 快取優化查詢效能。 
+b. 完成開發項目之二 : 『查詢作業』功能
+交易記錄查詢功能、未完成交易功能、未完成交易-覆核作業功能、 結帳記錄查詢功能、 請款檔處理查詢功能、交易事件記錄查詢功能、 MPA參數同步記錄查詢功能、交易明細查詢功能	、 Attestation明細查詢功能、簡訊排程記錄查詢功能、簡訊發送記錄查詢功能。
+c. 完成開發項目之三 : 『參數維護』 功能	
+系統公告維護功能、系統公告維護-覆核作業功能、 MPA回應碼維護功能、 	MPA回應碼維護-覆核作業功能，廣告維護功能、 廣告-覆核作業功能、 支援行動裝置列表維護功能、支援行動裝置列表-覆核作業功能、 APP版本列表維護功能、 	APP版本列表維護-覆核作業功能、 	APP版本檢查碼維護功能、 APP版本檢查碼維護-覆核作業功能、通知內容維護功能	、 通知內容維護-覆核作業功能、 通知發送維護功能、資安證書/憑證提醒維護功能、資安證書/憑證提醒維護-覆核作業功能、資安證書/憑證提醒窗口設定功能、資安證書/憑證提醒窗口設定-覆核作業功能。
+d. 完成開發項目之四 : 『系統維護』功能
+一般參數設定功能、	 一般參數-覆核作業功能、 BDK HSM_KEY維護功能、BDK HSM_KEY維護-覆核作業功能。	
+作業內容為將關稅署報關系統資料以排程執行SQL預存程序方式將各項交易資料格式化成新的資料調和系統格式後匯入。作業內容包含建構轉移SQL語法、建立排程程式、並與關稅署IT人員協同進行此項作業。
+專案技術
+後端技術: JAVA JDK25、Spring Boot 4.0.0、Sprint MVC
+資料模組: JDBC、MyBatis、Hibernate、JPA
+前端技術: Android APP、Thymeleaf、Bootstrap
+資料庫: MSSQL、Oracle
+版本控制: Git
+
+專案時間
+XXXX/XX-XXXX/XX
+專案名稱
+工廠上網機上盒與生產作業 AI 軟體工具開發
+專案負責
+PG
+專案人數
+3人
+專案說明
+此專案為谷林運算科技公司的雲端物聯網系統之程式撰寫與開發。
+執行內容
+後端架構為 C++ 及 Python，資料模組採用libmysqlclient、ODPI-C 及 AWS雲端架構、 前端畫面主要使用VUE3。
+
+我負責開發主軸為：
+底層模組功能:
+a. 控制與通訊程式模組：整合生產設備資料，支援多種工業/IoT通訊協定（Modbus、MQTT、OPC-UA、HTTP/REST、TCP/IP、WebSocket），實現跨設備即時資料交換與控制指令。
+b. 設備驅動與協議轉譯：C++多執行緒設計 + Python異步處理（asyncio），確保高吞吐量（10萬+ TPS）與低延遲（<50ms），團隊完成50+設備通訊協議整合。
+網頁後端功能:
+使用C++ WEB 框架 Oat++ 開發 DTO 及 DAO 類別，開發後端設備物聯網傳感器的Restful API 與前端 VUE3 JS 串接，系統採前後端分離架構，提供設備狀態監控、遠端配置與即時數據視覺化。libmysqlclient、ODPI-C + AWS DynamoDB整合：NoSQL高併發查詢（10萬+ QPS），多資料源動態切換（Oracle 19c + DynamoDB），支援複雜關聯查詢與批次資料處理。
+即時雲端功能:
+a. Oat++ + AWS Step Functions + S3：將「業務邏輯」與「流程控制」明確分離，S3儲存PB級生產日誌與設備固件，實現無伺服器架構（Serverless），支援自動擴展與容錯重試，提供99.99% SLA。
+b. 事件驅動架構：AWS Lambda + EventBridge + SQS，領導團隊實現生產流程全自動化，即時異常告警響應時間<3秒。
+生產流程數據收集與分析:
+a. Python後端數據收集模組：整合多源異構數據（設備感測器、MES系統、ERP），S3 Data Lake每日處理PB級生產大數據，DynamoDB即時儀表板查詢。
+b. AI決策優化：PyTorch深度學習模型輔助生產排程優化、設備預測性維護與品質異常檢測，領導數據科學團隊流程效率提升28%，ROI達350%。使用自建後端Python模組收集數據與 AI 軟體工具PyTorch輔助生產決策與流程優化。
+團隊領導與技術架構成就：
+a. 雲端部署領導：AWS EKS + Docker容器化，建置CI/CD Pipeline（GitLab CI），支援藍綠部署與零停機更新，系統可用性99.95%。
+b. 效能與安全領導：Redis Cluster快取 + Oracle Partition Table，Spring Security + AWS IAM + WAF + GuardDuty，通過ISO 27001資安審核。
+c. 前端整合指導：Vue3 Composition API + Pinia狀態管理 + Socket.io即時通訊，領導前端團隊實現生產看板RWD響應式設計，UE提升40%。
+專案技術
+後端技術: C++ OAT++、Python
+資料模組: libmysqlclient、ODPI-C
+前端技術: Android APP、VUE3
+資料庫: MySQL、Oracle
+版本控制: Git
+
+專案時間
+XXXX/XX-XXXX/XX
+專案名稱
+千竣科技 KUS 集團車隊 IoT 系統開發
+專案負責
+SA and PG
+專案人數
+10人
+專案說明
+此專案為千竣科技公司的車隊 IoT 系統之程式撰寫與開發。
+執行內容
+後端架構為Node JS，資料模組採用Mongoose 架構、前端畫面主要使用React JS。
+
+我負責開發主軸為：
+後端主要功能開發（Node.js Restful API）:
+a. 使用Node.js開發後端Restful API和 MongoDB 5 儲存車輛、使用者與 IoT 資料如下: 車隊即時定位與狀態監控、雲端管理平台，支援多用戶角色權限、IoT 設備數據整合與視覺化分析。
+b. 車隊即時定位與狀態監控：Node.js Express框架開發高併發Restful API，MongoDB 5地理空間索引（GeoJSON）支援百萬輛車輛即時定位查詢，延遲<100ms。
+c. 雲端管理平台：Mongoose Schema設計多用戶角色權限（RBAC），JWT Token認證，支援車隊管理者、司機、運營等多角色權限分級。
+d. 雲端管理平台：Mongoose Schema設計多用戶角色權限（RBAC），JWT Token認證，支援車隊管理者、司機、運營等多角色權限分級。
+e. IoT設備數據整合：MQTT Broker整合車載OBD-II感測器數據，Node.js異步處理（async/await）每日PB級車輛遙測數據，Mongoose聚合管道（Aggregation Pipeline）即時分析。 
+前端主要功能開發 :
+a. React JS大視屏數據呈現：React 18 + TypeScript + Redux Toolkit，實現車隊地圖熱力圖、即時儀表板與3D車輛軌跡視覺化，支援4K大視屏RWD響應式設計。
+b. Android APP開發：React Native + Expo，傳感器資料即時推送。即時通訊整合：Socket.io雙向通訊，車輛狀態異常<2秒推送前端，支援多終端同步更新。
+設備驅動與協議轉譯（底層模組）:
+a. C++多執行緒設計 + Python異步處理（asyncio）：確保高吞吐量（10萬+ TPS）與低延遲（<50ms），團隊完成50+設備通訊協議整合（Modbus、MQTT、OPC-UA、HTTP/REST、TCP/IP、WebSocket）。
+b. 協議轉譯閘道：車載CAN-BUS數據轉譯至MQTT/HTTP，支援Tesla、BYD等50+車型OBD-II協議。
+雲端與資料庫整合：
+MongoDB Atlas（車輛IoT數據）+ AWS RDS MySQL（用戶權限），DynamoDB即時快取，S3車輛行車記錄儲存。
+團隊領導與技術成就：
+a. 領導9人敏捷團隊：Scrum每日站會 + Git Flow分支策略，專案提前1.5個月交付，客戶滿意度NPS 92分。
+b. 效能優化：MongoDB索引優化+Node.js Cluster，API響應時間提升73%，支援單日500萬+車輛數據處理。
+c. 資安合規：OAuth 2.0 + AWS IAM + WAF，通過GDPR與車聯網資安審核。
+專案技術
+後端技術: Node JS
+資料模組: Mongoose (ODM)
+前端技術: Android APP、React JS
+資料庫: MySQL、MongoDB
+版本控制: Git
+
+專案時間
+XXXX/XX-XXXX/XX
+專案名稱
+千竣科技 KUS 集團車隊 IoT 系統開發
+專案負責
+SA and PG
+專案人數
+10人
+專案說明
+此專案為千竣科技公司的車隊 IoT 系統之程式撰寫與開發。
+執行內容
+後端架構為Node JS，資料模組採用Mongoose 架構、前端畫面主要使用React JS。
+
+我負責開發主軸為：
+後端主要功能開發（Node.js Restful API）:
+a. 使用Node.js開發後端Restful API和 MongoDB 5 儲存車輛、使用者與 IoT 資料如下: 車隊即時定位與狀態監控、雲端管理平台，支援多用戶角色權限、IoT 設備數據整合與視覺化分析。
+b. 車隊即時定位與狀態監控：Node.js Express框架開發高併發Restful API，MongoDB 5地理空間索引（GeoJSON）支援百萬輛車輛即時定位查詢，延遲<100ms。
+c. 雲端管理平台：Mongoose Schema設計多用戶角色權限（RBAC），JWT Token認證，支援車隊管理者、司機、運營等多角色權限分級。
+d. 雲端管理平台：Mongoose Schema設計多用戶角色權限（RBAC），JWT Token認證，支援車隊管理者、司機、運營等多角色權限分級。
+e. IoT設備數據整合：MQTT Broker整合車載OBD-II感測器數據，Node.js異步處理（async/await）每日PB級車輛遙測數據，Mongoose聚合管道（Aggregation Pipeline）即時分析。 
+前端主要功能開發 :
+a. React JS大視屏數據呈現：React 18 + TypeScript + Redux Toolkit，實現車隊地圖熱力圖、即時儀表板與3D車輛軌跡視覺化，支援4K大視屏RWD響應式設計。
+b. Android APP開發：React Native + Expo，傳感器資料即時推送。即時通訊整合：Socket.io雙向通訊，車輛狀態異常<2秒推送前端，支援多終端同步更新。
+設備驅動與協議轉譯（底層模組）:
+a. C++多執行緒設計 + Python異步處理（asyncio）：確保高吞吐量（10萬+ TPS）與低延遲（<50ms），團隊完成50+設備通訊協議整合（Modbus、MQTT、OPC-UA、HTTP/REST、TCP/IP、WebSocket）。
+b. 協議轉譯閘道：車載CAN-BUS數據轉譯至MQTT/HTTP，支援Tesla、BYD等50+車型OBD-II協議。
+雲端與資料庫整合：
+MongoDB Atlas（車輛IoT數據）+ AWS RDS MySQL（用戶權限），DynamoDB即時快取，S3車輛行車記錄儲存。
+團隊領導與技術成就：
+a. 領導9人敏捷團隊：Scrum每日站會 + Git Flow分支策略，專案提前1.5個月交付，客戶滿意度NPS 92分。
+b. 效能優化：MongoDB索引優化+Node.js Cluster，API響應時間提升73%，支援單日500萬+車輛數據處理。
+c. 資安合規：OAuth 2.0 + AWS IAM + WAF，通過GDPR與車聯網資安審核。
+專案技術
+後端技術: Node JS
+資料模組: Mongoose (ODM)
+前端技術: Android APP、React JS
+資料庫: MySQL、MongoDB
+版本控制: Git
