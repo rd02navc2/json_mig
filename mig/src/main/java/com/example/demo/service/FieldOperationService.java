@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 欄位操作服務
+ * 欄位操作服務 (更新版 - 支援多路徑同步)
  * 負責欄位搜尋、更新、批次處理等業務邏輯
  */
 @Service
@@ -79,7 +79,7 @@ public class FieldOperationService {
     }
 
     /**
-     * 更新欄位
+     * 更新欄位 (更新版 - 支援多路徑同步)
      */
     public FieldUpdateResult updateField(EnhancedFieldInfo fieldData, boolean syncToDb) {
         FieldUpdateResult result = new FieldUpdateResult();
@@ -101,12 +101,13 @@ public class FieldOperationService {
                 originalContent, fieldData, newFieldCode
             );
             
-            // 儲存檔案
+            // 儲存檔案（含多路徑同步）
             FileManagementService.FileSaveResult saveResult = 
                 fileManagementService.updateFile(updatedContent, fieldData.getFieldName());
             
             result.setBackupPath(saveResult.getBackupPath());
             result.setFilePath(saveResult.getFilePath());
+            result.setSyncedPaths(saveResult.getSyncedPaths()); // 新增：同步路徑
             
             // 同步到資料庫
             if (syncToDb) {
@@ -209,6 +210,7 @@ public class FieldOperationService {
         private String message;
         private String backupPath;
         private String filePath;
+        private List<String> syncedPaths; // 新增：同步路徑列表
         private boolean dbSynced;
         private String dbSyncError;
 
@@ -223,6 +225,9 @@ public class FieldOperationService {
         
         public String getFilePath() { return filePath; }
         public void setFilePath(String filePath) { this.filePath = filePath; }
+        
+        public List<String> getSyncedPaths() { return syncedPaths; }
+        public void setSyncedPaths(List<String> syncedPaths) { this.syncedPaths = syncedPaths; }
         
         public boolean isDbSynced() { return dbSynced; }
         public void setDbSynced(boolean dbSynced) { this.dbSynced = dbSynced; }

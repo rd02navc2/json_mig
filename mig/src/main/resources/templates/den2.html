@@ -1515,7 +1515,7 @@ ${msgLines}
 
 // 儲存變更
 function saveChanges() {
-    if (!confirm('確定要儲存變更嗎？\n變更將回存到原檔案位置。')) return;
+    if (!confirm('確定要儲存變更嗎？\n變更將回存到原檔案位置及設定的同步路徑。')) return;
     
     collectFormData();
 
@@ -1544,6 +1544,13 @@ function saveChanges() {
             }
             if (res.filePath) {
                 msg += `<br>💾 已回存至: ${escapeHtml(res.filePath)}`;
+            }
+            // 顯示同步路徑
+            if (res.syncedPaths && res.syncedPaths.length > 0) {
+                msg += `<br>🔄 同步路徑 (${res.syncedPaths.length}):`;
+                res.syncedPaths.forEach(path => {
+                    msg += `<br>&nbsp;&nbsp;✓ ${escapeHtml(path)}`;
+                });
             }
             if (res.dbSynced) {
                 msg += '<br>💾 資料已同步至資料庫';

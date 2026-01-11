@@ -242,12 +242,11 @@ public class MyMapping implements ResponseAbstract {
 		})
 		public String StatementDescription;
 
-		@DSREF(den = "Additional Information. Limit. Date Time", uid = "264", cls = "Additional Information")
-		@AAA(msg = {
-		//
-		"name=N5107,car=1,boro=,chn=補辦期限",//
-		})
-		public String LimitDateTime;
+		    @DSREF(den = "Additional Information. Limit. Date Time", uid = "264", cls = "Additional Information")
+    @AAA(msg = {
+        "name=N5107,car=1,boro=,chn=補辦期限"
+    })
+    public String LimitDateTime;
 
 		@DSREF(den = "Additional Information. Statement Type. Code", uid = "369", cls = "Additional Information")
 		public String StatementTypeCode;

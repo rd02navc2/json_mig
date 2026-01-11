@@ -3,6 +3,8 @@ package com.example.demo;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.example.demo.phase1.ResponseAbstract;
 import com.example.demo.phase1.SingleMsgXmlWrapper;
 import com.example.demo.phase1.SingleMsgXsdWrapper;
@@ -14,6 +16,7 @@ import com.example.demo.phase2.make.data_item_set.ProduceDataItemSet;
 import com.example.demo.phase2.make.item_desc_tbl.MakeItemDescTemplate;
 import com.example.demo.phase2.make.mapping_tree.MakeMappingTree;
 import com.example.demo.phase2.make.tdl_dens.MakeTDLDENs;
+import com.example.demo.utils.DynamicClassLoader;
 import com.example.demo.utils.ListCodeReference;
 import com.example.demo.utils.process.n.mig.CheckProcessFileWithItemTable;
 import com.example.demo.utils.process.n.mig.WriteHarmoResultDoc;
@@ -54,7 +57,8 @@ public class H {
 
 	public static void mappingXsd() throws Exception {
 		MyConst.ttype = MyConst.Single;
-
+		DynamicClassLoader dynamicClassLoader = new DynamicClassLoader();
+		
 		for (int i = 0; i < MyConst.msg.length; i++) {
 			String msgName = MyConst.msg[i][0];
 			String rootEleName = MyConst.msg[i][1];
@@ -62,6 +66,9 @@ public class H {
 
 			// ---------------------------------------------------------------
 			Class cls = Class.forName("com.example.demo.MyMapping");
+		    // 從 resources 動態載入
+			
+			// Class<?> cls = dynamicClassLoader.loadClassFromResource("template/MyMapping.java");
 			Constructor ctor = cls.getDeclaredConstructor(String.class);
 			ctor.setAccessible(true);
 			ResponseAbstract o = (ResponseAbstract) ctor.newInstance(msgName);

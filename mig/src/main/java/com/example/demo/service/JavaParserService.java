@@ -6,7 +6,6 @@ import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
-import com.github.javaparser.ast.expr.Expression;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -17,6 +16,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * JavaParser 服務 (修復版)
+ * - 修正 @AAA msg 陣列抓取問題
+ * - 改善欄位替換邏輯
+ */
 @Service
 public class JavaParserService {
 

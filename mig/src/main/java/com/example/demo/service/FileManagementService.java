@@ -36,6 +36,10 @@ public class FileManagementService {
     @Value("${mig.backup.dir:C:/Users/User/Downloads/template/backup}")
     private String backupDir;
 
+    // 同步回存路徑（多個路徑用逗號分隔）
+    @Value("${mig.sync.paths:}")
+    private String syncPaths;
+
     // 快取
     private String cachedFileContent = null;
     private CompilationUnit cachedCompilationUnit = null;
@@ -203,7 +207,7 @@ public class FileManagementService {
     }
 
     /**
-     * 更新檔案內容（修復版 - 確保正確回存）
+     * 更新檔案內容（修復版 - 支援多路徑同步回存）
      */
     public FileSaveResult updateFile(String newContent, String fieldName) throws Exception {
         FileSaveResult result = new FileSaveResult();
@@ -229,10 +233,14 @@ public class FileManagementService {
         result.setFilePath(currentFilePath);
         System.out.println("✓ 檔案已回存: " + currentFilePath);
         
-        // 3. 更新快取
+        // 3. 同步到其他路徑
+        List<String> syncedPaths = syncToAdditionalPaths(newContent);
+        result.setSyncedPaths(syncedPaths);
+        
+        // 4. 更新快取
         cachedFileContent = newContent;
         
-        // 4. 重新解析
+        // 5. 重新解析
         System.out.println("正在重新解析...");
         ParseResult<CompilationUnit> parseResult = javaParserService.parseJavaContent(newContent);
         if (parseResult.isSuccessful()) {
@@ -249,6 +257,12 @@ public class FileManagementService {
         System.out.println("欄位: " + fieldName);
         System.out.println("備份: " + backupPath);
         System.out.println("原檔: " + currentFilePath);
+        if (!syncedPaths.isEmpty()) {
+            System.out.println("同步位置 (" + syncedPaths.size() + "):");
+            for (String path : syncedPaths) {
+                System.out.println("  ✓ " + path);
+            }
+        }
         System.out.println("========================================");
         
         return result;
@@ -324,6 +338,66 @@ public class FileManagementService {
     }
 
     /**
+     * 同步到其他路徑
+     */
+    private List<String> syncToAdditionalPaths(String content) {
+        List<String> syncedPaths = new ArrayList<>();
+        
+        // 檢查是否有設定同步路徑
+        if (syncPaths == null || syncPaths.trim().isEmpty()) {
+            return syncedPaths;
+        }
+        
+        System.out.println("========================================");
+        System.out.println("開始同步到其他路徑...");
+        
+        // 分割多個路徑（逗號分隔）
+        String[] paths = syncPaths.split(",");
+        
+        for (String path : paths) {
+            String trimmedPath = path.trim();
+            if (trimmedPath.isEmpty()) continue;
+            
+            try {
+                // 標準化路徑
+                String normalizedPath = trimmedPath.replace("\\", "/");
+                if (!normalizedPath.endsWith("/")) {
+                    normalizedPath += "/";
+                }
+                
+                // 建立目標檔案路徑
+                Path targetPath = Paths.get(normalizedPath + defaultTemplateFile);
+                
+                System.out.println("正在同步到: " + targetPath);
+                
+                // 確保目錄存在
+                if (targetPath.getParent() != null) {
+                    Files.createDirectories(targetPath.getParent());
+                }
+                
+                // 寫入檔案
+                Files.writeString(targetPath, content, StandardCharsets.UTF_8);
+                
+                String absolutePath = targetPath.toAbsolutePath().toString();
+                syncedPaths.add(absolutePath);
+                
+                System.out.println("✓ 同步成功: " + absolutePath);
+                System.out.println("  大小: " + content.length() + " bytes");
+                
+            } catch (Exception e) {
+                System.err.println("❌ 同步失敗: " + trimmedPath);
+                System.err.println("  錯誤: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        
+        System.out.println("同步完成: 成功 " + syncedPaths.size() + " / 總共 " + paths.length);
+        System.out.println("========================================");
+        
+        return syncedPaths;
+    }
+
+    /**
      * 讀取 InputStream
      */
     private String readInputStream(InputStream inputStream) throws Exception {
@@ -375,6 +449,7 @@ public class FileManagementService {
         private boolean success;
         private String backupPath;
         private String filePath;
+        private List<String> syncedPaths; // 新增：同步的路徑列表
 
         public boolean isSuccess() { return success; }
         public void setSuccess(boolean success) { this.success = success; }
@@ -382,5 +457,7 @@ public class FileManagementService {
         public void setBackupPath(String backupPath) { this.backupPath = backupPath; }
         public String getFilePath() { return filePath; }
         public void setFilePath(String filePath) { this.filePath = filePath; }
+        public List<String> getSyncedPaths() { return syncedPaths; }
+        public void setSyncedPaths(List<String> syncedPaths) { this.syncedPaths = syncedPaths; }
     }
 }
